@@ -13,13 +13,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -129,14 +126,5 @@ public class MCConfiguration {
                     .version("1.0")
                     .build();
         }
-    }
-
-    @Bean
-    public MultipartResolver multipartResolver() {
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSize(40960000);
-        commonsMultipartResolver.setMaxInMemorySize(4096000);
-        commonsMultipartResolver.setDefaultEncoding("UTF-8");
-        return commonsMultipartResolver;
     }
 }
