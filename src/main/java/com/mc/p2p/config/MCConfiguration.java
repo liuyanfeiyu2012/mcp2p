@@ -13,6 +13,16 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @Auther: 谢星星
@@ -48,7 +58,7 @@ public class MCConfiguration {
             druidDataSource.setRemoveAbandoned(false);
             druidDataSource.setRemoveAbandonedTimeout(1800);
             druidDataSource.setLogAbandoned(true);
-            druidDataSource.setUrl("jdbc:mysql://58.87.119.113:4406/mc_p2p");
+            druidDataSource.setUrl("jdbc:mysql://58.87.119.113:4406/mc_p2p?useUnicode=true&characterEncoding=utf-8&useSSL=false");
             druidDataSource.setUsername("root");
             druidDataSource.setPassword("root");
             druidDataSource.init();
@@ -99,5 +109,34 @@ public class MCConfiguration {
         }
     }
 
+    @Configuration
+    @EnableSwagger2
+    public class Swagger2Config {
 
+        @Bean
+        public Docket createRestApi() {
+            return new Docket(DocumentationType.SWAGGER_2)
+                    .apiInfo(apiInfo())
+                    .select()
+                    .apis(RequestHandlerSelectors.basePackage("com.mc.p2p.controller"))
+                    .paths(PathSelectors.any())
+                    .build();
+        }
+
+        private ApiInfo apiInfo() {
+            return new ApiInfoBuilder()
+                    .title("MCP2P 接口文档")
+                    .version("1.0")
+                    .build();
+        }
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+        commonsMultipartResolver.setMaxUploadSize(40960000);
+        commonsMultipartResolver.setMaxInMemorySize(4096000);
+        commonsMultipartResolver.setDefaultEncoding("UTF-8");
+        return commonsMultipartResolver;
+    }
 }

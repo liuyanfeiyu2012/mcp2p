@@ -9,7 +9,7 @@
         <module name="mcp2p" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.8">
+    <bytecodeTargetLevel>
       <module name="mcp2p" target="1.8" />
     </bytecodeTargetLevel>
   </component>
