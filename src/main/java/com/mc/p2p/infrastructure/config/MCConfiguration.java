@@ -1,4 +1,4 @@
-package com.mc.p2p.config;
+package com.mc.p2p.infrastructure.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -27,7 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Description:
  */
 @Configuration
-@MapperScan("com.mc.p2p.funmall.mapper")
+@MapperScan("com.mc.p2p.mapper")
 @EnableTransactionManagement(proxyTargetClass = true)
 public class MCConfiguration {
 

@@ -1,4 +1,4 @@
-package com.mc.p2p.vo;
+package com.mc.p2p.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +21,9 @@ public class VideoQueryResp {
 
     @ApiModelProperty("视频背景图")
     private String videoBgUri;
+
+    @ApiModelProperty("视频说明")
+    private String videoMemo;
 
     @ApiModelProperty("喜欢数")
     private Integer likeCount;

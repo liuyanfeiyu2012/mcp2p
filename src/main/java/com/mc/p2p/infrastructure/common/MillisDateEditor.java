@@ -1,4 +1,4 @@
-package com.mc.p2p.common;
+package com.mc.p2p.infrastructure.common;
 
 import org.apache.commons.lang.StringUtils;
 

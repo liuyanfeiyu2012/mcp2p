@@ -1,6 +1,6 @@
 package com.mc.p2p.controller;
 
-import com.mc.p2p.common.RespVo;
+import com.mc.p2p.infrastructure.common.RespVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
