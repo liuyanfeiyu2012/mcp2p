@@ -127,6 +127,10 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+        </dependency>
+        <dependency>
             <groupId>commons-chain</groupId>
             <artifactId>commons-chain</artifactId>
         </dependency>
@@ -413,6 +417,12 @@
                 <groupId>commons-chain</groupId>
                 <artifactId>commons-chain</artifactId>
                 <version>1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baidu.aip</groupId>
+                <artifactId>java-sdk</artifactId>
+                <version>4.12.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
