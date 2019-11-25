@@ -12,6 +12,6 @@ public interface FfmpegService {
      *
      * @param request {param-0: video domain obj}
      */
-    <T> void videoFilter(FfmpegDo<T> request) throws Exception;
+    void videoFilter(FfmpegDo request) throws Exception;
 
 }

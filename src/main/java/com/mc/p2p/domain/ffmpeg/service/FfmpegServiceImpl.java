@@ -24,15 +24,19 @@ public class FfmpegServiceImpl implements FfmpegService {
     private MixBgmAble mixBgmAble;
 
     @Autowired
+    private CancelBgmAble cancelBgmAble;
+
+    @Autowired
     private ScreenshotAble screenshotAble;
 
     @Override
     @SuppressWarnings("all")
-    public <T> void videoFilter(FfmpegDo<T> request) throws Exception {
+    public void videoFilter(FfmpegDo request) throws Exception {
         Context context = new ContextBase();
         context.put(McConstant.FFMPEG_DO_KEY, request);
         context.put(McConstant.CONVERT_KEY, FfmpegTypeEnum.CONVERT_VIDEO);
         context.put(McConstant.MIX_BGM_KEY, FfmpegTypeEnum.MIX_BGM);
+        context.put(McConstant.CANCEL_BGM_KEY, FfmpegTypeEnum.CANCEL_BGM);
         context.put(McConstant.SCREENSHOT_KEY, FfmpegTypeEnum.SCREENSHOT);
 
         Chain executorChain = new ChainBase();
@@ -41,6 +45,7 @@ public class FfmpegServiceImpl implements FfmpegService {
         }
 
         if (!StringUtils.isEmpty(request.getBondFile())) {
+            executorChain.addCommand(cancelBgmAble);
             executorChain.addCommand(mixBgmAble);
         }
         executorChain.addCommand(screenshotAble);

@@ -33,6 +33,6 @@ public class BgmRepositoryImpl implements BgmRepository {
         record.setBgmId(bgmId);
         Bgm bgm = bgmMapper.selectOne(record);
 
-        return (null == bgm) ? null : McConstant.FILE_BG_PATH + StringUtils.getFilename(bgm.getBgmUri());
+        return (null == bgm) ? null : McConstant.FILE_BGM_PATH + StringUtils.getFilename(bgm.getBgmUri());
     }
 }

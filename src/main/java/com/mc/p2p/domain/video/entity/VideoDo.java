@@ -1,6 +1,5 @@
 package com.mc.p2p.domain.video.entity;
 
-import com.mc.p2p.domain.ffmpeg.entity.VideoFfmDo;
 import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
@@ -13,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -22,11 +22,11 @@ import java.util.UUID;
 @Data
 public class VideoDo {
 
-    /** 文件存储uri */
-    private String videoUri;
+    /** 文件存储path */
+    private String videoPath;
 
     /** 文件ID */
-    private String fileId;
+    private String videoId;
 
     /** 视频基本信息 */
     private VideoUploadReq videoInfo;
@@ -54,19 +54,20 @@ public class VideoDo {
             throw new BusinessException(ResponseEnum.FILE_STORAGE_ERR);
         }
 
-        this.fileId = fileId;
-        this.videoUri = filePath;
+        this.videoId = fileId;
+        this.videoPath = filePath;
     }
 
-    public Video video(VideoFfmDo videoFfmDo) {
+    public Video video(String fileId, String targetPath) {
         Video record = new Video();
         record.setLikeCount(0);
-        record.setVideoId(this.fileId);
+        record.setVideoId(fileId);
         record.setUid(this.videoInfo.getUid());
-        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + StringUtils.getFilename(videoFfmDo.getVideoPath()));
-        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + StringUtils.getFilename(videoFfmDo.getVideoBgPath()));
+        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + StringUtils.getFilename(targetPath));
+        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + StringUtils.getFilename(targetPath));
         record.setVideoMemo(this.videoInfo.getVideoMemo());
         record.setVideoTime(this.videoInfo.getVideoTime());
+        record.setCreateTime(new Date());
         return record;
     }
 }

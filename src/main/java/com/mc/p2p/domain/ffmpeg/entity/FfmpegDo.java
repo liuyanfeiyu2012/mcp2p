@@ -9,18 +9,16 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author : Yuan.Pan 2019/11/23 10:28 AM
  */
 @Slf4j
 @Data
-public class FfmpegDo<T> {
+public class FfmpegDo {
 
     /** 源文件路径 */
     private String sourceFile;
@@ -31,17 +29,18 @@ public class FfmpegDo<T> {
     /** 支持和主文件绑定一个附属文件, 比如视频的bgm */
     private String bondFile;
 
-    private T bizDo;
+    /** 文件ID */
+    private String fileId;
 
-    public FfmpegDo(String sourceFile, T bizDo) {
+    public FfmpegDo(String sourceFile, String fileId) {
         this.sourceFile = sourceFile;
-        this.bizDo = bizDo;
+        this.fileId = fileId;
     }
 
-    public FfmpegDo(String sourceFile, String bondFile, T bizDo) {
+    public FfmpegDo(String sourceFile, String bondFile, String fileId) {
         this.sourceFile = sourceFile;
         this.bondFile = bondFile;
-        this.bizDo = bizDo;
+        this.fileId = fileId;
     }
 
     public void execute(FfmpegTypeEnum actionType) {
@@ -59,6 +58,12 @@ public class FfmpegDo<T> {
             stream.close();
         } catch (IOException e) {
             log.error("[file execute err e-{}]", e);
+            throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);
+        }
+
+        if (FfmpegTypeEnum.SCREENSHOT != actionType) {
+            boolean delete = new File(this.sourceFile).delete();
+            this.sourceFile = this.targetFile;
         }
     }
 
@@ -66,24 +71,30 @@ public class FfmpegDo<T> {
         String fullName = StringUtils.getFilename(this.sourceFile);
         String filename = fullName.substring(0, fullName.indexOf("."));
 
-        String finalFileName;
+        String fileId;
+        String targetFilePath;
         switch (actionType) {
             case MIX_BGM:
+            case CANCEL_BGM:
             case CONVERT_VIDEO:
-                finalFileName = McConstant.FILE_VIDEO_PATH + filename + ".mp4";
+                fileId = UUID.randomUUID().toString();
+                targetFilePath = McConstant.FILE_VIDEO_PATH + fileId + ".mp4";
                 break;
             case CONVERT_VOICE:
-                finalFileName = McConstant.FILE_VOICE_PATH + filename + ".wav";
+                fileId = filename;
+                targetFilePath = McConstant.FILE_VOICE_PATH + fileId + ".wav";
                 break;
             case SCREENSHOT:
-                finalFileName = McConstant.FILE_BG_PATH + filename + ".jpg";
+                fileId = filename;
+                targetFilePath = McConstant.FILE_BG_PATH + fileId + ".jpg";
                 break;
                 default:
                     throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);
 
         }
 
-        this.targetFile = finalFileName;
+        this.fileId = fileId;
+        this.targetFile = targetFilePath;
     }
 
     private List<String> command(FfmpegTypeEnum actionType) {
@@ -92,6 +103,7 @@ public class FfmpegDo<T> {
             case MIX_BGM:
                 command = String.format(actionType.getCommand(), this.sourceFile, this.bondFile, this.targetFile);
                 break;
+            case CANCEL_BGM:
             case CONVERT_VIDEO:
             case CONVERT_VOICE:
             case SCREENSHOT:

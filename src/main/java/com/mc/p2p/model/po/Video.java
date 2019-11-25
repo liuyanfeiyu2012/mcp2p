@@ -1,5 +1,6 @@
 package com.mc.p2p.model.po;
 
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "video")
@@ -45,6 +46,12 @@ public class Video {
      * 发布者ID
      */
     private String uid;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
     /**
      * 获取业务主键
@@ -170,5 +177,23 @@ public class Video {
      */
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

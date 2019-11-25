@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.mc.p2p.domain.ffmpeg.entity.FfmpegDo;
 import com.mc.p2p.domain.ffmpeg.service.FfmpegService;
 import com.mc.p2p.domain.video.entity.VideoDo;
-import com.mc.p2p.domain.ffmpeg.entity.VideoFfmDo;
 import com.mc.p2p.domain.video.repository.BgmRepository;
 import com.mc.p2p.domain.video.repository.VideoRepository;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
@@ -49,11 +48,11 @@ public class VideoServiceImpl implements VideoService {
             videoDo.storageFile();
 
             // 媒体文件加工
-            VideoFfmDo videoFfmDo = new VideoFfmDo(videoDo.getVideoUri());
-            ffmpegService.videoFilter(new FfmpegDo<>(videoDo.getVideoUri(), bgmRepository.selectBgmPath(request.getBgmId()), videoFfmDo));
+            FfmpegDo ffmpegDo = new FfmpegDo(videoDo.getVideoPath(), bgmRepository.selectBgmPath(request.getBgmId()), videoDo.getVideoId());
+            ffmpegService.videoFilter(ffmpegDo);
 
             // 媒体文件持久化
-            videoRepository.saveVideo(videoDo.video(videoFfmDo));
+            videoRepository.saveVideo(videoDo.video(ffmpegDo.getFileId(), ffmpegDo.getTargetFile()));
         } catch (Exception e) {
             log.error("文件上传失败: REQ-{}, e-{}", request, e);
             throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);
