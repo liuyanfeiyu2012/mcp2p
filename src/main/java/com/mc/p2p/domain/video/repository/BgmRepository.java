@@ -11,5 +11,5 @@ public interface BgmRepository {
 
     List<Bgm> selectList();
 
-    String selectBgmUri(String bgmId);
+    String selectBgmPath(String bgmId);
 }

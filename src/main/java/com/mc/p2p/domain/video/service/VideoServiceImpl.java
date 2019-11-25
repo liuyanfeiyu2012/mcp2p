@@ -50,7 +50,7 @@ public class VideoServiceImpl implements VideoService {
 
             // 媒体文件加工
             VideoFfmDo videoFfmDo = new VideoFfmDo(videoDo.getVideoUri());
-            ffmpegService.videoFilter(new FfmpegDo<>(videoDo.getVideoUri(), bgmRepository.selectBgmUri(request.getBgmId()), videoFfmDo));
+            ffmpegService.videoFilter(new FfmpegDo<>(videoDo.getVideoUri(), bgmRepository.selectBgmPath(request.getBgmId()), videoFfmDo));
 
             // 媒体文件持久化
             videoRepository.saveVideo(videoDo.video(videoFfmDo));
