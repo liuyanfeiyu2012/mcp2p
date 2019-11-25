@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mcp2p
+
+server:
+  port: 8080
+  context-path: app
+
+

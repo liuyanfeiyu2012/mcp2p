@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mc.p2p.mapper.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.mc.p2p.model.po.Video">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="video_id" jdbcType="VARCHAR" property="videoId" />
+    <result column="video_uri" jdbcType="VARCHAR" property="videoPath" />
+    <result column="video_bg_uri" jdbcType="VARCHAR" property="videoBgUri" />
+    <result column="video_time" jdbcType="DOUBLE" property="videoTime" />
+    <result column="video_memo" jdbcType="VARCHAR" property="videoMemo" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+  </resultMap>
+</mapper>
