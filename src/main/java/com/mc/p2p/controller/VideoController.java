@@ -1,6 +1,4 @@
 package com.mc.p2p.controller;
-
-import com.google.common.collect.Lists;
 import com.mc.p2p.domain.video.service.VideoService;
 import com.mc.p2p.infrastructure.common.RespVo;
 import com.mc.p2p.model.vo.BgmQueryResp;
@@ -13,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,7 +29,7 @@ public class VideoController {
 
     @ApiOperation("视频上传接口")
     @PostMapping("/upload")
-    public RespVo upload(VideoUploadReq request, @ApiParam(name = "上传的文件对象") MultipartFile file) {
+    public RespVo upload(@Valid VideoUploadReq request, @ApiParam(name = "上传的文件对象") MultipartFile file) {
         videoService.saveVideo(request, file);
         return RespVo.SUCCESS();
     }
@@ -37,12 +37,12 @@ public class VideoController {
     @ApiOperation("拉取背景音乐列表")
     @GetMapping("/bgm-list")
     public RespVo<List<BgmQueryResp>> selectBgmList() {
-        return RespVo.SUCCESS(Lists.newArrayList());
+        return RespVo.SUCCESS(videoService.selectBgmList());
     }
 
     @ApiOperation("查询视频列表")
     @GetMapping("/list")
     public RespVo<List<VideoQueryResp>> selectVideo() {
-        return RespVo.SUCCESS(Lists.newArrayList());
+        return RespVo.SUCCESS(videoService.selectVideoList());
     }
 }

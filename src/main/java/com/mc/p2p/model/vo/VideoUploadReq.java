@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.NotBlank;
-
 import javax.validation.constraints.NotNull;
 
 /**
@@ -25,7 +24,7 @@ public class VideoUploadReq {
 
     @NotNull(message = "音频时长不能为空")
     @ApiModelProperty(value = "视频时间长度", required = true)
-    private double videoTime;
+    private Double videoTime;
 
     @ApiModelProperty(value = "视频描述")
     private String videoMemo;

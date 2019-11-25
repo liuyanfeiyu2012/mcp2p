@@ -1,6 +1,7 @@
 package com.mc.p2p.domain.ffmpeg.service;
 
 import com.mc.p2p.domain.ffmpeg.entity.FfmpegDo;
+import com.mc.p2p.domain.ffmpeg.entity.VideoFfmDo;
 import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.infrastructure.enums.FfmpegTypeEnum;
 import org.apache.commons.chain.Context;
@@ -19,6 +20,16 @@ public class Screenshot implements ScreenshotAble {
 
         // 流媒体处理器
         request.execute(actionType);
+
+        if (null == request.getBizDo()) {
+            return false;
+        }
+
+        // 设置参数
+        if (request.getBizDo() instanceof VideoFfmDo) {
+            VideoFfmDo bizDo = (VideoFfmDo) request.getBizDo();
+            bizDo.setVideoBgPath(request.getTargetFile());
+        }
 
         return false;
     }

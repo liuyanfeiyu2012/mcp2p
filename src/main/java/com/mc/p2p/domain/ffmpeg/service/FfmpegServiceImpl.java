@@ -9,6 +9,7 @@ import org.apache.commons.chain.impl.ChainBase;
 import org.apache.commons.chain.impl.ContextBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * @author : Yuan.Pan 2019/11/24 5:15 PM
@@ -27,17 +28,22 @@ public class FfmpegServiceImpl implements FfmpegService {
 
     @Override
     @SuppressWarnings("all")
-    public void videoFilter(FfmpegDo request) throws Exception {
-        Chain executorChain = new ChainBase();
-        executorChain.addCommand(convertAble);
-        executorChain.addCommand(mixBgmAble);
-        executorChain.addCommand(screenshotAble);
-
+    public <T> void videoFilter(FfmpegDo<T> request) throws Exception {
         Context context = new ContextBase();
         context.put(McConstant.FFMPEG_DO_KEY, request);
         context.put(McConstant.CONVERT_KEY, FfmpegTypeEnum.CONVERT_VIDEO);
         context.put(McConstant.MIX_BGM_KEY, FfmpegTypeEnum.MIX_BGM);
         context.put(McConstant.SCREENSHOT_KEY, FfmpegTypeEnum.SCREENSHOT);
+
+        Chain executorChain = new ChainBase();
+        if (!"mp4".equals(StringUtils.getFilenameExtension(request.getSourceFile()))) {
+            executorChain.addCommand(convertAble);
+        }
+
+        if (!StringUtils.isEmpty(request.getBondFile())) {
+            executorChain.addCommand(mixBgmAble);
+        }
+        executorChain.addCommand(screenshotAble);
 
         executorChain.execute(context);
     }

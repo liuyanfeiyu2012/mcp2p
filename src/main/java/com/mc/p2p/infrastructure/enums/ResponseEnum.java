@@ -10,7 +10,8 @@ public enum ResponseEnum {
     NOT_SUPPORT_ACTION("5001", "不支持的文件操作"),
     FILE_NULL("5002", "文件不存在"),
     FILE_STORAGE_ERR("5003", "文件存储异常"),
-    FILE_UPLOAD_ERR("5004", "文件上传失败, 请重试");
+    FILE_UPLOAD_ERR("5004", "文件上传失败, 请重试"),
+    VIDEO_MAX_TIME_LIMIT("5005", "亲, 上传视频最大支持15秒奥~");
 
     private String code;
     private String desc;

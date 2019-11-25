@@ -1,8 +1,8 @@
 package com.mc.p2p.mapper;
 
-import com.mc.p2p.model.po.Video;
+import com.mc.p2p.model.po.Bgm;
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
 
-public interface VideoMapper extends Mapper<Video>, MySqlMapper<Video> {
+public interface BgmMapper extends Mapper<Bgm>, MySqlMapper<Bgm> {
 }

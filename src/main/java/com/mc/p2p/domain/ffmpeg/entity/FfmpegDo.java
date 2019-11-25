@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Slf4j
 @Data
-public class FfmpegDo {
+public class FfmpegDo<T> {
 
     /** 源文件路径 */
     private String sourceFile;
@@ -31,13 +31,17 @@ public class FfmpegDo {
     /** 支持和主文件绑定一个附属文件, 比如视频的bgm */
     private String bondFile;
 
-    public FfmpegDo(String sourceFile) {
+    private T bizDo;
+
+    public FfmpegDo(String sourceFile, T bizDo) {
         this.sourceFile = sourceFile;
+        this.bizDo = bizDo;
     }
 
-    public FfmpegDo(String sourceFile, String bondFile) {
+    public FfmpegDo(String sourceFile, String bondFile, T bizDo) {
         this.sourceFile = sourceFile;
         this.bondFile = bondFile;
+        this.bizDo = bizDo;
     }
 
     public void execute(FfmpegTypeEnum actionType) {
@@ -98,11 +102,5 @@ public class FfmpegDo {
         }
 
         return Lists.newArrayList(command.split(" "));
-    }
-
-    public static void main(String[] args) {
-        String filename = StringUtils.getFilename("/11/22/1asdasda.txt");
-        String substring = filename.substring(0, filename.indexOf("."));
-        System.out.println(substring);
     }
 }

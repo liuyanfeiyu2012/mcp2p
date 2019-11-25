@@ -1,117 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mc.p2p.mapper.VideoMapper">
-    <resultMap id="BaseResultMap" type="com.mc.p2p.model.po.Video">
-        <id column="video_id" jdbcType="VARCHAR" property="videoId"/>
-        <result column="video_uri" jdbcType="VARCHAR" property="videoUri"/>
-        <result column="video_bg_uri" jdbcType="VARCHAR" property="videoBgUri"/>
-        <result column="video_time" jdbcType="DOUBLE" property="videoTime"/>
-        <result column="video_memo" jdbcType="VARCHAR" property="videoMemo"/>
-        <result column="like_count" jdbcType="INTEGER" property="likeCount"/>
-        <result column="uid" jdbcType="VARCHAR" property="uid"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-    video_id, video_uri, video_bg_uri, video_time, video_memo, like_count, uid
-  </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from video
-        where video_id = #{videoId,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from video
-    where video_id = #{videoId,jdbcType=VARCHAR}
-  </delete>
-    <insert id="insert" parameterType="com.mc.p2p.model.po.Video">
-    insert into video (video_id, video_uri, video_bg_uri, 
-      video_time, video_memo, like_count, 
-      uid)
-    values (#{videoId,jdbcType=VARCHAR}, #{videoUri,jdbcType=VARCHAR}, #{videoBgUri,jdbcType=VARCHAR}, 
-      #{videoTime,jdbcType=DOUBLE}, #{videoMemo,jdbcType=VARCHAR}, #{likeCount,jdbcType=INTEGER}, 
-      #{uid,jdbcType=VARCHAR})
-  </insert>
-    <insert id="insertSelective" parameterType="com.mc.p2p.model.po.Video">
-        insert into video
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="videoId != null">
-                video_id,
-            </if>
-            <if test="videoUri != null">
-                video_uri,
-            </if>
-            <if test="videoBgUri != null">
-                video_bg_uri,
-            </if>
-            <if test="videoTime != null">
-                video_time,
-            </if>
-            <if test="videoMemo != null">
-                video_memo,
-            </if>
-            <if test="likeCount != null">
-                like_count,
-            </if>
-            <if test="uid != null">
-                uid,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="videoId != null">
-                #{videoId,jdbcType=VARCHAR},
-            </if>
-            <if test="videoUri != null">
-                #{videoUri,jdbcType=VARCHAR},
-            </if>
-            <if test="videoBgUri != null">
-                #{videoBgUri,jdbcType=VARCHAR},
-            </if>
-            <if test="videoTime != null">
-                #{videoTime,jdbcType=DOUBLE},
-            </if>
-            <if test="videoMemo != null">
-                #{videoMemo,jdbcType=VARCHAR},
-            </if>
-            <if test="likeCount != null">
-                #{likeCount,jdbcType=INTEGER},
-            </if>
-            <if test="uid != null">
-                #{uid,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.mc.p2p.model.po.Video">
-        update video
-        <set>
-            <if test="videoUri != null">
-                video_uri = #{videoUri,jdbcType=VARCHAR},
-            </if>
-            <if test="videoBgUri != null">
-                video_bg_uri = #{videoBgUri,jdbcType=VARCHAR},
-            </if>
-            <if test="videoTime != null">
-                video_time = #{videoTime,jdbcType=DOUBLE},
-            </if>
-            <if test="videoMemo != null">
-                video_memo = #{videoMemo,jdbcType=VARCHAR},
-            </if>
-            <if test="likeCount != null">
-                like_count = #{likeCount,jdbcType=INTEGER},
-            </if>
-            <if test="uid != null">
-                uid = #{uid,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where video_id = #{videoId,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.mc.p2p.model.po.Video">
-    update video
-    set video_uri = #{videoUri,jdbcType=VARCHAR},
-      video_bg_uri = #{videoBgUri,jdbcType=VARCHAR},
-      video_time = #{videoTime,jdbcType=DOUBLE},
-      video_memo = #{videoMemo,jdbcType=VARCHAR},
-      like_count = #{likeCount,jdbcType=INTEGER},
-      uid = #{uid,jdbcType=VARCHAR}
-    where video_id = #{videoId,jdbcType=VARCHAR}
-  </update>
+  <resultMap id="BaseResultMap" type="com.mc.p2p.model.po.Video">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="video_id" jdbcType="VARCHAR" property="videoId" />
+    <result column="video_uri" jdbcType="VARCHAR" property="videoPath" />
+    <result column="video_bg_uri" jdbcType="VARCHAR" property="videoBgUri" />
+    <result column="video_time" jdbcType="DOUBLE" property="videoTime" />
+    <result column="video_memo" jdbcType="VARCHAR" property="videoMemo" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+  </resultMap>
 </mapper>

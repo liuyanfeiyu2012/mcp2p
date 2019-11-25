@@ -1,71 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration PUBLIC
-		"-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
 		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-	<context id="XMBG-01" targetRuntime="MyBatis3">
-		<!-- 生成的 Java 文件的编码 -->
-		<property name="javaFileEncoding" value="UTF-8"/>
-		<!-- 格式化 Java 代码 -->
-		<property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
-		<!-- 格式化 XML 代码 -->
-		<property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+	<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
 
-		<!-- plugin -->
-		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper, tk.mybatis.mapper.common.MySqlMapper" />
+			<property name="caseSensitive" value="true"/>
+		</plugin>
 
-		<!-- delete comment -->
-		<commentGenerator>
-			<property name="suppressDate" value="true"/>
-			<property name="suppressAllComments" value="true" />
-		</commentGenerator>
-
-		<!-- 配置数据库连接 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
 						connectionURL="jdbc:mysql://58.87.119.113:4406/mc_p2p?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"
 						userId="root"
 						password="root">
-
-			<property name="useInformationSchema" value="true" />
 		</jdbcConnection>
 
-		<!--默认false Java type resolver will always use java.math.BigDecimal if the database column is of type DECIMAL or NUMERIC. -->
-		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false"/>
-		</javaTypeResolver>
+		<javaModelGenerator targetPackage="com.mc.p2p.model.po"
+							targetProject="src/main/java"/>
 
-		<!-- 生成实体的位置 -->
-		<javaModelGenerator targetPackage="com.mc.p2p.model.po" targetProject="MAVEN">
-			<property name="enableSubPackages" value="true"/>
-			<property name="trimStrings" value="false"/>
-			<!--<property name="rootClass" value="com.kona.base.model.po.BasePo" />-->
-		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="mapper"
+						 targetProject="src/main/resources"/>
 
-		<!-- 生成 Mapper 接口的位置 -->
-		<sqlMapGenerator targetPackage="com.mc.p2p.mapper" targetProject="MAVEN">
-			<property name="enableSubPackages" value="true"/>
-		</sqlMapGenerator>
+		<javaClientGenerator targetPackage="com.mc.p2p.mapper"
+							 targetProject="src/main/java"
+							 type="XMLMAPPER"/>
 
-		<!-- 生成 Mapper XML 的位置 -->
-		<javaClientGenerator targetPackage="com.mc.p2p.mapper" type="XMLMAPPER" targetProject="MAVEN">
-			<property name="enableSubPackages" value="true"/>
-		</javaClientGenerator>
-
-		<!-- 设置数据库的表名和实体类名 -->
-		<table tableName="video" domainObjectName="Video" mapperName="VideoMapper"
-			   enableCountByExample="false" enableUpdateByExample="false"
-			   enableDeleteByExample="false" enableSelectByExample="false"
-			   selectByExampleQueryId="false">
-			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		<table tableName="bgm">
+			<generatedKey column="id" sqlStatement="JDBC"/>
 		</table>
-		<table tableName="bgm" domainObjectName="Bgm" mapperName="bgmMapper"
-			   enableCountByExample="false" enableUpdateByExample="false"
-			   enableDeleteByExample="false" enableSelectByExample="false"
-			   selectByExampleQueryId="false">
-			<generatedKey column="id" sqlStatement="JDBC" identity="true" />
+		<table tableName="video">
+			<generatedKey column="id" sqlStatement="JDBC"/>
 		</table>
-
 	</context>
-
 </generatorConfiguration>
