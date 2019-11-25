@@ -1,6 +1,7 @@
-package com.mc.p2p.exception;
+package com.mc.p2p.infrastructure.exception;
 
-import com.mc.p2p.common.RespVo;
+import com.mc.p2p.infrastructure.common.RespVo;
+import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,12 @@ public class BusinessException extends RuntimeException {
         super(resMsg);
         this.resCode = RespVo.FAIL_CODE;
         this.resMsg = resMsg;
+    }
+
+    public BusinessException(ResponseEnum ex) {
+        super(ex.getDesc());
+        this.resCode = ex.getCode();
+        this.resMsg = ex.getDesc();
     }
 
     public RespVo toRespVo() {

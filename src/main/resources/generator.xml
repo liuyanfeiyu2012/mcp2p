@@ -1,0 +1,38 @@
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper, tk.mybatis.mapper.common.MySqlMapper" />
+			<property name="caseSensitive" value="true"/>
+		</plugin>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://58.87.119.113:4406/mc_p2p?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"
+						userId="root"
+						password="root">
+		</jdbcConnection>
+
+		<javaModelGenerator targetPackage="com.mc.p2p.model.po"
+							targetProject="src/main/java"/>
+
+		<sqlMapGenerator targetPackage="mapper"
+						 targetProject="src/main/resources"/>
+
+		<javaClientGenerator targetPackage="com.mc.p2p.mapper"
+							 targetProject="src/main/java"
+							 type="XMLMAPPER"/>
+
+		<table tableName="bgm">
+			<generatedKey column="id" sqlStatement="JDBC"/>
+		</table>
+		<table tableName="video">
+			<generatedKey column="id" sqlStatement="JDBC"/>
+		</table>
+	</context>
+</generatorConfiguration>

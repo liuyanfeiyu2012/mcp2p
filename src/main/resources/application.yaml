@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: mcp2p
+  http:
+    multipart:
+      max-file-size: 20Mb
+      max-request-size: 20Mb
+
+server:
+  port: 8080
+
+

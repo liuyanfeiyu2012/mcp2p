@@ -1,5 +1,4 @@
-package com.mc.p2p.vo;
-
+package com.mc.p2p.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,5 +14,11 @@ public class BgmQueryResp {
     private String bgmId;
 
     @ApiModelProperty("背景音乐资源uri")
-    private String uri;
+    private String bgmUri;
+
+    @ApiModelProperty("背景音乐名称")
+    private String bgmName;
+
+    @ApiModelProperty("背景音乐背景图")
+    private String bgmPic;
 }

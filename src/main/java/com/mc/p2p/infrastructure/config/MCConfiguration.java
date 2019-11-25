@@ -1,8 +1,7 @@
-package com.mc.p2p.config;
+package com.mc.p2p.infrastructure.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -20,6 +19,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @Auther: 谢星星
@@ -27,7 +27,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @Description:
  */
 @Configuration
-@MapperScan("com.mc.p2p.funmall.mapper")
+@MapperScan(basePackages = "com.mc.p2p.mapper")
 @EnableTransactionManagement(proxyTargetClass = true)
 public class MCConfiguration {
 
