@@ -1,6 +1,4 @@
 package com.mc.p2p.domain.video.repository;
-
-import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.mapper.BgmMapper;
 import com.mc.p2p.model.po.Bgm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +22,13 @@ public class BgmRepositoryImpl implements BgmRepository {
     }
 
     @Override
-    public String selectBgmPath(String bgmId) {
+    public Bgm selectBgm(String bgmId) {
         if (StringUtils.isEmpty(bgmId)) {
             return null;
         }
 
         Bgm record = new Bgm();
         record.setBgmId(bgmId);
-        Bgm bgm = bgmMapper.selectOne(record);
-
-        return (null == bgm) ? null : McConstant.FILE_BGM_PATH + StringUtils.getFilename(bgm.getBgmUri());
+        return bgmMapper.selectOne(record);
     }
 }

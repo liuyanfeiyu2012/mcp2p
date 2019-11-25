@@ -5,6 +5,7 @@ import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.infrastructure.enums.FfmpegTypeEnum;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
+import com.mc.p2p.model.po.Bgm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -29,6 +30,9 @@ public class FfmpegDo {
     /** 支持和主文件绑定一个附属文件, 比如视频的bgm */
     private String bondFile;
 
+    /** 时间 */
+    private Double fileTime;
+
     /** 文件ID */
     private String fileId;
 
@@ -37,10 +41,14 @@ public class FfmpegDo {
         this.fileId = fileId;
     }
 
-    public FfmpegDo(String sourceFile, String bondFile, String fileId) {
-        this.sourceFile = sourceFile;
-        this.bondFile = bondFile;
+    public FfmpegDo(String sourceFile, Bgm bgm, String fileId, Double fileTime) {
         this.fileId = fileId;
+        this.fileTime = fileTime;
+        this.sourceFile = sourceFile;
+
+        if (null != bgm) {
+            this.bondFile = McConstant.FILE_BGM_PATH + StringUtils.getFilename(bgm.getBgmUri());
+        }
     }
 
     public void execute(FfmpegTypeEnum actionType) {
@@ -101,7 +109,7 @@ public class FfmpegDo {
         String command;
         switch (actionType) {
             case MIX_BGM:
-                command = String.format(actionType.getCommand(), this.sourceFile, this.bondFile, this.targetFile);
+                command = String.format(actionType.getCommand(), this.sourceFile, this.bondFile, this.fileTime, this.targetFile);
                 break;
             case CANCEL_BGM:
             case CONVERT_VIDEO:
