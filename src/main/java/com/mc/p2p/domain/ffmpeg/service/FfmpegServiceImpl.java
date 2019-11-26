@@ -63,4 +63,16 @@ public class FfmpegServiceImpl implements FfmpegService {
 
         executorChain.execute(context);
     }
+
+    @Override
+    @SuppressWarnings("all")
+    public void commentFilter(FfmpegDo request) throws Exception {
+        Context context = new ContextBase();
+        context.put(McConstant.FFMPEG_DO_KEY, request);
+        context.put(McConstant.CONVERT_KEY, FfmpegTypeEnum.CONVERT_VOICE);
+
+        Chain executorChain = new ChainBase();
+        executorChain.addCommand(convertAble);
+        executorChain.execute(context);
+    }
 }

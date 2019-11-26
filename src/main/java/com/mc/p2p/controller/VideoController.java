@@ -1,7 +1,9 @@
 package com.mc.p2p.controller;
+import com.mc.p2p.domain.comment.service.CommentService;
 import com.mc.p2p.domain.video.service.VideoService;
 import com.mc.p2p.infrastructure.common.RespVo;
 import com.mc.p2p.model.vo.BgmQueryResp;
+import com.mc.p2p.model.vo.CommentReq;
 import com.mc.p2p.model.vo.VideoUploadReq;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import io.swagger.annotations.Api;
@@ -27,6 +29,9 @@ public class VideoController {
     @Autowired
     private VideoService videoService;
 
+    @Autowired
+    private CommentService commentService;
+
     @ApiOperation("视频上传接口")
     @PostMapping("/upload")
     public RespVo upload(@Valid VideoUploadReq request, @ApiParam(name = "上传的文件对象") MultipartFile file) {
@@ -44,5 +49,12 @@ public class VideoController {
     @GetMapping("/list")
     public RespVo<List<VideoQueryResp>> selectVideo() {
         return RespVo.SUCCESS(videoService.selectVideoList());
+    }
+
+    @ApiOperation("用户评论")
+    @GetMapping("/comment")
+    public RespVo comment(@Valid CommentReq request, @ApiParam(name = "上传语音文件") MultipartFile file) {
+        commentService.comment(request, file);
+        return RespVo.SUCCESS();
     }
 }

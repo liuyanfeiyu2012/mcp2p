@@ -45,4 +45,9 @@ public class VideoRepositoryImpl implements VideoRepository {
     public Integer likeCount(String openId) {
         return videoMapper.likeCount(openId);
     }
+
+    @Override
+    public Video selectOne(String videoId) {
+        return videoMapper.selectByPrimaryKey(videoId);
+    }
 }

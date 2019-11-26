@@ -14,4 +14,6 @@ public interface VideoRepository {
     List<Video> selectList(String openId);
 
     Integer likeCount(String openId);
+
+    Video selectOne(String videoId);
 }

@@ -102,6 +102,11 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.likeCount(openId);
     }
 
+    @Override
+    public Video selectOne(String videoId) {
+        return videoRepository.selectOne(videoId);
+    }
+
     private List<VideoQueryResp> assembler(List<Video> videoList) {
         if (CollectionUtils.isEmpty(videoList)) {
             return Lists.newArrayList();
