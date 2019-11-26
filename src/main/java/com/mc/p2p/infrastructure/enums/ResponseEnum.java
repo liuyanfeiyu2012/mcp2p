@@ -14,7 +14,8 @@ public enum ResponseEnum {
     VIDEO_MAX_TIME_LIMIT("5005", "亲, 上传视频最大支持15秒奥~"),
     LOGIN_LIMIT("5006", "亲, 请登录~"),
     COMMENT_PARSE_ERR("5007", "评论解析异常"),
-    COMMENT_VIDEO_NULL("5008", "评论视频不存在");
+    COMMENT_VIDEO_NULL("5008", "评论视频不存在"),
+    VOICE_COMMENT_CAN_NOT_RECOGNIZED("5010", "语音评论无法识别");
 
     private String code;
     private String desc;

@@ -1,18 +1,22 @@
 package com.mc.p2p.domain.comment.service;
 
 import com.mc.p2p.domain.comment.entity.CommentDo;
+import com.mc.p2p.domain.comment.entity.VoiceDo;
 import com.mc.p2p.domain.customer.service.CustomerService;
 import com.mc.p2p.domain.ffmpeg.entity.FfmpegDo;
 import com.mc.p2p.domain.ffmpeg.service.FfmpegService;
 import com.mc.p2p.domain.video.service.VideoService;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
+import com.mc.p2p.model.po.Comment;
 import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.CommentReq;
+import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -46,5 +50,19 @@ public class CommentServiceImpl implements CommentService {
             log.error("评论存储异常 e-{}", e);
             throw new BusinessException(ResponseEnum.COMMENT_PARSE_ERR);
         }
+        VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),ffmpegDo.getFileId());
+        voiceDo.setComment();
+        voiceDo.setScore();
+        saveCmment(request,voiceDo);
+    }
+
+    public void saveCmment(CommentReq req, VoiceDo voiceDo){
+        Comment comment = new Comment();
+        comment.setCommentId(voiceDo.getFileId());
+        comment.setContext(StringUtil.join(voiceDo.getSpeechData().getResult(),"。"));
+        comment.setUid(req.getUid());
+        comment.setVoicePath(voiceDo.getVoicePath());
+        comment.setVideoId(req.getVideoId());
+        comment.setScore(voiceDo.getScore());
     }
 }
