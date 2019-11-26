@@ -9,5 +9,6 @@
     <result column="bgm_uri" jdbcType="VARCHAR" property="bgmUri" />
     <result column="bgm_name" jdbcType="VARCHAR" property="bgmName" />
     <result column="bgm_pic" jdbcType="VARCHAR" property="bgmPic" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 </mapper>

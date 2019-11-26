@@ -1,5 +1,6 @@
 package com.mc.p2p.model.po;
 
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "bgm")
@@ -9,6 +10,7 @@ public class Bgm {
      */
     @Id
     @Column(name = "bgm_id")
+    @GeneratedValue(generator = "JDBC")
     private String bgmId;
 
     /**
@@ -28,6 +30,12 @@ public class Bgm {
      */
     @Column(name = "bgm_pic")
     private String bgmPic;
+
+    /**
+     * 创建时间
+     */
+    @Column(name = "create_time")
+    private Date createTime;
 
     /**
      * 获取业务主键
@@ -99,5 +107,23 @@ public class Bgm {
      */
     public void setBgmPic(String bgmPic) {
         this.bgmPic = bgmPic;
+    }
+
+    /**
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

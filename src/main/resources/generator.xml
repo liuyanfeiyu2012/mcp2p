@@ -29,10 +29,13 @@
 							 type="XMLMAPPER"/>
 
 		<table tableName="bgm">
-			<generatedKey column="id" sqlStatement="JDBC"/>
+			<generatedKey column="bgm_id" sqlStatement="JDBC"/>
 		</table>
 		<table tableName="video">
-			<generatedKey column="id" sqlStatement="JDBC"/>
+			<generatedKey column="video_id" sqlStatement="JDBC"/>
+		</table>
+		<table tableName="customer">
+			<generatedKey column="open_id" sqlStatement="JDBC"/>
 		</table>
 	</context>
 </generatorConfiguration>

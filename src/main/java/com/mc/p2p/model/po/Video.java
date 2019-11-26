@@ -10,6 +10,7 @@ public class Video {
      */
     @Id
     @Column(name = "video_id")
+    @GeneratedValue(generator = "JDBC")
     private String videoId;
 
     /**

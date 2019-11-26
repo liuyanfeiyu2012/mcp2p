@@ -18,9 +18,9 @@ public class McConstant {
     public static final String CANCEL_BGM_KEY = "CANCEL_BGM_KEY";
     public static final String SCREENSHOT_KEY = "SCREENSHOT_KEY";
 
-    public static final String BGM_NGINX_PREFFIX = "http://www.mengchongp2p.online/bgm/";
-    public static final String VIDEO_NGINX_PREFFIX = "http://www.mengchongp2p.online/video/";
-    public static final String BG_NGINX_PREFFIX = "http://www.mengchongp2p.online/bg/";
+    public static final String BGM_NGINX_PREFFIX = "https://www.mengchongp2p.online/bgm/";
+    public static final String VIDEO_NGINX_PREFFIX = "https://www.mengchongp2p.online/video/";
+    public static final String BG_NGINX_PREFFIX = "https://www.mengchongp2p.online/bg/";
 
     static {
         // video root path
