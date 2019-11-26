@@ -2,6 +2,8 @@ package com.mc.p2p.controller;
 
 import com.google.common.collect.Lists;
 import com.mc.p2p.infrastructure.common.RespVo;
+import com.mc.p2p.mapper.VideoMapper;
+import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.FeedReq;
 import com.mc.p2p.model.vo.RankResp;
 import io.swagger.annotations.Api;
@@ -12,9 +14,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.weekend.WeekendSqls;
 
+import javax.annotation.Resource;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,6 +39,9 @@ public class RankController {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
+    @Resource
+    private VideoMapper videoMapper;
+
     @ApiOperation("投食+1")
     @PostMapping("/add")
     public RespVo add(@RequestBody FeedReq feedReq) {
@@ -47,16 +56,32 @@ public class RankController {
         Set<String> keys = redisTemplate.keys(RANK_PREFIX + "*");
         List<RankResp> restList = Lists.newArrayList();
         if (CollectionUtils.isNotEmpty(keys)) {
-
             keys.forEach(key -> {
                 String videoId = key.split("-")[1];
                 String ownerId = key.split("-")[2];
                 Object res = redisTemplate.opsForValue().get(key);
                 Integer score = (Integer) res;
-                restList.add(new RankResp(videoId, ownerId, score));
+                restList.add(new RankResp(videoId, ownerId, score, null, null, null, null));
 
             });
         }
+
+        Example example = Example.builder(Video.class)
+                .where(WeekendSqls.<Video>custom().andIn(Video::getVideoId, restList.stream().map(RankResp::getVideoId).collect(Collectors.toList())))
+                .build();
+
+        List<Video> videos = videoMapper.selectByExample(example);
+        Map<String, Video> videoMap = videos.stream().collect(Collectors.toMap(Video::getVideoId, v -> v));
+
+        restList.forEach(rankResp -> {
+            String vid = rankResp.getVideoId();
+            Video video = videoMap.get(vid);
+
+            rankResp.setAvatar(video.getAvatar());
+            rankResp.setWxName(video.getWxName());
+            rankResp.setVideoBgUrl(video.getVideoUri());
+            rankResp.setVideoBgUrl(video.getVideoBgUri());
+        });
 
         List<RankResp> newList = restList.stream().sorted(Comparator.comparing(RankResp::getScore).reversed()).collect(Collectors.toList());
         return RespVo.SUCCESS(newList);
