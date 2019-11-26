@@ -53,7 +53,7 @@ public class VideoServiceImpl implements VideoService {
             ffmpegService.videoFilter(ffmpegDo);
 
             // 媒体文件持久化
-            videoRepository.saveVideo(videoDo.video(ffmpegDo.getFileId(), ffmpegDo.getTargetFile()));
+            videoRepository.saveVideo(videoDo.video(ffmpegDo.getFileId()));
         } catch (Exception e) {
             log.error("文件上传失败: REQ-{}, e-{}", request, e);
             throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);

@@ -58,13 +58,13 @@ public class VideoDo {
         this.videoPath = filePath;
     }
 
-    public Video video(String fileId, String targetPath) {
+    public Video video(String fileId) {
         Video record = new Video();
         record.setLikeCount(0);
         record.setVideoId(fileId);
         record.setUid(this.videoInfo.getUid());
-        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + StringUtils.getFilename(targetPath));
-        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + StringUtils.getFilename(targetPath));
+        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + ".mp4");
+        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + fileId + ".jpg");
         record.setVideoMemo(this.videoInfo.getVideoMemo());
         record.setVideoTime(this.videoInfo.getVideoTime());
         record.setCreateTime(new Date());
