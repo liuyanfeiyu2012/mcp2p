@@ -85,6 +85,7 @@ public class FfmpegDo {
             case MIX_BGM:
             case CANCEL_BGM:
             case CONVERT_VIDEO:
+            case COMPRESS_VIDEO:
                 fileId = UUID.randomUUID().toString();
                 targetFilePath = McConstant.FILE_VIDEO_PATH + fileId + ".mp4";
                 break;
@@ -115,6 +116,7 @@ public class FfmpegDo {
             case CONVERT_VIDEO:
             case CONVERT_VOICE:
             case SCREENSHOT:
+            case COMPRESS_VIDEO:
                 command = String.format(actionType.getCommand(), this.sourceFile, this.targetFile);
                 break;
                 default:
