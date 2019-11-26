@@ -38,6 +38,13 @@ public class CommentDo {
     private MultipartFile file;
 
     public CommentDo(Customer customer, Video video, MultipartFile file) {
+        if (null == customer) {
+            throw new BusinessException(ResponseEnum.LOGIN_LIMIT);
+        }
+        if (null == video) {
+            throw new BusinessException(ResponseEnum.COMMENT_VIDEO_NULL);
+        }
+
         this.videoId = video.getVideoId();
         this.uid = customer.getOpenId();
         this.file = file;
