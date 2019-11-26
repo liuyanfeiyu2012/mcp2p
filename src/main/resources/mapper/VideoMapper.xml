@@ -12,6 +12,8 @@
     <result column="video_memo" jdbcType="VARCHAR" property="videoMemo" />
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="wx_name" jdbcType="VARCHAR" property="wxName" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 </mapper>

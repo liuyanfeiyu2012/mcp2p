@@ -10,6 +10,7 @@ import com.mc.p2p.domain.video.repository.VideoRepository;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.model.po.Bgm;
+import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.BgmQueryResp;
 import com.mc.p2p.model.vo.VideoQueryResp;
@@ -48,7 +49,8 @@ public class VideoServiceImpl implements VideoService {
     @Transactional
     @Override
     public void saveVideo(VideoUploadReq request, MultipartFile file) {
-        VideoDo videoDo = new VideoDo(request, file, customerService.selectByOpenId(request.getUid()));
+        Customer customer = customerService.selectByOpenId(request.getUid());
+        VideoDo videoDo = new VideoDo(request, file, customer);
 
         try {
             // 存储文件
@@ -60,7 +62,7 @@ public class VideoServiceImpl implements VideoService {
             ffmpegService.videoFilter(ffmpegDo);
 
             // 媒体文件持久化
-            videoRepository.saveVideo(videoDo.video(ffmpegDo.getFileId()));
+            videoRepository.saveVideo(videoDo.video(ffmpegDo.getFileId(), customer));
         } catch (Exception e) {
             log.error("文件上传失败: REQ-{}, e-{}", request, e);
             throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);

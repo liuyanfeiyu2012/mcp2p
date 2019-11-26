@@ -49,6 +49,17 @@ public class Video {
     private String uid;
 
     /**
+     * 微信名称
+     */
+    @Column(name = "wx_name")
+    private String wxName;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -178,6 +189,42 @@ public class Video {
      */
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    /**
+     * 获取微信名称
+     *
+     * @return wx_name - 微信名称
+     */
+    public String getWxName() {
+        return wxName;
+    }
+
+    /**
+     * 设置微信名称
+     *
+     * @param wxName 微信名称
+     */
+    public void setWxName(String wxName) {
+        this.wxName = wxName;
+    }
+
+    /**
+     * 获取头像
+     *
+     * @return avatar - 头像
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * 设置头像
+     *
+     * @param avatar 头像
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**
