@@ -1,7 +1,6 @@
 package com.mc.p2p.model.vo;
 
 import com.google.common.collect.Lists;
-import com.mc.p2p.model.po.Video;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,6 +28,12 @@ public class VideoQueryResp {
 
     @ApiModelProperty("喜欢数")
     private Integer likeCount;
+
+    @ApiModelProperty("微信名称")
+    private String wxName;
+
+    @ApiModelProperty("微信头像")
+    private String avatar;
 
     @ApiModelProperty("评论列表")
     private List<CommentResp> commentList = Lists.newArrayList();

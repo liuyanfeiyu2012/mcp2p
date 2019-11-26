@@ -14,4 +14,12 @@ public interface FfmpegService {
      */
     void videoFilter(FfmpegDo request) throws Exception;
 
+    /**
+     * comment handle
+     *
+     * @param request {param-0: comment}
+     * @throws Exception {e}
+     */
+    void commentFilter(FfmpegDo request) throws Exception;
+
 }

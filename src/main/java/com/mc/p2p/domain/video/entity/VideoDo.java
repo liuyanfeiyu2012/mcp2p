@@ -62,15 +62,19 @@ public class VideoDo {
         this.videoPath = filePath;
     }
 
-    public Video video(String fileId) {
+    public Video video(String fileId, Customer customer) {
         Video record = new Video();
         record.setLikeCount(0);
         record.setVideoId(fileId);
-        record.setUid(this.videoInfo.getUid());
         record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + ".mp4");
         record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + fileId + ".jpg");
         record.setVideoMemo(this.videoInfo.getVideoMemo());
         record.setVideoTime(this.videoInfo.getVideoTime());
+
+        record.setUid(this.videoInfo.getUid());
+        record.setAvatar(customer.getAvatar());
+        record.setWxName(customer.getWxName());
+
         record.setCreateTime(new Date());
         return record;
     }

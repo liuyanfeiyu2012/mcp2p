@@ -28,14 +28,14 @@
 							 targetProject="src/main/java"
 							 type="XMLMAPPER"/>
 
-		<table tableName="bgm">
-			<generatedKey column="bgm_id" sqlStatement="JDBC"/>
-		</table>
-		<table tableName="video">
-			<generatedKey column="video_id" sqlStatement="JDBC"/>
-		</table>
-		<table tableName="customer">
-			<generatedKey column="open_id" sqlStatement="JDBC"/>
-		</table>
+		<!--<table tableName="bgm">-->
+			<!--<generatedKey column="bgm_id" sqlStatement="JDBC"/>-->
+		<!--</table>-->
+		<!--<table tableName="video">-->
+			<!--<generatedKey column="video_id" sqlStatement="JDBC"/>-->
+		<!--</table>-->
+		<!--<table tableName="customer">-->
+			<!--<generatedKey column="open_id" sqlStatement="JDBC"/>-->
+		<!--</table>-->
 	</context>
 </generatorConfiguration>

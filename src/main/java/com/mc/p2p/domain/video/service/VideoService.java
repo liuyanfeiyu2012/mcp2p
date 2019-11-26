@@ -1,5 +1,6 @@
 package com.mc.p2p.domain.video.service;
 
+import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.BgmQueryResp;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import com.mc.p2p.model.vo.VideoUploadReq;
@@ -49,4 +50,12 @@ public interface VideoService {
      * @return {count}
      */
     Integer likeCount(String openId);
+
+    /**
+     * select by video id
+     *
+     * @param videoId {param-0: video id}
+     * @return {video}
+     */
+    Video selectOne(String videoId);
 }
