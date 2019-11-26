@@ -3,6 +3,7 @@ package com.mc.p2p.domain.video.entity;
 import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
+import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.VideoUploadReq;
 import lombok.Data;
@@ -34,7 +35,10 @@ public class VideoDo {
     /** 视频文件 */
     private MultipartFile file;
 
-    public VideoDo(VideoUploadReq videoInfo, MultipartFile file) {
+    public VideoDo(VideoUploadReq videoInfo, MultipartFile file, Customer customer) {
+        if (null == customer) {
+            throw new BusinessException(ResponseEnum.LOGIN_LIMIT);
+        }
         if (videoInfo.getVideoTime() > 15) {
             throw new BusinessException(ResponseEnum.VIDEO_MAX_TIME_LIMIT);
         }

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mc.p2p.mapper.VideoMapper;
 import com.mc.p2p.model.po.Video;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -25,13 +26,23 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
 
     @Override
-    public List<Video> selectList() {
-        List<Video> videoList = videoMapper.selectAll();
+    public List<Video> selectList(String openId) {
+        Video record = new Video();
+        if (StringUtils.isNotBlank(openId)) {
+            record.setUid(openId);
+        }
+
+        List<Video> videoList = videoMapper.select(record);
         if (CollectionUtils.isEmpty(videoList)) {
             return Lists.newArrayList();
         }
 
         Collections.shuffle(videoList);
         return videoList;
+    }
+
+    @Override
+    public Integer likeCount(String openId) {
+        return videoMapper.likeCount(openId);
     }
 }

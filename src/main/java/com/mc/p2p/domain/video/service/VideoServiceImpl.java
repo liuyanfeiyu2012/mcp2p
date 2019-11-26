@@ -1,6 +1,7 @@
 package com.mc.p2p.domain.video.service;
 
 import com.google.common.collect.Lists;
+import com.mc.p2p.domain.customer.service.CustomerService;
 import com.mc.p2p.domain.ffmpeg.entity.FfmpegDo;
 import com.mc.p2p.domain.ffmpeg.service.FfmpegService;
 import com.mc.p2p.domain.video.entity.VideoDo;
@@ -14,13 +15,16 @@ import com.mc.p2p.model.vo.BgmQueryResp;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import com.mc.p2p.model.vo.VideoUploadReq;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author : Yuan.Pan 2019/11/23 9:08 AM
@@ -38,10 +42,13 @@ public class VideoServiceImpl implements VideoService {
     @Autowired
     private BgmRepository bgmRepository;
 
+    @Autowired
+    private CustomerService customerService;
+
     @Transactional
     @Override
     public void saveVideo(VideoUploadReq request, MultipartFile file) {
-        VideoDo videoDo = new VideoDo(request, file);
+        VideoDo videoDo = new VideoDo(request, file, customerService.selectByOpenId(request.getUid()));
 
         try {
             // 存储文件
@@ -76,7 +83,29 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public List<VideoQueryResp> selectVideoList() {
-        List<Video> videoList = videoRepository.selectList();
+        List<Video> videoList = videoRepository.selectList(null);
+        return assembler(videoList);
+    }
+
+    @Override
+    public List<VideoQueryResp> selectVideoList(String openId) {
+        List<Video> videoList = videoRepository.selectList(openId)
+                .stream()
+                .sorted(Comparator.comparing(Video::getCreateTime).reversed())
+                .collect(Collectors.toList());
+
+        return assembler(videoList);
+    }
+
+    @Override
+    public Integer likeCount(String openId) {
+        return videoRepository.likeCount(openId);
+    }
+
+    private List<VideoQueryResp> assembler(List<Video> videoList) {
+        if (CollectionUtils.isEmpty(videoList)) {
+            return Lists.newArrayList();
+        }
 
         List<VideoQueryResp> resultList = Lists.newArrayList();
         videoList.forEach(item -> {

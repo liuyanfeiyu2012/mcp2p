@@ -34,4 +34,19 @@ public interface VideoService {
      */
     List<VideoQueryResp> selectVideoList();
 
+    /**
+     * select video list
+     *
+     * @param openId {param-0: openId}
+     * @return {video list}
+     */
+    List<VideoQueryResp> selectVideoList(String openId);
+
+    /**
+     * select user like count total
+     *
+     * @param openId {param-0: openId}
+     * @return {count}
+     */
+    Integer likeCount(String openId);
 }

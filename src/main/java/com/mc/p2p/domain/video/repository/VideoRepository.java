@@ -11,5 +11,7 @@ public interface VideoRepository {
 
     void saveVideo(Video record);
 
-    List<Video> selectList();
+    List<Video> selectList(String openId);
+
+    Integer likeCount(String openId);
 }
