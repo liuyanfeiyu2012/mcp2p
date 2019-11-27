@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/rank")
 @RestController
 public class RankController {
-    private static final String RANK_PREFIX = "RANK-";
+    private static final String RANK_PREFIX = "RANK_";
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -45,7 +45,7 @@ public class RankController {
     @ApiOperation("投食+1")
     @PostMapping("/add")
     public RespVo add(@RequestBody FeedReq feedReq) {
-        String key = RANK_PREFIX + feedReq.getVideoId() + "-" + feedReq.getOwnerId();
+        String key = RANK_PREFIX + feedReq.getVideoId() + "_" + feedReq.getOwnerId();
         redisTemplate.opsForValue().increment(key, 1);
         return RespVo.SUCCESS();
     }
@@ -57,11 +57,10 @@ public class RankController {
         List<RankResp> restList = Lists.newArrayList();
         if (CollectionUtils.isNotEmpty(keys)) {
             keys.forEach(key -> {
-                String videoId = key.split("-")[1];
-                String ownerId = key.split("-")[2];
+                String videoId = key.split("_")[1];
                 Object res = redisTemplate.opsForValue().get(key);
                 Integer score = (Integer) res;
-                restList.add(new RankResp(videoId, ownerId, score, null, null, null, null));
+                restList.add(new RankResp(videoId, null, score, null, null, null, null));
 
             });
         }
@@ -76,11 +75,13 @@ public class RankController {
         restList.forEach(rankResp -> {
             String vid = rankResp.getVideoId();
             Video video = videoMap.get(vid);
-
-            rankResp.setAvatar(video.getAvatar());
-            rankResp.setWxName(video.getWxName());
-            rankResp.setVideoBgUrl(video.getVideoUri());
-            rankResp.setVideoBgUrl(video.getVideoBgUri());
+            if (video != null){
+                rankResp.setAvatar(video.getAvatar());
+                rankResp.setWxName(video.getWxName());
+                rankResp.setVideoUrl(video.getVideoUri());
+                rankResp.setVideoBgUrl(video.getVideoBgUri());
+                rankResp.setOwnerId(video.getUid());
+            }
         });
 
         List<RankResp> newList = restList.stream().sorted(Comparator.comparing(RankResp::getScore).reversed()).collect(Collectors.toList());
