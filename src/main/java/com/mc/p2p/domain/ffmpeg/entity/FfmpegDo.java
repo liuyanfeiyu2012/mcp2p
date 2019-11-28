@@ -54,7 +54,7 @@ public class FfmpegDo {
     public void execute(FfmpegTypeEnum actionType) {
         // init target file
         targetFile(actionType);
-        if (FfmpegTypeEnum.CONVERT_VOICE == actionType && this.targetFile.endsWith(".wav")) {
+        if (FfmpegTypeEnum.CONVERT_VOICE == actionType && this.sourceFile.endsWith(".wav")) {
             return;
         }
 
