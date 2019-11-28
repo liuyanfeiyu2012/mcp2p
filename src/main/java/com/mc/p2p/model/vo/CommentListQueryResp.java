@@ -1,9 +1,11 @@
 package com.mc.p2p.model.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
+@ApiModel("评论列表返回值")
 @Data
 @Builder
 public class CommentListQueryResp {
