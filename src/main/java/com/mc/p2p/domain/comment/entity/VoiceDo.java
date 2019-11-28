@@ -141,7 +141,10 @@ public class VoiceDo {
 
             NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
 
-            String params = StringUtil.join(this.speechData.result,"。");
+            String params = "";
+            for(String text : this.speechData.result){
+                params += text;
+            }
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
