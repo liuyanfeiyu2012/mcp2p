@@ -60,6 +60,7 @@ public class VoiceDo {
     }
 
     public void setComment() {
+        System.out.println("语音识别开始");
         // 初始化一个AipSpeech
         AipSpeech speechClient = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
         AipNlp nlpClient = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
@@ -87,14 +88,18 @@ public class VoiceDo {
         System.out.println(speechData);
         if (SuccessCode.equals(speechData.getErr_no())) {
             this.speechData = speechData;
+            System.out.println(speechData);
             setScore();
         } else {
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
+
+        System.out.println("语音识别结束");
     }
 
     private byte[] reSamplingPCM(byte[] data) {
 
+        System.out.println("转码开始");
         try(AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
             AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
@@ -113,6 +118,8 @@ public class VoiceDo {
 //                log.info("read {} byte(s)", numReads);
                 outputStream.write(buff);
             }
+
+            System.out.println("转码结束");
             return outputStream.toByteArray();
         } catch (UnsupportedAudioFileException | IOException e) {
 //            log.error("occurs errors when re-sampling the audio stream:{}",e);
@@ -123,6 +130,7 @@ public class VoiceDo {
     public void setScore(){
         try{
 
+            System.out.println("情感分析开始");
             Credential cred = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
 
             HttpProfile httpProfile = new HttpProfile();
@@ -134,13 +142,19 @@ public class VoiceDo {
             NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
 
             String params = StringUtil.join(this.speechData.result,"。");
+
+            System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
 
             SentimentAnalysisResponse resp = client.SentimentAnalysis(req);
+
+            System.out.println(resp);
             this.nlpData = resp;
             this.score = BigDecimal.valueOf(resp.getPositive()).movePointRight(1).intValue();
         } catch (TencentCloudSDKException e) {
             System.out.println(e.toString());
         }
+
+        System.out.println("情感分析结束");
     }
 }
