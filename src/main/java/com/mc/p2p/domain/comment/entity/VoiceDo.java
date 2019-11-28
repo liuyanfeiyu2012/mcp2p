@@ -12,12 +12,12 @@ import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.nlp.v20190408.NlpClient;
 import com.tencentcloudapi.nlp.v20190408.models.SentimentAnalysisRequest;
 import com.tencentcloudapi.nlp.v20190408.models.SentimentAnalysisResponse;
-import jodd.util.StringUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -33,6 +33,23 @@ import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT
 
 @Data
 public class VoiceDo {
+
+    private static AipSpeech speechClient;
+    private static AipNlp nlpClient;
+
+    static {
+        speechClient = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
+        nlpClient = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
+
+        // 可选：设置网络连接参数
+        speechClient.setConnectionTimeoutInMillis(2000);
+        speechClient.setSocketTimeoutInMillis(60000);
+
+
+        // 可选：设置网络连接参数
+        nlpClient.setConnectionTimeoutInMillis(2000);
+        nlpClient.setSocketTimeoutInMillis(60000);
+    }
 
     @Data
     @Builder
@@ -52,7 +69,7 @@ public class VoiceDo {
     private String fileId;
     private Integer score;
 
-    public VoiceDo(String path,String fileId){
+    public VoiceDo(String path, String fileId) {
         this.voicePath = path;
         this.fileId = fileId;
     }
@@ -60,17 +77,7 @@ public class VoiceDo {
     public void setComment() {
         System.out.println("语音识别开始");
         // 初始化一个AipSpeech
-        AipSpeech speechClient = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
-        AipNlp nlpClient = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
 
-        // 可选：设置网络连接参数
-        speechClient.setConnectionTimeoutInMillis(2000);
-        speechClient.setSocketTimeoutInMillis(60000);
-
-
-        // 可选：设置网络连接参数
-        nlpClient.setConnectionTimeoutInMillis(2000);
-        nlpClient.setSocketTimeoutInMillis(60000);
         HashMap<String, Object> options = new HashMap<>();
         options.put("rate", 16000);
         JSONObject speechRes = new JSONObject();
@@ -98,9 +105,9 @@ public class VoiceDo {
     private byte[] reSamplingPCM(byte[] data) {
 
         System.out.println("转码开始");
-        try(AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
-            AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+        try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
+             AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
+             ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
 
             if (audioIn.getFormat().matches(DSTFORMAT)) {
                 return data;
@@ -121,12 +128,12 @@ public class VoiceDo {
             return outputStream.toByteArray();
         } catch (UnsupportedAudioFileException | IOException e) {
 //            log.error("occurs errors when re-sampling the audio stream:{}",e);
-            throw new RuntimeException("occurs errors when re-sampling the audio stream:{}",e);
+            throw new RuntimeException("occurs errors when re-sampling the audio stream:{}", e);
         }
     }
 
-    public void setScore(){
-        try{
+    public void setScore() {
+        try {
 
             System.out.println("情感分析开始");
             Credential cred = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
@@ -140,7 +147,7 @@ public class VoiceDo {
             NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
 
             String params = "";
-            for(String text : this.speechData.result){
+            for (String text : this.speechData.result) {
                 params += text;
             }
 
