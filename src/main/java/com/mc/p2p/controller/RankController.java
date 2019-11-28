@@ -47,6 +47,13 @@ public class RankController {
     public RespVo add(@RequestBody FeedReq feedReq) {
         String key = RANK_PREFIX + feedReq.getVideoId() + "_" + feedReq.getOwnerId();
         redisTemplate.opsForValue().increment(key, 1);
+
+        Integer score = (Integer) redisTemplate.opsForValue().get(key);
+        Video video = new Video();
+        video.setVideoId(feedReq.getVideoId());
+        video.setLikeCount(score);
+
+        videoMapper.updateByPrimaryKeySelective(video);
         return RespVo.SUCCESS();
     }
 
@@ -75,7 +82,7 @@ public class RankController {
         restList.forEach(rankResp -> {
             String vid = rankResp.getVideoId();
             Video video = videoMap.get(vid);
-            if (video != null){
+            if (video != null) {
                 rankResp.setAvatar(video.getAvatar());
                 rankResp.setWxName(video.getWxName());
                 rankResp.setVideoUrl(video.getVideoUri());
