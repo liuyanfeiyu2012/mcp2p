@@ -21,4 +21,12 @@ public class RankResp {
     private String ownerId;
 
     private Integer score;
+
+    private String avatar;
+
+    private String wxName;
+
+    private String videoUrl;
+
+    private String videoBgUrl;
 }

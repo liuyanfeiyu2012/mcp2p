@@ -14,7 +14,7 @@ public class CustomerDo {
 
     public Customer login(LoginReq request) {
         Customer record = new Customer();
-        record.setOpenId(record.getOpenId());
+        record.setOpenId(request.getOpenId());
         record.setWxName(request.getWxName());
         record.setAvatar(request.getAvatar());
         record.setCreateTime(new Date());

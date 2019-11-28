@@ -6,12 +6,10 @@ import com.mc.p2p.model.vo.CustomerCentreResp;
 import com.mc.p2p.model.vo.LoginReq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -35,7 +33,7 @@ public class CustomerController {
     }
 
     @ApiOperation("用户中心接口")
-    @PostMapping("/centre")
+    @GetMapping("/centre")
     public RespVo<CustomerCentreResp> centre(String openId) {
         return RespVo.SUCCESS(customerService.centre(openId));
     }
