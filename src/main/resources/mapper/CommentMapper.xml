@@ -8,8 +8,13 @@
     <id column="comment_id" jdbcType="VARCHAR" property="commentId" />
     <result column="video_id" jdbcType="VARCHAR" property="videoId" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="voice_path" jdbcType="VARCHAR" property="voicePath" />
     <result column="context" jdbcType="VARCHAR" property="context" />
     <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="sentiment" jdbcType="CHAR" property="sentiment" />
+    <result column="negative" jdbcType="VARCHAR" property="negative" />
+    <result column="positive" jdbcType="VARCHAR" property="positive" />
   </resultMap>
 </mapper>
