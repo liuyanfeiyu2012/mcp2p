@@ -18,8 +18,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
-import org.springframework.util.StringUtils;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -141,7 +139,10 @@ public class VoiceDo {
 
             NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
 
-            String params = StringUtil.join(this.speechData.result,"。");
+            String params = "";
+            for(String text : this.speechData.result){
+                params += text;
+            }
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);

@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author : Yuan.Pan 2019/11/21 10:21 AM

@@ -1,6 +1,4 @@
 package com.mc.p2p.domain.comment.service;
-
-import com.mc.p2p.model.po.Comment;
 import com.mc.p2p.model.vo.CommentListQueryResp;
 import com.mc.p2p.model.vo.CommentReq;
 import org.springframework.web.multipart.MultipartFile;
