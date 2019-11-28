@@ -34,21 +34,37 @@ import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT
 @Data
 public class VoiceDo {
 
-    private static AipSpeech speechClient;
-    private static AipNlp nlpClient;
+    private static AipSpeech SPEECH_CLIENT;
+    private static AipNlp AIP_CLIENT;
+
+    private static Credential CRED;
+    private static HttpProfile HTTP_PROFILE;
+    private static ClientProfile CLIENT_PROFILE;
+    private static NlpClient NLP_CLIENT;
 
     static {
-        speechClient = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
-        nlpClient = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
+        SPEECH_CLIENT = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
+        AIP_CLIENT = new AipNlp(APP_ID, API_KEY, SECRET_KEY);
 
         // 可选：设置网络连接参数
-        speechClient.setConnectionTimeoutInMillis(2000);
-        speechClient.setSocketTimeoutInMillis(60000);
+        SPEECH_CLIENT.setConnectionTimeoutInMillis(2000);
+        SPEECH_CLIENT.setSocketTimeoutInMillis(60000);
 
 
         // 可选：设置网络连接参数
-        nlpClient.setConnectionTimeoutInMillis(2000);
-        nlpClient.setSocketTimeoutInMillis(60000);
+        AIP_CLIENT.setConnectionTimeoutInMillis(2000);
+        AIP_CLIENT.setSocketTimeoutInMillis(60000);
+
+
+        CRED = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
+
+        HTTP_PROFILE = new HttpProfile();
+        HTTP_PROFILE.setEndpoint("nlp.tencentcloudapi.com");
+
+        CLIENT_PROFILE = new ClientProfile();
+        CLIENT_PROFILE.setHttpProfile(HTTP_PROFILE);
+
+        NLP_CLIENT = new NlpClient(CRED, "ap-guangzhou", CLIENT_PROFILE);
     }
 
     @Data
@@ -85,7 +101,7 @@ public class VoiceDo {
         try {
             byte[] data = Util.readFileByBytes(this.voicePath);
             System.out.println(data.length);
-            speechRes = speechClient.asr(reSamplingPCM(data), "wav", 16000, options);
+            speechRes = SPEECH_CLIENT.asr(reSamplingPCM(data), "wav", 16000, options);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -136,15 +152,7 @@ public class VoiceDo {
         try {
 
             System.out.println("情感分析开始");
-            Credential cred = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
 
-            HttpProfile httpProfile = new HttpProfile();
-            httpProfile.setEndpoint("nlp.tencentcloudapi.com");
-
-            ClientProfile clientProfile = new ClientProfile();
-            clientProfile.setHttpProfile(httpProfile);
-
-            NlpClient client = new NlpClient(cred, "ap-guangzhou", clientProfile);
 
             String params = "";
             for (String text : this.speechData.result) {
@@ -154,7 +162,7 @@ public class VoiceDo {
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
 
-            SentimentAnalysisResponse resp = client.SentimentAnalysis(req);
+            SentimentAnalysisResponse resp = NLP_CLIENT.SentimentAnalysis(req);
 
             System.out.println(resp);
             this.nlpData = resp;
