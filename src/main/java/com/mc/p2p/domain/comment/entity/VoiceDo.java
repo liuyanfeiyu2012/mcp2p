@@ -112,7 +112,7 @@ public class VoiceDo {
             System.out.println(speechData);
             setScore();
         } else {
-            throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
+            return;
         }
 
         System.out.println("语音识别结束");
