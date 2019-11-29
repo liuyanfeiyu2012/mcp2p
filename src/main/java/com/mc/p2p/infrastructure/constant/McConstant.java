@@ -256,39 +256,40 @@ public class McConstant {
     public static final String NINE_TEN = "爱了(//▽//)";
 
     public McConstant() {
+        String mk = "mkdirs-{}";
         // video root path
         File videoPath = new File(FILE_VIDEO_PATH);
         if (!videoPath.exists()) {
             boolean mkdirs = videoPath.mkdirs();
-            log.info("mkdirs-{}", mkdirs);
+            log.info(mk, mkdirs);
         }
 
         // voice root path
         File voicePath = new File(FILE_VOICE_PATH);
         if (!voicePath.exists()) {
             boolean mkdirs = voicePath.mkdirs();
-            log.info("mkdirs-{}", mkdirs);
+            log.info(mk, mkdirs);
         }
 
         // bg root path
         File bgPath = new File(FILE_BG_PATH);
         if (!bgPath.exists()) {
             boolean mkdirs = bgPath.mkdirs();
-            log.info("mkdirs-{}", mkdirs);
+            log.info(mk, mkdirs);
         }
 
         // bgm root path
         File bgmPath = new File(FILE_BGM_PATH);
         if (!bgmPath.exists()) {
             boolean mkdirs = bgmPath.mkdirs();
-            log.info("mkdirs-{}", mkdirs);
+            log.info(mk, mkdirs);
         }
 
         // ai animal
         File aiPath = new File(FILE_DISCERN_PATH);
         if (!aiPath.exists()) {
             boolean mkdirs = aiPath.mkdirs();
-            log.info("mkdirs-{}", mkdirs);
+            log.info(mk, mkdirs);
         }
     }
 }
