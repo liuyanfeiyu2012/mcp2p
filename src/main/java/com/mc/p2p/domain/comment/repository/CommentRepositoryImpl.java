@@ -20,7 +20,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public List<Comment> getCommentList(String videoId) {
-        Comment comment = new Comment();
+        final Comment comment = new Comment();
         comment.setVideoId(videoId);
         return commentMapper.select(comment);
     }

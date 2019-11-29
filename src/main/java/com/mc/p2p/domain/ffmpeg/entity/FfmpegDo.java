@@ -79,7 +79,7 @@ public class FfmpegDo {
 
     private void targetFile(FfmpegTypeEnum actionType) {
         String fullName = StringUtils.getFilename(this.sourceFile);
-        String filename = fullName.substring(0, fullName.indexOf("."));
+        String filename = fullName.substring(0, fullName.indexOf('.'));
 
         String fileId;
         String targetFilePath;

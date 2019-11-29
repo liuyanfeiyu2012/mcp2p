@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService {
             log.error("评论存储异常 e-{}", e);
             throw new BusinessException(ResponseEnum.COMMENT_PARSE_ERR);
         }
-        System.out.println("文件处理结束");
+        log.info("文件处理结束");
         VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),
                 ffmpegDo.getFileId());
         voiceDo.setComment();
