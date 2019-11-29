@@ -94,7 +94,7 @@ public class VoiceDo {
 
         try {
             String params = "{\"ProjectId\":1165413,\"SubServiceType\":2,\"EngSerViceType\":\"16k\",\"SourceType\":1,\"VoiceFormat\":\"wav\",\"UsrAudioKey\":\"%s\",\"Data\":\"%s\",\"DataLen\":%d}";
-            byte[] data = Util.readFileByBytes("D:\\Download\\public\\happy.wav");
+            byte[] data = Util.readFileByBytes(this.voicePath);
             String voiceString = new BASE64Encoder().encode(reSamplingPCM(data));
             params = String.format(params, UUID.randomUUID().toString(), voiceString, voiceString.length());
             SentenceRecognitionRequest req = SentenceRecognitionRequest.fromJsonString(params, SentenceRecognitionRequest.class);
