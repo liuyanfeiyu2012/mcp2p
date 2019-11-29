@@ -156,7 +156,10 @@ public class VideoServiceImpl implements VideoService {
         if (animal.contains("猫")) {
             return McConstant.CAT_PRODUCT;
         }
-        if (animal.contains("狗")) {
+        if (animal.contains("狗") || animal.contains("柯基") || animal.contains("哈士奇")
+                || animal.contains("阿拉斯加") || animal.contains("犬") || animal.contains("萨摩耶")
+                || animal.contains("拉布拉多") || animal.contains("吉娃娃") || animal.contains("泰迪")
+                || animal.contains("梗") || animal.contains("獒")) {
             return McConstant.DOG_PRODUCT;
         }
         if (animal.contains("鱼")) {

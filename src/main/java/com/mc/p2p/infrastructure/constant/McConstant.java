@@ -34,10 +34,10 @@ public class McConstant {
     public static final String VIDEO_NGINX_PREFFIX = "https://www.mengchongp2p.online/video/";
     public static final String BG_NGINX_PREFFIX = "https://www.mengchongp2p.online/bg/";
 
-    public static final List<String> CAT_PRODUCT = Lists.newArrayList( "萌宠小瓶干", "精品猫粮", "喵星人小皮球", "萌宠挂件");
-    public static final List<String> DOG_PRODUCT = Lists.newArrayList( "精品狗粮", "小狗宠物挂件", "狗星人飞盘", "小狗萌宠挂件");
+    public static final List<String> CAT_PRODUCT = Lists.newArrayList( "猫罐头", "进口猫粮", "猫砂", "逗猫棒", "猫猫小鱼干");
+    public static final List<String> DOG_PRODUCT = Lists.newArrayList( "进口狗粮", "狗狗磨牙棒", "狗星人飞盘", "小狗皮球");
     public static final List<String> FISH_PRODUCT = Lists.newArrayList( "鱼食", "小鱼纪念品", "鱼竿", "钓鱼套装");
-    public static final List<String> NOMAL_PRODUCT = Lists.newArrayList( "品质电商精品推荐A", "品质电商精品推荐B", "品质电商精品推荐C", "品质电商精品推荐D");
+    public static final List<String> NOMAL_PRODUCT = Lists.newArrayList( "掌上商城精品推荐A", "掌上商城精品推荐B", "掌上商城精品推荐C", "掌上商城精品推荐D");
 
     public static final int AI_SC_NUM = 3;
 
