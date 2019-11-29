@@ -68,13 +68,17 @@ public class CommentServiceImpl implements CommentService {
 
     public void saveCmment(CommentReq req, VoiceDo voiceDo,Customer customer){
         Comment comment = new Comment();
+        String context = "";
+        for(String text : voiceDo.getSpeechData().getResult()){
+            context += text;
+        }
         comment.setVideoId(req.getVideoId());
         comment.setUid(req.getUid());
         comment.setUname(customer.getWxName());
         comment.setAvatar(customer.getAvatar());
         comment.setCommentId(voiceDo.getFileId());
         comment.setVoicePath(voiceDo.getVoicePath());
-        comment.setContext(StringUtil.join(voiceDo.getSpeechData().getResult(),"。"));
+        comment.setContext(context);
         comment.setScore(voiceDo.getScore());
         comment.setSentiment(voiceDo.getNlpData().getSentiment());
         comment.setNegative(String.valueOf(voiceDo.getNlpData().getNegative()));

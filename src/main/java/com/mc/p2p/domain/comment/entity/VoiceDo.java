@@ -112,7 +112,7 @@ public class VoiceDo {
             System.out.println(speechData);
             setScore();
         } else {
-            throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
+            return;
         }
 
         System.out.println("语音识别结束");
@@ -154,10 +154,12 @@ public class VoiceDo {
             System.out.println("情感分析开始");
 
 
-            String params = "";
+            String params = "{\"Text\":\"%s\"}";
+            String texts = "";
             for (String text : this.speechData.result) {
-                params += text;
+                texts += text;
             }
+            params = String.format(params,texts);
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
