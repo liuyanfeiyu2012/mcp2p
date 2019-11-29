@@ -1,4 +1,5 @@
 package com.mc.p2p.controller;
+import com.alibaba.druid.util.StringUtils;
 import com.mc.p2p.domain.comment.service.CommentService;
 import com.mc.p2p.domain.discern.service.DiscernService;
 import com.mc.p2p.domain.video.service.VideoService;
@@ -9,12 +10,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author : Yuan.Pan 2019/11/21 10:21 AM
@@ -33,6 +38,9 @@ public class VideoController {
 
     @Autowired
     private DiscernService discernService;
+    
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @ApiOperation("视频上传接口")
     @PostMapping("/upload")
@@ -49,8 +57,25 @@ public class VideoController {
 
     @ApiOperation("查询视频列表")
     @GetMapping("/list")
-    public RespVo<List<VideoQueryResp>> selectVideo() {
-        return RespVo.SUCCESS(videoService.selectVideoList());
+    public RespVo<List<VideoQueryResp>> selectVideo(@ApiParam(name ="用戶编号")String uid) {
+    	List<VideoQueryResp> resp = videoService.selectVideoList();
+    	if(!StringUtils.isEmpty(uid)) {
+    		//按照是否看過視頻排序
+    		Set<Object> sets = redisTemplate.opsForSet().members(uid);
+    		List<VideoQueryResp> firstList = new LinkedList<>();
+    		List<VideoQueryResp> secondList = new LinkedList<>();
+    		for(VideoQueryResp item:resp) {
+    			if(sets.contains(item.getVideoId())) {
+    				firstList.add(item);
+    			}else {
+    				secondList.add(item);
+    			}
+    		}
+    		firstList.addAll(secondList);
+    		return RespVo.SUCCESS(firstList);
+    	}
+    	
+        return RespVo.SUCCESS(resp);
     }
 
     @ApiOperation("用户评论")
@@ -70,6 +95,13 @@ public class VideoController {
     @GetMapping("/ai")
     public RespVo ai(@ApiParam(name ="视频编号")@NotBlank String path){
         discernService.discern(path);
+        return RespVo.SUCCESS();
+    }
+    
+    @ApiOperation("看过视频标记")
+    @PostMapping("/video-viewed")
+    public RespVo viewed(@Valid VideoViewedReq request) {
+    	Long res = redisTemplate.opsForSet().add(request.getUid(), request.getVideoId());
         return RespVo.SUCCESS();
     }
 }
