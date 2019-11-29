@@ -25,7 +25,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import static com.mc.p2p.infrastructure.constant.McConstant.*;
+import static com.mc.p2p.infrastructure.constant.McConstant.AUDIO_FORMAT;
+import static com.mc.p2p.infrastructure.constant.McConstant.SAMPLE_RATE;
 import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
 @Data
@@ -124,7 +125,8 @@ public class VoiceDo {
 
     /**
      * 构造方法
-     * @param path 语音路径
+     *
+     * @param path   语音路径
      * @param fileId 文件编号
      */
     public VoiceDo(String path, String fileId) {
@@ -166,6 +168,7 @@ public class VoiceDo {
 
     /**
      * 语音文件转码
+     *
      * @param data 文件字节码
      * @return 转码后的字节码
      */

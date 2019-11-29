@@ -1,4 +1,5 @@
 package com.mc.p2p.domain.discern.service;
+
 import com.baidu.aip.imageclassify.AipImageClassify;
 import com.google.common.collect.Lists;
 import com.mc.p2p.domain.discern.entity.DiscernDo;

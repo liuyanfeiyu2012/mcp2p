@@ -1,7 +1,7 @@
 package com.mc.p2p.domain.video.repository;
+
 import com.mc.p2p.mapper.BgmMapper;
 import com.mc.p2p.model.po.Bgm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

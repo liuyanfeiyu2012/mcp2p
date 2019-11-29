@@ -15,7 +15,8 @@ public class Water implements WaterAble {
     @Override
     public boolean execute(Context context) throws Exception {
         FfmpegDo request = (FfmpegDo) context.get(McConstant.FFMPEG_DO_KEY);
-        FfmpegTypeEnum actionType = (FfmpegTypeEnum) context.get(McConstant.ADD_WATER_KEY);
+        FfmpegTypeEnum actionType = (FfmpegTypeEnum) context
+                .get(McConstant.ADD_WATER_KEY);
 
         // 流媒体处理器
         request.execute(actionType);

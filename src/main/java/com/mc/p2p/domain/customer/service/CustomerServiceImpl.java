@@ -11,7 +11,6 @@ import com.mc.p2p.model.vo.CustomerCentreResp;
 import com.mc.p2p.model.vo.LoginReq;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

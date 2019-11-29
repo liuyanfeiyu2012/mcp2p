@@ -17,7 +17,7 @@ public interface VideoService {
      * save video file
      *
      * @param request {param-0: upload video req}
-     * @param file {param-1: file}
+     * @param file    {param-1: file}
      */
     void saveVideo(VideoUploadReq request, MultipartFile file);
 

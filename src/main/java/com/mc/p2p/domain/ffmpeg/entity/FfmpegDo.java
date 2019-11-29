@@ -11,7 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.util.IOUtils;
 import org.springframework.util.StringUtils;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,19 +23,29 @@ import java.util.UUID;
 @Data
 public class FfmpegDo {
 
-    /** 源文件路径 */
+    /**
+     * 源文件路径
+     */
     private String sourceFile;
 
-    /** 操作完后的目标文件路径 */
+    /**
+     * 操作完后的目标文件路径
+     */
     private String targetFile;
 
-    /** 支持和主文件绑定一个附属文件, 比如视频的bgm */
+    /**
+     * 支持和主文件绑定一个附属文件, 比如视频的bgm
+     */
     private String bondFile;
 
-    /** 时间 */
+    /**
+     * 时间
+     */
     private Double fileTime;
 
-    /** 文件ID */
+    /**
+     * 文件ID
+     */
     private String fileId;
 
     public FfmpegDo(String sourceFile, String fileId) {
@@ -89,8 +100,8 @@ public class FfmpegDo {
                 fileId = filename;
                 targetFilePath = McConstant.FILE_BG_PATH + fileId + McConstant.JPG_EXT;
                 break;
-                default:
-                    throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);
+            default:
+                throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);
 
         }
 
@@ -112,8 +123,8 @@ public class FfmpegDo {
             case ADD_WATER:
                 command = String.format(actionType.getCommand(), this.sourceFile, this.targetFile);
                 break;
-                default:
-                    throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);
+            default:
+                throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);
         }
 
         return Lists.newArrayList(command.split(" "));

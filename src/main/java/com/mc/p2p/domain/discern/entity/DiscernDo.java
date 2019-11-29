@@ -8,13 +8,19 @@ import lombok.Data;
 @Data
 public class DiscernDo {
 
-    /** 名称 */
+    /**
+     * 名称
+     */
     private String name;
 
-    /** 打分 */
+    /**
+     * 打分
+     */
     private String score;
 
-    /** 描述 */
+    /**
+     * 描述
+     */
     private String description;
 
     public DiscernDo(String name, String score, String description) {

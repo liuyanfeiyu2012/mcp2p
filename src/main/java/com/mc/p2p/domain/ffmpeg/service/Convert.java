@@ -15,7 +15,8 @@ public class Convert implements ConvertAble {
     @Override
     public boolean execute(Context context) throws Exception {
         FfmpegDo request = (FfmpegDo) context.get(McConstant.FFMPEG_DO_KEY);
-        FfmpegTypeEnum actionType = (FfmpegTypeEnum) context.get(McConstant.CONVERT_KEY);
+        FfmpegTypeEnum actionType = (FfmpegTypeEnum) context.get(
+                McConstant.CONVERT_KEY);
 
         // 流媒体处理器
         request.execute(actionType);

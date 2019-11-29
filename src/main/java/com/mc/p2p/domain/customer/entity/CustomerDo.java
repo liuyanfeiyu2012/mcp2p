@@ -20,4 +20,4 @@ public class CustomerDo {
         record.setCreateTime(new Date());
         return record;
     }
- }
+}

@@ -1,4 +1,5 @@
 package com.mc.p2p.model.vo;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

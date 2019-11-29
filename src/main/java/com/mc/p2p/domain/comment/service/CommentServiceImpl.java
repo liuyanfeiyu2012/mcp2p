@@ -15,11 +15,8 @@ import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.CommentListQueryResp;
 import com.mc.p2p.model.vo.CommentReq;
-import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -54,7 +51,8 @@ public class CommentServiceImpl implements CommentService {
         CommentDo commentDo = new CommentDo(customer, video, file);
         commentDo.storage();
 
-        FfmpegDo ffmpegDo = new FfmpegDo(commentDo.getFilePath(), commentDo.getFileId());
+        FfmpegDo ffmpegDo = new FfmpegDo(commentDo.getFilePath(),
+                commentDo.getFileId());
         try {
             ffmpegService.commentFilter(ffmpegDo);
         } catch (Exception e) {
@@ -62,13 +60,14 @@ public class CommentServiceImpl implements CommentService {
             throw new BusinessException(ResponseEnum.COMMENT_PARSE_ERR);
         }
         System.out.println("文件处理结束");
-        VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),ffmpegDo.getFileId());
+        VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),
+                ffmpegDo.getFileId());
         voiceDo.setComment();
 //        voiceDo.setScore();
-        saveCmment(request,voiceDo,customer);
+        saveCmment(request, voiceDo, customer);
     }
 
-    public void saveCmment(CommentReq req, VoiceDo voiceDo,Customer customer){
+    public void saveCmment(CommentReq req, VoiceDo voiceDo, Customer customer) {
         Comment comment = new Comment();
         comment.setVideoId(req.getVideoId());
         comment.setUid(req.getUid());
@@ -86,18 +85,20 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentListQueryResp> getCommentList(String videoId) {
-        List<Comment> commentList =  commentRepository.getCommentList(videoId);
+        List<Comment> commentList = commentRepository.getCommentList(videoId);
         return commentList.stream()
                 .map(comment -> CommentListQueryResp.builder()
                         .userId(comment.getUid())
                         .userName(comment.getUname())
                         .avatar(comment.getAvatar())
                         .context(comment.getContext())
-                        .sentiment(SentimentEnum.findChineseType(comment.getScore()))
+                        .sentiment(SentimentEnum.findChineseType(comment
+                                .getScore()))
                         .score(String.valueOf(comment.getScore()))
                         .commentTime(comment.getCommentTime())
                         .build())
-                .sorted(Comparator.comparing(CommentListQueryResp::getCommentTime).reversed())
+                .sorted(Comparator.comparing(
+                        CommentListQueryResp::getCommentTime).reversed())
                 .collect(Collectors.toList());
     }
 }

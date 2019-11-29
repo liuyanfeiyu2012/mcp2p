@@ -1,11 +1,9 @@
 package com.mc.p2p.model.vo;
 
-import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.List;
 import java.util.Set;
 
 /**

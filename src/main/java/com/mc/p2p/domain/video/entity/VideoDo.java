@@ -25,16 +25,24 @@ import java.util.UUID;
 @Data
 public class VideoDo {
 
-    /** 文件存储path */
+    /**
+     * 文件存储path
+     */
     private String videoPath;
 
-    /** 文件ID */
+    /**
+     * 文件ID
+     */
     private String videoId;
 
-    /** 视频基本信息 */
+    /**
+     * 视频基本信息
+     */
     private VideoUploadReq videoInfo;
 
-    /** 视频文件 */
+    /**
+     * 视频文件
+     */
     private MultipartFile file;
 
     public VideoDo(VideoUploadReq videoInfo, MultipartFile file, Customer customer) {

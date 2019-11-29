@@ -2,7 +2,6 @@ package com.mc.p2p.domain.customer.repository;
 
 import com.mc.p2p.mapper.CustomerMapper;
 import com.mc.p2p.model.po.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
