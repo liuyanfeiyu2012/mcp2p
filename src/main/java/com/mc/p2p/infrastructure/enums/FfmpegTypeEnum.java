@@ -13,7 +13,8 @@ public enum FfmpegTypeEnum {
     MIX_BGM("4", "融合背景音乐", "ffmpeg -i %s -i %s -t %s -y %s"),
     SCREENSHOT("5", "截图", "ffmpeg -ss 00:00:01 -y -i %s -vframes 1 %s"),
     COMPRESS_VIDEO("6", "压缩视频", "ffmpeg -i %s -b:v 700k -strict -2 -y %s"),
-    AI_SCREENSHOT("7", "截图智能识别", "ffmpeg -ss %s -y -i %s -vframes 1 %s"),;
+    AI_SCREENSHOT("7", "截图智能识别", "ffmpeg -ss %s -y -i %s -vframes 1 %s"),
+    ADD_WATER("8", "添加水印", "ffmpeg -i %s -i /home/ubuntu/mcp2p/file/logo/logo.png -filter_complex \"overlay=(W-w)/2:(H-h)/2\" -codec:a copy %s");
 
     private String code;
     private String desc;

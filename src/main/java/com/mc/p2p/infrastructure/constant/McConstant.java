@@ -22,6 +22,7 @@ public class McConstant {
     public static final String FILE_BG_PATH = "/home/ubuntu/mcp2p/file/bg/";
     public static final String FILE_BGM_PATH = "/home/ubuntu/mcp2p/file/bgm/";
     public static final String FILE_DISCERN_PATH = "/home/ubuntu/mcp2p/file/ai/";
+    public static final String FILE_LOGO_PATH = "/home/ubuntu/mcp2p/file/logo/logo.png";
 
     public static final String FFMPEG_DO_KEY = "FFPEG_DO_KEY";
     public static final String CONVERT_KEY = "CONVERT_KEY";
@@ -29,6 +30,7 @@ public class McConstant {
     public static final String CANCEL_BGM_KEY = "CANCEL_BGM_KEY";
     public static final String SCREENSHOT_KEY = "SCREENSHOT_KEY";
     public static final String COMPRESS_KEY = "COMPRESS_KEY";
+    public static final String ADD_WATER_KEY = "ADD_WATER_KEY";
 
     public static final String MP4_EXT = ".mp4";
     public static final String JPG_EXT = ".jpg";
