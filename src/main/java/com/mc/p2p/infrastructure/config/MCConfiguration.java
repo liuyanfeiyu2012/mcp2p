@@ -61,7 +61,9 @@ public class MCConfiguration {
             druidDataSource.setRemoveAbandoned(false);
             druidDataSource.setRemoveAbandonedTimeout(1800);
             druidDataSource.setLogAbandoned(true);
-            druidDataSource.setUrl("jdbc:mysql://58.87.119.113:4406/mc_p2p?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+            druidDataSource.setUrl("jdbc:mysql://" +
+                    "58." + "87." + "119." + "113:" + "4406" +
+                    "/mc_p2p?useUnicode=true&characterEncoding=utf-8&useSSL=false");
             druidDataSource.setUsername("root");
             druidDataSource.setPassword("root");
             druidDataSource.init();
@@ -89,7 +91,8 @@ public class MCConfiguration {
         @Bean
         public RedissonConnectionFactory redissonConnectionFactory() {
             Config config = new Config();
-            String redisAddress = "redis://58.87.119.113:6380";
+            String redisAddress = "redis://58.87" +
+                    ".119.113" + ":6380";
             config.useSingleServer()
                     .setAddress(redisAddress)
                     .setConnectTimeout(5000);

@@ -101,7 +101,7 @@ public class VideoController {
     @ApiOperation("看过视频标记")
     @PostMapping("/video-viewed")
     public RespVo viewed(@Valid VideoViewedReq request) {
-    	Long res = redisTemplate.opsForSet().add(request.getUid(), request.getVideoId());
+    	redisTemplate.opsForSet().add(request.getUid(), request.getVideoId());
         return RespVo.SUCCESS();
     }
 }

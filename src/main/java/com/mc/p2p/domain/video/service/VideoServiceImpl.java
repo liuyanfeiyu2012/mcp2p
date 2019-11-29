@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import java.security.SecureRandom;
+
 /**
  * @author : Yuan.Pan 2019/11/23 9:08 AM
  */
@@ -147,14 +149,18 @@ public class VideoServiceImpl implements VideoService {
 
             List<String> productList = getProductList(item.getAnimal());
 
-            Set<String> commendSet = Sets.newHashSet();
-            while (commendSet.size() != 2) {
-                int random = (int)(Math.random() * (productList.size() - 1 ) + 1);
-                commendSet.add(productList.get(random));
-            }
+            try {
+                Set<String> commendSet = Sets.newHashSet();
+                while (commendSet.size() != 2) {
+                    int random = SecureRandom.getInstance("SHA1PRNG").nextInt() * (productList.size() - 1) + 1;
+                    commendSet.add(productList.get(random));
+                }
 
-            record.setRecommendProduct(commendSet);
-            resultList.add(record);
+                record.setRecommendProduct(commendSet);
+                resultList.add(record);
+            }catch (Exception e){
+                log.error("no such algorithm");
+            }
         });
 
         return resultList;
