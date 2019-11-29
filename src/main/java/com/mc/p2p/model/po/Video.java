@@ -66,6 +66,21 @@ public class Video {
     private Date createTime;
 
     /**
+     * 打分
+     */
+    private Double score;
+
+    /**
+     * 描述
+     */
+    private String desc;
+
+    /**
+     * 所属动物
+     */
+    private String animal;
+
+    /**
      * 获取业务主键
      *
      * @return video_id - 业务主键
@@ -243,5 +258,59 @@ public class Video {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * 获取打分
+     *
+     * @return score - 打分
+     */
+    public Double getScore() {
+        return score;
+    }
+
+    /**
+     * 设置打分
+     *
+     * @param score 打分
+     */
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    /**
+     * 获取描述
+     *
+     * @return desc - 描述
+     */
+    public String getDesc() {
+        return desc;
+    }
+
+    /**
+     * 设置描述
+     *
+     * @param desc 描述
+     */
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    /**
+     * 获取所属动物
+     *
+     * @return animal - 所属动物
+     */
+    public String getAnimal() {
+        return animal;
+    }
+
+    /**
+     * 设置所属动物
+     *
+     * @param animal 所属动物
+     */
+    public void setAnimal(String animal) {
+        this.animal = animal;
     }
 }

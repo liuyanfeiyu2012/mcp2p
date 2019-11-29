@@ -1,8 +1,10 @@
 package com.mc.p2p.domain.video.repository;
 
 import com.google.common.collect.Lists;
+import com.mc.p2p.domain.discern.entity.DiscernDo;
 import com.mc.p2p.mapper.VideoMapper;
 import com.mc.p2p.model.po.Video;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.List;
 /**
  * @author : Yuan.Pan 2019/11/24 10:41 PM
  */
+@Slf4j
 @Repository
 public class VideoRepositoryImpl implements VideoRepository {
 
@@ -49,5 +52,19 @@ public class VideoRepositoryImpl implements VideoRepository {
     @Override
     public Video selectOne(String videoId) {
         return videoMapper.selectByPrimaryKey(videoId);
+    }
+
+    @Override
+    public void saveDiscern(DiscernDo record, String videoId) {
+        if (null == record) {
+            return;
+        }
+
+        Video video = new Video();
+        video.setVideoId(videoId);
+        video.setScore(Double.valueOf(record.getScore()));
+        video.setAnimal(record.getName());
+        video.setDesc(record.getDescription());
+        videoMapper.updateByPrimaryKeySelective(video);
     }
 }

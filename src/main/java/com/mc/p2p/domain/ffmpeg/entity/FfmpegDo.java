@@ -58,19 +58,7 @@ public class FfmpegDo {
             return;
         }
 
-        ProcessBuilder processBuilder = new ProcessBuilder(this.command(actionType));
-        try {
-            Process process = processBuilder.start();
-            InputStream stream = process.getErrorStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            String line = null;
-            while ((line = br.readLine()) != null){}
-            br.close();
-            stream.close();
-        } catch (IOException e) {
-            log.error("[file execute err e-{}]", e);
-            throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);
-        }
+        doExecute(this.command(actionType));
 
         if (FfmpegTypeEnum.SCREENSHOT != actionType) {
             boolean delete = new File(this.sourceFile).delete();
@@ -127,5 +115,21 @@ public class FfmpegDo {
         }
 
         return Lists.newArrayList(command.split(" "));
+    }
+
+    public static void doExecute(List<String> command) {
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
+        try {
+            Process process = processBuilder.start();
+            InputStream stream = process.getErrorStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
+            String line = null;
+            while ((line = br.readLine()) != null){}
+            br.close();
+            stream.close();
+        } catch (IOException e) {
+            log.error("[file execute err e-{}]", e);
+            throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);
+        }
     }
 }

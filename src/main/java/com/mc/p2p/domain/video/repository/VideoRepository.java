@@ -1,5 +1,6 @@
 package com.mc.p2p.domain.video.repository;
 
+import com.mc.p2p.domain.discern.entity.DiscernDo;
 import com.mc.p2p.model.po.Video;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface VideoRepository {
     Integer likeCount(String openId);
 
     Video selectOne(String videoId);
+
+    void saveDiscern(DiscernDo record, String videoId);
 }

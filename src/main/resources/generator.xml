@@ -37,8 +37,8 @@
 		<!--<table tableName="customer">-->
 			<!--<generatedKey column="open_id" sqlStatement="JDBC"/>-->
 		<!--</table>-->
-		<table tableName="comment">
-			<generatedKey column="comment_id" sqlStatement="JDBC"/>
-		</table>
+		<!--<table tableName="comment">-->
+			<!--<generatedKey column="comment_id" sqlStatement="JDBC"/>-->
+		<!--</table>-->
 	</context>
 </generatorConfiguration>

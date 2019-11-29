@@ -35,6 +35,12 @@ public class VideoQueryResp {
     @ApiModelProperty("微信头像")
     private String avatar;
 
-    @ApiModelProperty("评论列表")
-    private List<CommentResp> commentList = Lists.newArrayList();
+    @ApiModelProperty("动物名称")
+    private String animal;
+
+    @ApiModelProperty("动物科普知识")
+    private String description;
+
+    @ApiModelProperty("智能推荐商品")
+    private String recommendProduct;
 }

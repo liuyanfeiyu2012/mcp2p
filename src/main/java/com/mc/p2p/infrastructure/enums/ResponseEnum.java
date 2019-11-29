@@ -15,7 +15,9 @@ public enum ResponseEnum {
     LOGIN_LIMIT("5006", "亲, 请登录~"),
     COMMENT_PARSE_ERR("5007", "评论解析异常"),
     COMMENT_VIDEO_NULL("5008", "评论视频不存在"),
-    VOICE_COMMENT_CAN_NOT_RECOGNIZED("5010", "语音评论无法识别");
+    VOICE_COMMENT_CAN_NOT_RECOGNIZED("5010", "语音评论无法识别"),
+    NOT_ANIMAL("5011", "本站是萌宠社区, 只支持上传动物视频~"),
+    VIDEO_MIN_TIME_LIMIT("5012", "亲, 上传视频最小3秒奥~");
 
     private String code;
     private String desc;

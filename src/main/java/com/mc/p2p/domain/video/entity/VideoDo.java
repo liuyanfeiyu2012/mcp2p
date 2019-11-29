@@ -43,6 +43,10 @@ public class VideoDo {
             throw new BusinessException(ResponseEnum.VIDEO_MAX_TIME_LIMIT);
         }
 
+        if (videoInfo.getVideoTime() < 3) {
+            throw new BusinessException(ResponseEnum.VIDEO_MIN_TIME_LIMIT);
+        }
+
         this.videoInfo = videoInfo;
         this.file = file;
     }

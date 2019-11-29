@@ -1,5 +1,6 @@
 package com.mc.p2p.controller;
 import com.mc.p2p.domain.comment.service.CommentService;
+import com.mc.p2p.domain.discern.service.DiscernService;
 import com.mc.p2p.domain.video.service.VideoService;
 import com.mc.p2p.infrastructure.common.RespVo;
 import com.mc.p2p.model.vo.*;
@@ -29,6 +30,9 @@ public class VideoController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private DiscernService discernService;
 
     @ApiOperation("视频上传接口")
     @PostMapping("/upload")
@@ -60,5 +64,12 @@ public class VideoController {
     @GetMapping("/comment-list")
     public RespVo<List<CommentListQueryResp>> getCommentList(@ApiParam(name ="视频编号")@NotBlank String videoId){
         return RespVo.SUCCESS(commentService.getCommentList(videoId));
+    }
+
+    @ApiOperation("测试识别")
+    @GetMapping("/ai")
+    public RespVo ai(@ApiParam(name ="视频编号")@NotBlank String path){
+        discernService.discern(path);
+        return RespVo.SUCCESS();
     }
 }
