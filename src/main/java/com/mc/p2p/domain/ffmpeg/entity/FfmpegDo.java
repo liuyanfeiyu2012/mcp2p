@@ -54,7 +54,7 @@ public class FfmpegDo {
     public void execute(FfmpegTypeEnum actionType) {
         // init target file
         targetFile(actionType);
-        if (FfmpegTypeEnum.CONVERT_VOICE == actionType && this.sourceFile.endsWith(".wav")) {
+        if (FfmpegTypeEnum.CONVERT_VOICE == actionType && this.sourceFile.endsWith(McConstant.WAV_EXT)) {
             return;
         }
 
@@ -78,15 +78,15 @@ public class FfmpegDo {
             case CONVERT_VIDEO:
             case COMPRESS_VIDEO:
                 fileId = UUID.randomUUID().toString();
-                targetFilePath = McConstant.FILE_VIDEO_PATH + fileId + ".mp4";
+                targetFilePath = McConstant.FILE_VIDEO_PATH + fileId + McConstant.MP4_EXT;
                 break;
             case CONVERT_VOICE:
                 fileId = filename;
-                targetFilePath = McConstant.FILE_VOICE_PATH + fileId + ".wav";
+                targetFilePath = McConstant.FILE_VOICE_PATH + fileId + McConstant.WAV_EXT;
                 break;
             case SCREENSHOT:
                 fileId = filename;
-                targetFilePath = McConstant.FILE_BG_PATH + fileId + ".jpg";
+                targetFilePath = McConstant.FILE_BG_PATH + fileId + McConstant.JPG_EXT;
                 break;
                 default:
                     throw new BusinessException(ResponseEnum.NOT_SUPPORT_ACTION);

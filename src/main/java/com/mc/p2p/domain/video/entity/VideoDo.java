@@ -39,11 +39,11 @@ public class VideoDo {
         if (null == customer) {
             throw new BusinessException(ResponseEnum.LOGIN_LIMIT);
         }
-        if (videoInfo.getVideoTime() > 15) {
+        if (videoInfo.getVideoTime() > McConstant.MAX_LIMIT) {
             throw new BusinessException(ResponseEnum.VIDEO_MAX_TIME_LIMIT);
         }
 
-        if (videoInfo.getVideoTime() < 3) {
+        if (videoInfo.getVideoTime() < McConstant.MIN_LIMIT) {
             throw new BusinessException(ResponseEnum.VIDEO_MIN_TIME_LIMIT);
         }
 
@@ -70,8 +70,8 @@ public class VideoDo {
         Video record = new Video();
         record.setLikeCount(0);
         record.setVideoId(fileId);
-        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + ".mp4");
-        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + fileId + ".jpg");
+        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + McConstant.MP4_EXT);
+        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + fileId + McConstant.JPG_EXT);
         record.setVideoMemo(this.videoInfo.getVideoMemo());
         record.setVideoTime(this.videoInfo.getVideoTime());
 

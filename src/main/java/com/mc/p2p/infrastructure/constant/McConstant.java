@@ -30,6 +30,13 @@ public class McConstant {
     public static final String SCREENSHOT_KEY = "SCREENSHOT_KEY";
     public static final String COMPRESS_KEY = "COMPRESS_KEY";
 
+    public static final String MP4_EXT = ".mp4";
+    public static final String JPG_EXT = ".jpg";
+    public static final String WAV_EXT = ".wav";
+
+    public static final double MAX_LIMIT = 15;
+    public static final double MIN_LIMIT = 4;
+
     public static final String BGM_NGINX_PREFFIX = "https://www.mengchongp2p.online/bgm/";
     public static final String VIDEO_NGINX_PREFFIX = "https://www.mengchongp2p.online/video/";
     public static final String BG_NGINX_PREFFIX = "https://www.mengchongp2p.online/bg/";
@@ -40,6 +47,18 @@ public class McConstant {
     public static final List<String> NOMAL_PRODUCT = Lists.newArrayList( "掌上商城精品推荐A", "掌上商城精品推荐B", "掌上商城精品推荐C", "掌上商城精品推荐D");
 
     public static final int AI_SC_NUM = 3;
+    public static final String CATE_A = "猫";
+    public static final String DOG_A = "柯基";
+    public static final String DOG_B = "哈士奇";
+    public static final String DOG_C = "阿拉斯加";
+    public static final String DOG_D = "萨摩耶";
+    public static final String DOG_E = "拉布拉多";
+    public static final String DOG_F = "吉娃娃";
+    public static final String DOG_G = "泰迪";
+    public static final String DOG_H = "梗";
+    public static final String DOG_I = "獒";
+    public static final String DOG_J = "狗";
+    public static final String FISH_A = "鱼";
 
 
     //设置APPID/AK/SK

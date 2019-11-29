@@ -28,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -75,7 +74,7 @@ public class VideoServiceImpl implements VideoService {
 
             new Thread(() -> {
                 try {
-                    DiscernDo discern = discernService.discern(McConstant.VIDEO_NGINX_PREFFIX + ffmpegDo.getFileId() + ".mp4");
+                    DiscernDo discern = discernService.discern(McConstant.VIDEO_NGINX_PREFFIX + ffmpegDo.getFileId() + McConstant.MP4_EXT);
                     videoRepository.saveDiscern(discern, video.getVideoId());
                 } catch (Exception e) {
                     log.error("ai animal err e-{}", e);
@@ -153,16 +152,16 @@ public class VideoServiceImpl implements VideoService {
     }
 
     private List<String> getProductList(String animal) {
-        if (animal.contains("猫")) {
+        if (animal.contains(McConstant.CATE_A)) {
             return McConstant.CAT_PRODUCT;
         }
-        if (animal.contains("狗") || animal.contains("柯基") || animal.contains("哈士奇")
-                || animal.contains("阿拉斯加") || animal.contains("犬") || animal.contains("萨摩耶")
-                || animal.contains("拉布拉多") || animal.contains("吉娃娃") || animal.contains("泰迪")
-                || animal.contains("梗") || animal.contains("獒")) {
+        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_A) ||  animal.contains(McConstant.DOG_B)
+                || animal.contains(McConstant.DOG_C) || animal.contains(McConstant.DOG_D) || animal.contains(McConstant.DOG_E)
+                || animal.contains(McConstant.DOG_F) || animal.contains(McConstant.DOG_G) || animal.contains(McConstant.DOG_H)
+                || animal.contains(McConstant.DOG_I)) {
             return McConstant.DOG_PRODUCT;
         }
-        if (animal.contains("鱼")) {
+        if (animal.contains(McConstant.FISH_A)) {
             return McConstant.FISH_PRODUCT;
         }
         return McConstant.NOMAL_PRODUCT;
