@@ -18,10 +18,7 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.weekend.WeekendSqls;
 
 import javax.annotation.Resource;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -72,26 +69,35 @@ public class RankController {
             });
         }
 
-        Example example = Example.builder(Video.class)
-                .where(WeekendSqls.<Video>custom().andIn(Video::getVideoId, restList.stream().map(RankResp::getVideoId).collect(Collectors.toList())))
-                .build();
+        List<String> videoIdList = restList.stream().map(RankResp::getVideoId).collect(Collectors.toList());
 
-        List<Video> videos = videoMapper.selectByExample(example);
-        Map<String, Video> videoMap = videos.stream().collect(Collectors.toMap(Video::getVideoId, v -> v));
+        if (CollectionUtils.isNotEmpty(videoIdList)) {
+            Example example = Example.builder(Video.class)
+                    .where(WeekendSqls.<Video>custom().andIn(Video::getVideoId, videoIdList))
+                    .build();
 
-        restList.forEach(rankResp -> {
-            String vid = rankResp.getVideoId();
-            Video video = videoMap.get(vid);
-            if (video != null) {
-                rankResp.setAvatar(video.getAvatar());
-                rankResp.setWxName(video.getWxName());
-                rankResp.setVideoUrl(video.getVideoUri());
-                rankResp.setVideoBgUrl(video.getVideoBgUri());
-                rankResp.setOwnerId(video.getUid());
-            }
-        });
+            List<Video> videos = videoMapper.selectByExample(example);
+            Map<String, Video> videoMap = videos.stream().collect(Collectors.toMap(Video::getVideoId, v -> v));
 
-        List<RankResp> newList = restList.stream().sorted(Comparator.comparing(RankResp::getScore).reversed()).collect(Collectors.toList());
-        return RespVo.SUCCESS(newList);
+            restList.forEach(rankResp -> {
+                String vid = rankResp.getVideoId();
+                Video video = videoMap.get(vid);
+                if (video != null) {
+                    rankResp.setAvatar(video.getAvatar());
+                    rankResp.setWxName(video.getWxName());
+                    rankResp.setVideoUrl(video.getVideoUri());
+                    rankResp.setVideoBgUrl(video.getVideoBgUri());
+                    rankResp.setOwnerId(video.getUid());
+                }
+            });
+
+            List<RankResp> newList = restList.stream()
+                    .sorted(Comparator.comparing(RankResp::getScore)
+                            .reversed())
+                    .collect(Collectors.toList());
+            return RespVo.SUCCESS(newList);
+        } else {
+            return RespVo.SUCCESS(Collections.emptyList());
+        }
     }
 }

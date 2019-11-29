@@ -5,7 +5,6 @@ import com.mc.p2p.infrastructure.enums.ResponseEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
-import com.mc.p2p.model.vo.VideoUploadReq;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -22,19 +21,29 @@ import java.util.UUID;
 @Slf4j
 public class CommentDo {
 
-    /** 视频ID */
+    /**
+     * 视频ID
+     */
     private String videoId;
 
-    /** 评论路径 */
+    /**
+     * 评论路径
+     */
     private String filePath;
 
-    /** 文件ID */
+    /**
+     * 文件ID
+     */
     private String fileId;
 
-    /** 用户ID */
+    /**
+     * 用户ID
+     */
     private String uid;
 
-    /** 评论文件文件 */
+    /**
+     * 评论文件文件
+     */
     private MultipartFile file;
 
     public CommentDo(Customer customer, Video video, MultipartFile file) {

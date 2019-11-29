@@ -85,7 +85,7 @@ public class McConstant {
     private static final boolean BIG_ENDIAN    = true;
     private static final boolean SIGNED        = true;
     private static final boolean UNSIGNED      = false;
-    public static AudioFormat DSTFORMAT = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
+    public static final AudioFormat DSTFORMAT = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
             SAMPLE_RATE,
             BITS_PER_SAMPLE,
             MONO,

@@ -130,14 +130,18 @@ public class VideoServiceImpl implements VideoService {
 
             List<String> productList = getProductList(item.getAnimal());
 
-            Set<String> commendSet = Sets.newHashSet();
-            while (commendSet.size() != 2) {
-                int random = (int)(Math.random() * (productList.size() - 1 ) + 1);
-                commendSet.add(productList.get(random));
-            }
+            try {
+                Set<String> commendSet = Sets.newHashSet();
+                while (commendSet.size() != 2) {
+                    int random = (int) (Math.random() * (productList.size() - 1) + 1);
+                    commendSet.add(productList.get(random));
+                }
 
-            record.setRecommendProduct(commendSet);
-            resultList.add(record);
+                record.setRecommendProduct(commendSet);
+                resultList.add(record);
+            } catch (Exception e) {
+                log.error("no such algorithm");
+            }
         });
 
         return resultList;
@@ -147,7 +151,7 @@ public class VideoServiceImpl implements VideoService {
         if (animal.contains(McConstant.CATE_A)) {
             return McConstant.CAT_PRODUCT;
         }
-        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_K) || animal.contains(McConstant.DOG_A) ||  animal.contains(McConstant.DOG_B)
+        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_K) || animal.contains(McConstant.DOG_A) || animal.contains(McConstant.DOG_B)
                 || animal.contains(McConstant.DOG_C) || animal.contains(McConstant.DOG_D) || animal.contains(McConstant.DOG_E)
                 || animal.contains(McConstant.DOG_F) || animal.contains(McConstant.DOG_G) || animal.contains(McConstant.DOG_H)
                 || animal.contains(McConstant.DOG_I)) {

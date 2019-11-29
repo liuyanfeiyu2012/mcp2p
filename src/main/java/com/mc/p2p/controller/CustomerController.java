@@ -6,10 +6,13 @@ import com.mc.p2p.model.vo.CustomerCentreResp;
 import com.mc.p2p.model.vo.LoginReq;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.Valid;
 
@@ -22,19 +25,32 @@ import javax.validation.Valid;
 @RestController
 public class CustomerController {
 
+    /**
+     * 用户服务
+     */
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * 用户登录接口
+     * @param request 请求参数
+     * @return 请求结果
+     */
     @ApiOperation("用户登录接口")
     @PostMapping("/login")
-    public RespVo login(@Valid @RequestBody LoginReq request) {
+    public RespVo login(@Valid @RequestBody final LoginReq request) {
         customerService.login(request);
         return RespVo.SUCCESS();
     }
 
+    /**
+     * 用户中心接口
+     * @param openId 用户ID
+     * @return 用户信息
+     */
     @ApiOperation("用户中心接口")
     @GetMapping("/centre")
-    public RespVo<CustomerCentreResp> centre(String openId) {
+    public RespVo<CustomerCentreResp> centre(final String openId) {
         return RespVo.SUCCESS(customerService.centre(openId));
     }
 }
