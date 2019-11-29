@@ -58,7 +58,9 @@ public class McConstant {
     public static final String DOG_H = "梗";
     public static final String DOG_I = "獒";
     public static final String DOG_J = "狗";
+    public static final String DOG_K = "犬";
     public static final String FISH_A = "鱼";
+    public static final String NO_ANIMAL = "非动物";
 
 
     //设置APPID/AK/SK

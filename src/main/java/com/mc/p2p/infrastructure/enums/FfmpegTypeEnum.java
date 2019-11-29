@@ -12,7 +12,7 @@ public enum FfmpegTypeEnum {
     CONVERT_VOICE("3", "转换声音", "ffmpeg -i %s -f wav %s"),
     MIX_BGM("4", "融合背景音乐", "ffmpeg -i %s -i %s -t %s -y %s"),
     SCREENSHOT("5", "截图", "ffmpeg -ss 00:00:01 -y -i %s -vframes 1 %s"),
-    COMPRESS_VIDEO("6", "压缩视频", "ffmpeg -i %s -b:v 600k -strict -2 -y %s"),
+    COMPRESS_VIDEO("6", "压缩视频", "ffmpeg -i %s -b:v 700k -strict -2 -y %s"),
     AI_SCREENSHOT("7", "截图智能识别", "ffmpeg -ss %s -y -i %s -vframes 1 %s"),;
 
     private String code;

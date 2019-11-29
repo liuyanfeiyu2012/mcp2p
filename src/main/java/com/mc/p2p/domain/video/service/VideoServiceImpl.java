@@ -155,7 +155,7 @@ public class VideoServiceImpl implements VideoService {
         if (animal.contains(McConstant.CATE_A)) {
             return McConstant.CAT_PRODUCT;
         }
-        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_A) ||  animal.contains(McConstant.DOG_B)
+        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_K) || animal.contains(McConstant.DOG_A) ||  animal.contains(McConstant.DOG_B)
                 || animal.contains(McConstant.DOG_C) || animal.contains(McConstant.DOG_D) || animal.contains(McConstant.DOG_E)
                 || animal.contains(McConstant.DOG_F) || animal.contains(McConstant.DOG_G) || animal.contains(McConstant.DOG_H)
                 || animal.contains(McConstant.DOG_I)) {

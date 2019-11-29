@@ -31,7 +31,7 @@ public class DiscernServiceImpl implements DiscernService {
         // 截取三张图
         List<String> filePathList = Lists.newArrayList();
         for (int i = 0; i < McConstant.AI_SC_NUM; i++) {
-            String picPath = McConstant.FILE_DISCERN_PATH + UUID.randomUUID().toString() + ".jpg";
+            String picPath = McConstant.FILE_DISCERN_PATH + UUID.randomUUID().toString() + McConstant.JPG_EXT;
             String command = FfmpegTypeEnum.AI_SCREENSHOT.getCommand();
             String finalCommand = String.format(command, "00:00:0" + i, filePath, picPath);
             FfmpegDo.doExecute(Lists.newArrayList(finalCommand.split(" ")));
@@ -51,7 +51,7 @@ public class DiscernServiceImpl implements DiscernService {
                 DiscernResponse responseObj = com.alibaba.fastjson.JSONObject.parseObject(result, DiscernResponse.class);
                 List<DiscernItem> discernItemList = responseObj.getResult();
                 DiscernItem discernItem = discernItemList.get(0);
-                if ("非动物".equals(discernItem.getName())) {
+                if (McConstant.NO_ANIMAL.equals(discernItem.getName())) {
                     continue;
                 }
 
