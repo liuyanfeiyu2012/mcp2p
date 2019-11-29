@@ -1,5 +1,6 @@
 package com.mc.p2p.model.po;
 
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "comment")
@@ -63,6 +64,9 @@ public class Comment {
      * 正向概率
      */
     private String positive;
+
+    @Column(name = "comment_time")
+    private Date commentTime;
 
     /**
      * 获取评论编号
@@ -260,5 +264,19 @@ public class Comment {
      */
     public void setPositive(String positive) {
         this.positive = positive;
+    }
+
+    /**
+     * @return comment_time
+     */
+    public Date getCommentTime() {
+        return commentTime;
+    }
+
+    /**
+     * @param commentTime
+     */
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
     }
 }

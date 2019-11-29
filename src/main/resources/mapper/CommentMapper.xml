@@ -13,8 +13,9 @@
     <result column="voice_path" jdbcType="VARCHAR" property="voicePath" />
     <result column="context" jdbcType="VARCHAR" property="context" />
     <result column="score" jdbcType="INTEGER" property="score" />
-    <result column="sentiment" jdbcType="CHAR" property="sentiment" />
+    <result column="sentiment" jdbcType="VARCHAR" property="sentiment" />
     <result column="negative" jdbcType="VARCHAR" property="negative" />
     <result column="positive" jdbcType="VARCHAR" property="positive" />
+    <result column="comment_time" jdbcType="TIMESTAMP" property="commentTime" />
   </resultMap>
 </mapper>

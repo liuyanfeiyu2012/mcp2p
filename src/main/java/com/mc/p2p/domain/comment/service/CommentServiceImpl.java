@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,7 +98,9 @@ public class CommentServiceImpl implements CommentService {
                         .context(comment.getContext())
                         .sentiment(SentimentEnum.findChineseType(comment.getSentiment()))
                         .score(String.valueOf(comment.getScore()))
+                        .commentTime(comment.getCommentTime())
                         .build())
+                .sorted(Comparator.comparing(CommentListQueryResp::getCommentTime).reversed())
                 .collect(Collectors.toList());
     }
 }

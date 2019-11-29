@@ -1,9 +1,12 @@
 package com.mc.p2p.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.Date;
 
 @ApiModel("评论列表返回值")
 @Data
@@ -27,4 +30,10 @@ public class CommentListQueryResp {
 
     @ApiModelProperty("评论得分")
     private String score;
+
+    /**
+     * 评论时间
+     */
+    @JsonIgnore
+    private Date commentTime;
 }
