@@ -92,7 +92,7 @@ public class CommentServiceImpl implements CommentService {
                         .userName(comment.getUname())
                         .avatar(comment.getAvatar())
                         .context(comment.getContext())
-                        .sentiment(SentimentEnum.findChineseType(comment.getSentiment()))
+                        .sentiment(SentimentEnum.findChineseType(comment.getScore()))
                         .score(String.valueOf(comment.getScore()))
                         .commentTime(comment.getCommentTime())
                         .build())
