@@ -4,21 +4,19 @@ import com.baidu.aip.nlp.AipNlp;
 import com.baidu.aip.speech.AipSpeech;
 import com.baidu.aip.util.Util;
 import com.mc.p2p.infrastructure.exception.BusinessException;
-import com.mc.p2p.utils.SJacksonUtil;
+import com.tencentcloudapi.asr.v20190614.AsrClient;
+import com.tencentcloudapi.asr.v20190614.models.SentenceRecognitionRequest;
+import com.tencentcloudapi.asr.v20190614.models.SentenceRecognitionResponse;
 import com.tencentcloudapi.common.Credential;
-import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.common.profile.ClientProfile;
 import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.nlp.v20190408.NlpClient;
 import com.tencentcloudapi.nlp.v20190408.models.SentimentAnalysisRequest;
 import com.tencentcloudapi.nlp.v20190408.models.SentimentAnalysisResponse;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.misc.BASE64Encoder;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -27,8 +25,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
+import java.util.UUID;
 
 import static com.mc.p2p.infrastructure.constant.McConstant.*;
 import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
@@ -43,6 +40,11 @@ public class VoiceDo {
     private static HttpProfile HTTP_PROFILE;
     private static ClientProfile CLIENT_PROFILE;
     private static NlpClient NLP_CLIENT;
+
+    private static Credential CRED2;
+    private static HttpProfile HTTP_PROFILE2;
+    private static ClientProfile CLIENT_PROFILE2;
+    private static AsrClient ASR_CLIENT;
 
     static {
         SPEECH_CLIENT = new AipSpeech(APP_ID, API_KEY, SECRET_KEY);
@@ -59,29 +61,22 @@ public class VoiceDo {
 
 
         CRED = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
+        CRED2 = new Credential("AKIDsDUVHo5M9k5F9N74X2JJ4ZonVxJP4pkP", "YqsjKelocAXgbGgsyRedOuAA3pNeniO9");
 
         HTTP_PROFILE = new HttpProfile();
         HTTP_PROFILE.setEndpoint("nlp.tencentcloudapi.com");
-
         CLIENT_PROFILE = new ClientProfile();
         CLIENT_PROFILE.setHttpProfile(HTTP_PROFILE);
-
         NLP_CLIENT = new NlpClient(CRED, "ap-guangzhou", CLIENT_PROFILE);
+
+        HTTP_PROFILE2 = new HttpProfile();
+        HTTP_PROFILE2.setEndpoint("asr.tencentcloudapi.com");
+        CLIENT_PROFILE2 = new ClientProfile();
+        CLIENT_PROFILE2.setHttpProfile(HTTP_PROFILE2);
+        ASR_CLIENT = new AsrClient(CRED2, "ap-shanghai", CLIENT_PROFILE2);
     }
 
-    @Data
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class SpeechData {
-        Integer err_no;
-        String err_msg;
-        String corpus_no;
-        String sn;
-        List<String> result;
-    }
-
-    private SpeechData speechData;
+    private SentenceRecognitionResponse speechData;
     private SentimentAnalysisResponse nlpData;
     private String voicePath;
     private String fileId;
@@ -96,80 +91,54 @@ public class VoiceDo {
 
     public void setComment() {
         log.info("voice recognize start");
-        // 初始化一个AipSpeech
 
-        HashMap<String, Object> options = new HashMap<>();
-        options.put("rate", 16000);
-        JSONObject speechRes = new JSONObject();
-        // 调用接口
         try {
-            byte[] data = Util.readFileByBytes(this.voicePath);
-            System.out.println(data.length);
-            speechRes = SPEECH_CLIENT.asr(reSamplingPCM(data), "wav", 16000, options);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            SpeechData speechData = SJacksonUtil.extractPojo(speechRes.toString(2), SpeechData.class);
+            String params = "{\"ProjectId\":1165413,\"SubServiceType\":2,\"EngSerViceType\":\"16k\",\"SourceType\":1,\"VoiceFormat\":\"wav\",\"UsrAudioKey\":\"%s\",\"Data\":\"%s\",\"DataLen\":%d}";
+            byte[] data = Util.readFileByBytes("D:\\Download\\public\\happy.wav");
+            String voiceString = new BASE64Encoder().encode(reSamplingPCM(data));
+            params = String.format(params, UUID.randomUUID().toString(), voiceString, voiceString.length());
+            SentenceRecognitionRequest req = SentenceRecognitionRequest.fromJsonString(params, SentenceRecognitionRequest.class);
+            SentenceRecognitionResponse resp = ASR_CLIENT.SentenceRecognition(req);
+            this.speechData = resp;
             System.out.println(speechData);
-            if (SuccessCode.equals(speechData.getErr_no())) {
-                this.speechData = speechData;
-                System.out.println(speechData);
-                setScore();
-            } else {
-                log.info("voice can't recognized");
-                throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
-            }
-        }catch (Exception e){
-            log.error("voice recognize error，exception is {}",e.getStackTrace());
+            setScore();
+            log.info("voice recognize finished");
+        } catch (Exception e) {
+            log.error("voice recognize error，exception is {}", e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
-
-        log.info("voice recognize finished");
     }
 
-    private byte[] reSamplingPCM(byte[] data) {
+    private static byte[] reSamplingPCM(byte[] data) {
 
         log.info("reSampling start");
         try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
              AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-
             if (audioIn.getFormat().matches(DSTFORMAT)) {
                 return data;
             }
-
-            int numReads = -1;
-
             int BUFF_SIZE = SAMPLE_RATE / 2;
-
             byte[] buff = new byte[BUFF_SIZE];
-
+            int numReads = -1;
             while ((numReads = convertedStream.read(buff)) != -1) {
-//                log.info("read {} byte(s)", numReads);
                 outputStream.write(buff);
             }
 
             log.info("reSampling finish");
             return outputStream.toByteArray();
         } catch (UnsupportedAudioFileException | IOException e) {
-            log.error("occurs errors when re-sampling the audio stream:{}",e.getStackTrace());
+            log.error("occurs errors when re-sampling the audio stream:{}", e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
     }
 
     public void setScore() {
         try {
-
             log.info("sentiment analyze start");
-
-
             String params = "{\"Text\":\"%s\"}";
-            String texts = "";
-            for (String text : this.speechData.result) {
-                texts += text;
-            }
-            params = String.format(params,texts);
+            String texts = this.speechData.getResult();
+            params = String.format(params, texts);
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
@@ -181,7 +150,7 @@ public class VoiceDo {
             this.score = BigDecimal.valueOf(resp.getPositive()).movePointRight(1).intValue();
             log.info("sentiment analyze success");
         } catch (Exception e) {
-            log.error("sentiment analyze error, exception is {}",e.getStackTrace());
+            log.error("sentiment analyze error, exception is {}", e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
     }
