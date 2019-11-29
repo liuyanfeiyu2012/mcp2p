@@ -38,7 +38,7 @@ public class McConstant {
     public static final String JPG_EXT = ".jpg";
     public static final String WAV_EXT = ".wav";
 
-    public static final double MAX_LIMIT = 15;
+    public static final double MAX_LIMIT = 20;
     public static final double MIN_LIMIT = 4;
 
     public static final String BGM_NGINX_PREFFIX = "https://www.mengchongp2p.online/bgm/";
