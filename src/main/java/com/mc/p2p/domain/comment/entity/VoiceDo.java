@@ -3,7 +3,6 @@ package com.mc.p2p.domain.comment.entity;
 import com.baidu.aip.nlp.AipNlp;
 import com.baidu.aip.speech.AipSpeech;
 import com.baidu.aip.util.Util;
-import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.utils.SJacksonUtil;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
@@ -29,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.mc.p2p.infrastructure.constant.McConstant.*;
-import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
 @Data
 public class VoiceDo {
@@ -159,7 +157,7 @@ public class VoiceDo {
             for (String text : this.speechData.result) {
                 texts += text;
             }
-            params = String.format(params,texts);
+            params = String.format(params, texts);
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
