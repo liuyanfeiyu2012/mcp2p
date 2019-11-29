@@ -5,12 +5,13 @@ import com.mc.p2p.model.po.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
 
-    @Autowired
+    @Resource
     private CommentMapper commentMapper;
 
     @Override

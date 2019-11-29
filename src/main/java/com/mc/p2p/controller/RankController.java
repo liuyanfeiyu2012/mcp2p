@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class RankController {
     private static final String RANK_PREFIX = "RANK_";
 
-    @Autowired
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     @Resource

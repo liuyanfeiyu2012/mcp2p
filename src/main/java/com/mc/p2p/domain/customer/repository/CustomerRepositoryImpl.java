@@ -5,13 +5,15 @@ import com.mc.p2p.model.po.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
 /**
  * @author : Yuan.Pan 2019/11/26 11:05 AM
  */
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
-    @Autowired
+    @Resource
     private CustomerMapper customerMapper;
 
     @Override

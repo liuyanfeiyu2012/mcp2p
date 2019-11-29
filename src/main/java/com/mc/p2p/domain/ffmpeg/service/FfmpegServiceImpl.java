@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
+
 /**
  * @author : Yuan.Pan 2019/11/24 5:15 PM
  */
@@ -19,22 +21,22 @@ import org.springframework.util.StringUtils;
 @Service
 public class FfmpegServiceImpl implements FfmpegService {
 
-    @Autowired
+    @Resource
     private ConvertAble convertAble;
 
-    @Autowired
+    @Resource
     private MixBgmAble mixBgmAble;
 
-    @Autowired
+    @Resource
     private CancelBgmAble cancelBgmAble;
 
-    @Autowired
+    @Resource
     private ScreenshotAble screenshotAble;
 
-    @Autowired
+    @Resource
     private CompressAble compressAble;
 
-    @Autowired
+    @Resource
     private WaterAble waterAble;
 
     @Override

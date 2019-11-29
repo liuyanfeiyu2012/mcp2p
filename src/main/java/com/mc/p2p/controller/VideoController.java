@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import java.util.LinkedList;
@@ -30,16 +31,16 @@ import java.util.Set;
 @RestController
 public class VideoController {
 
-    @Autowired
+    @Resource
     private VideoService videoService;
 
-    @Autowired
+    @Resource
     private CommentService commentService;
 
-    @Autowired
+    @Resource
     private DiscernService discernService;
     
-    @Autowired
+    @Resource
     private RedisTemplate<String, Object> redisTemplate;
 
     @ApiOperation("视频上传接口")
