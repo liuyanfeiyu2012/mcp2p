@@ -3,6 +3,7 @@ package com.mc.p2p.domain.comment.entity;
 import com.baidu.aip.nlp.AipNlp;
 import com.baidu.aip.speech.AipSpeech;
 import com.baidu.aip.util.Util;
+import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.utils.SJacksonUtil;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
@@ -16,6 +17,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -28,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static com.mc.p2p.infrastructure.constant.McConstant.*;
+import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
 @Data
 public class VoiceDo {
@@ -88,6 +92,8 @@ public class VoiceDo {
         this.fileId = fileId;
     }
 
+    private static final Logger log = LoggerFactory.getLogger(VoiceDo.class);
+
     public void setComment() {
         System.out.println("语音识别开始");
         // 初始化一个AipSpeech
@@ -103,14 +109,19 @@ public class VoiceDo {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SpeechData speechData = SJacksonUtil.extractPojo(speechRes.toString(2), SpeechData.class);
-        System.out.println(speechData);
-        if (SuccessCode.equals(speechData.getErr_no())) {
-            this.speechData = speechData;
+        try {
+            SpeechData speechData = SJacksonUtil.extractPojo(speechRes.toString(2), SpeechData.class);
             System.out.println(speechData);
-            setScore();
-        } else {
-            return;
+            if (SuccessCode.equals(speechData.getErr_no())) {
+                this.speechData = speechData;
+                System.out.println(speechData);
+                setScore();
+            } else {
+                return;
+            }
+        }catch (Exception e){
+            log.error("voice recognize error，exception is {}",e);
+            throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
 
         System.out.println("语音识别结束");
@@ -141,8 +152,8 @@ public class VoiceDo {
             System.out.println("转码结束");
             return outputStream.toByteArray();
         } catch (UnsupportedAudioFileException | IOException e) {
-//            log.error("occurs errors when re-sampling the audio stream:{}",e);
-            throw new RuntimeException("occurs errors when re-sampling the audio stream:{}", e);
+            log.error("occurs errors when re-sampling the audio stream:{}",e);
+            throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
     }
 
@@ -157,7 +168,7 @@ public class VoiceDo {
             for (String text : this.speechData.result) {
                 texts += text;
             }
-            params = String.format(params, texts);
+            params = String.format(params,texts);
 
             System.out.println(params);
             SentimentAnalysisRequest req = SentimentAnalysisRequest.fromJsonString(params, SentimentAnalysisRequest.class);
@@ -167,8 +178,9 @@ public class VoiceDo {
             System.out.println(resp);
             this.nlpData = resp;
             this.score = BigDecimal.valueOf(resp.getPositive()).movePointRight(1).intValue();
-        } catch (TencentCloudSDKException e) {
-            System.out.println(e.toString());
+        } catch (Exception e) {
+            log.error("sentiment analyze error, exception is {}",e);
+            throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
 
         System.out.println("情感分析结束");

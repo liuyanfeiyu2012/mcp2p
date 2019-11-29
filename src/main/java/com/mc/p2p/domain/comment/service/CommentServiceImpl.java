@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
         System.out.println("文件处理结束");
         VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),ffmpegDo.getFileId());
         voiceDo.setComment();
-        voiceDo.setScore();
+//        voiceDo.setScore();
         saveCmment(request,voiceDo,customer);
     }
 
