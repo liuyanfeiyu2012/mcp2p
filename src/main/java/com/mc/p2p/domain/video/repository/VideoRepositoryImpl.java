@@ -64,7 +64,7 @@ public class VideoRepositoryImpl implements VideoRepository {
         video.setVideoId(videoId);
         video.setScore(Double.valueOf(record.getScore()));
         video.setAnimal(record.getName());
-        video.setDesc(record.getDescription());
+        video.setMemo(record.getDescription());
         videoMapper.updateByPrimaryKeySelective(video);
     }
 }

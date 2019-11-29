@@ -73,7 +73,7 @@ public class Video {
     /**
      * 描述
      */
-    private String desc;
+    private String memo;
 
     /**
      * 所属动物
@@ -281,19 +281,19 @@ public class Video {
     /**
      * 获取描述
      *
-     * @return desc - 描述
+     * @return memo - 描述
      */
-    public String getDesc() {
-        return desc;
+    public String getMemo() {
+        return memo;
     }
 
     /**
      * 设置描述
      *
-     * @param desc 描述
+     * @param memo 描述
      */
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     /**

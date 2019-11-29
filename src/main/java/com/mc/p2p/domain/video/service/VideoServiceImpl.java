@@ -141,7 +141,7 @@ public class VideoServiceImpl implements VideoService {
             List<String> productList = getProductList(item.getAnimal());
             int random = (int)(Math.random() * (productList.size() - 1 ) + 1);
             record.setAnimal(item.getAnimal());
-            record.setDescription(item.getDesc());
+            record.setDescription(item.getMemo());
             record.setRecommendProduct(productList.get(random));
             resultList.add(record);
         });
