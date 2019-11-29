@@ -14,7 +14,7 @@ public enum FfmpegTypeEnum {
     SCREENSHOT("5", "截图", "ffmpeg -ss 00:00:01 -y -i %s -vframes 1 %s"),
     COMPRESS_VIDEO("6", "压缩视频", "ffmpeg -i %s -b:v 650k -strict -2 -y %s"),
     AI_SCREENSHOT("7", "截图智能识别", "ffmpeg -ss %s -y -i %s -vframes 1 %s"),
-    ADD_WATER("8", "添加水印", "ffmpeg -i %s -i /home/ubuntu/mcp2p/file/logo/logo.png -filter_complex overlay=5:H-h-5 -codec:a copy -y %s");
+    ADD_WATER("8", "添加水印", "ffmpeg -i %s -i /home/ubuntu/mcp2p/file/logo/logo.png -filter_complex overlay=5:10 -codec:a copy -y %s");
 
     private String code;
     private String desc;
