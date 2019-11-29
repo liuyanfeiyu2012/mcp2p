@@ -61,7 +61,6 @@ public class FfmpegDo {
         doExecute(this.command(actionType));
 
         if (FfmpegTypeEnum.SCREENSHOT != actionType) {
-            boolean delete = new File(this.sourceFile).delete();
             this.sourceFile = this.targetFile;
         }
     }
