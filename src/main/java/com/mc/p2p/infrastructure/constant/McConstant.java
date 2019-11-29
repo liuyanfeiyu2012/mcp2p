@@ -2,6 +2,7 @@ package com.mc.p2p.infrastructure.constant;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.sound.sampled.AudioFormat;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.Set;
 /**
  * @author : Yuan.Pan 2019/11/23 10:17 AM
  */
+@Slf4j
 public class McConstant {
 
     public static final String AI_APP_ID = "17884831";
@@ -99,30 +101,35 @@ public class McConstant {
         File videoPath = new File(FILE_VIDEO_PATH);
         if (!videoPath.exists()) {
             boolean mkdirs = videoPath.mkdirs();
+            log.info("mkdirs-{}", mkdirs);
         }
 
         // voice root path
         File voicePath = new File(FILE_VOICE_PATH);
         if (!voicePath.exists()) {
             boolean mkdirs = voicePath.mkdirs();
+            log.info("mkdirs-{}", mkdirs);
         }
 
         // bg root path
         File bgPath = new File(FILE_BG_PATH);
         if (!bgPath.exists()) {
             boolean mkdirs = bgPath.mkdirs();
+            log.info("mkdirs-{}", mkdirs);
         }
 
         // bgm root path
         File bgmPath = new File(FILE_BGM_PATH);
         if (!bgmPath.exists()) {
             boolean mkdirs = bgmPath.mkdirs();
+            log.info("mkdirs-{}", mkdirs);
         }
 
         // ai animal
         File aiPath = new File(FILE_DISCERN_PATH);
         if (!aiPath.exists()) {
             boolean mkdirs = aiPath.mkdirs();
+            log.info("mkdirs-{}", mkdirs);
         }
     }
 }
