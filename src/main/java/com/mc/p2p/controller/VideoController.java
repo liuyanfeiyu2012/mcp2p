@@ -66,9 +66,9 @@ public class VideoController {
     		List<VideoQueryResp> secondList = new LinkedList<>();
     		for(VideoQueryResp item:resp) {
     			if(sets.contains(item.getVideoId())) {
-    				firstList.add(item);
-    			}else {
     				secondList.add(item);
+    			}else {
+    				firstList.add(item);
     			}
     		}
     		firstList.addAll(secondList);
