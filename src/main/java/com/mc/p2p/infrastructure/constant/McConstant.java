@@ -17,12 +17,12 @@ public class McConstant {
     public static final String AI_API_KEY = "sEIZGTv1n7jaydDxPAyYxZUh";
     public static final String AI_SECRET_KEY = "g14xPYs0uQpOTlvuO1STyFe9GmR3cGuP";
 
-    public static final String FILE_VIDEO_PATH = "/tmp/ubuntu/mcp2p/file/video/";
-    public static final String FILE_VOICE_PATH = "/tmp/ubuntu/mcp2p/file/voice/";
-    public static final String FILE_BG_PATH = "/tmp/ubuntu/mcp2p/file/bg/";
-    public static final String FILE_BGM_PATH = "/tmp/ubuntu/mcp2p/file/bgm/";
-    public static final String FILE_DISCERN_PATH = "/tmp/ubuntu/mcp2p/file/ai/";
-    public static final String FILE_LOGO_PATH = "/tmp/ubuntu/mcp2p/file/logo/logo.png";
+    public static final String FILE_VIDEO_PATH = "/home/ubuntu/mcp2p/file/video/";
+    public static final String FILE_VOICE_PATH = "/home/ubuntu/mcp2p/file/voice/";
+    public static final String FILE_BG_PATH = "/home/ubuntu/mcp2p/file/bg/";
+    public static final String FILE_BGM_PATH = "/home/ubuntu/mcp2p/file/bgm/";
+    public static final String FILE_DISCERN_PATH = "/home/ubuntu/mcp2p/file/ai/";
+    public static final String FILE_LOGO_PATH = "/home/ubuntu/mcp2p/file/logo/logo.png";
 
     public static final String FFMPEG_DO_KEY = "FFPEG_DO_KEY";
     public static final String CONVERT_KEY = "CONVERT_KEY";
