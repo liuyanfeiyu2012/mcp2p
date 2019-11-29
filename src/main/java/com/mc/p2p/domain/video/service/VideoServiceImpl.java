@@ -55,6 +55,8 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void saveVideo(VideoUploadReq request, MultipartFile file) {
+        log.info("[用户上传视频 REQ-{}]", request);
+
         Customer customer = customerService.selectByOpenId(request.getUid());
         VideoDo videoDo = new VideoDo(request, file, customer);
 

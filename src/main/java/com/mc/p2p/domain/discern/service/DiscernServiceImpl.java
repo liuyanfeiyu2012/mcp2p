@@ -55,6 +55,7 @@ public class DiscernServiceImpl implements DiscernService {
                     continue;
                 }
 
+                log.info("AI RESP -{}", result);
                 discernDo = new DiscernDo(discernItem.getName(), discernItem.getScore(), discernItem.getBaike_info().getDescription());
             } catch (Exception e) {
                 log.error("get animal err e-{}", e);
