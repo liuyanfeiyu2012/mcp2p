@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author : Yuan.Pan 2019/11/21 10:58 AM
@@ -42,5 +43,5 @@ public class VideoQueryResp {
     private String description;
 
     @ApiModelProperty("智能推荐商品")
-    private String recommendProduct;
+    private Set<String> recommendProduct;
 }

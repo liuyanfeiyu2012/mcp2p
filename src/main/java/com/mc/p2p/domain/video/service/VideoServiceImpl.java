@@ -1,6 +1,7 @@
 package com.mc.p2p.domain.video.service;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mc.p2p.domain.customer.service.CustomerService;
 import com.mc.p2p.domain.discern.entity.DiscernDo;
 import com.mc.p2p.domain.discern.service.DiscernService;
@@ -28,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -140,11 +142,18 @@ public class VideoServiceImpl implements VideoService {
                 return;
             }
 
-            List<String> productList = getProductList(item.getAnimal());
-            int random = (int)(Math.random() * (productList.size() - 1 ) + 1);
             record.setAnimal(item.getAnimal());
             record.setDescription(item.getMemo());
-            record.setRecommendProduct(productList.get(random));
+
+            List<String> productList = getProductList(item.getAnimal());
+
+            Set<String> commendSet = Sets.newHashSet();
+            while (commendSet.size() != 2) {
+                int random = (int)(Math.random() * (productList.size() - 1 ) + 1);
+                commendSet.add(productList.get(random));
+            }
+
+            record.setRecommendProduct(commendSet);
             resultList.add(record);
         });
 
