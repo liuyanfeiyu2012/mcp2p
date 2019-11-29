@@ -95,7 +95,7 @@ public class VoiceDo {
     private static final Logger log = LoggerFactory.getLogger(VoiceDo.class);
 
     public void setComment() {
-        System.out.println("语音识别开始");
+        log.info("voice recognize start");
         // 初始化一个AipSpeech
 
         HashMap<String, Object> options = new HashMap<>();
@@ -117,19 +117,20 @@ public class VoiceDo {
                 System.out.println(speechData);
                 setScore();
             } else {
-                return;
+                log.info("voice can't recognized");
+                throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
             }
         }catch (Exception e){
-            log.error("voice recognize error，exception is {}",e);
+            log.error("voice recognize error，exception is {}",e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
 
-        System.out.println("语音识别结束");
+        log.info("voice recognize finished");
     }
 
     private byte[] reSamplingPCM(byte[] data) {
 
-        System.out.println("转码开始");
+        log.info("reSampling start");
         try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
              AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
@@ -149,10 +150,10 @@ public class VoiceDo {
                 outputStream.write(buff);
             }
 
-            System.out.println("转码结束");
+            log.info("reSampling finish");
             return outputStream.toByteArray();
         } catch (UnsupportedAudioFileException | IOException e) {
-            log.error("occurs errors when re-sampling the audio stream:{}",e);
+            log.error("occurs errors when re-sampling the audio stream:{}",e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
     }
@@ -160,7 +161,7 @@ public class VoiceDo {
     public void setScore() {
         try {
 
-            System.out.println("情感分析开始");
+            log.info("sentiment analyze start");
 
 
             String params = "{\"Text\":\"%s\"}";
@@ -178,11 +179,10 @@ public class VoiceDo {
             System.out.println(resp);
             this.nlpData = resp;
             this.score = BigDecimal.valueOf(resp.getPositive()).movePointRight(1).intValue();
+            log.info("sentiment analyze success");
         } catch (Exception e) {
-            log.error("sentiment analyze error, exception is {}",e);
+            log.error("sentiment analyze error, exception is {}",e.getStackTrace());
             throw new BusinessException(VOICE_COMMENT_CAN_NOT_RECOGNIZED);
         }
-
-        System.out.println("情感分析结束");
     }
 }
