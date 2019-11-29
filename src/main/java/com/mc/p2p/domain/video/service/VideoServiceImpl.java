@@ -135,6 +135,7 @@ public class VideoServiceImpl implements VideoService {
             VideoQueryResp record = new VideoQueryResp();
             BeanUtils.copyProperties(item, record);
             if (StringUtils.isEmpty(item.getAnimal())) {
+                resultList.add(record);
                 return;
             }
 
