@@ -32,6 +32,9 @@ public class FfmpegServiceImpl implements FfmpegService {
     @Autowired
     private CompressAble compressAble;
 
+    @Autowired
+    private WaterAble waterAble;
+
     @Override
     @SuppressWarnings("all")
     public void videoFilter(FfmpegDo request) throws Exception {
@@ -42,6 +45,7 @@ public class FfmpegServiceImpl implements FfmpegService {
         context.put(McConstant.MIX_BGM_KEY, FfmpegTypeEnum.MIX_BGM);
         context.put(McConstant.CANCEL_BGM_KEY, FfmpegTypeEnum.CANCEL_BGM);
         context.put(McConstant.SCREENSHOT_KEY, FfmpegTypeEnum.SCREENSHOT);
+        context.put(McConstant.ADD_WATER_KEY, FfmpegTypeEnum.ADD_WATER);
 
         Chain executorChain = new ChainBase();
         // 转换格式
@@ -57,6 +61,9 @@ public class FfmpegServiceImpl implements FfmpegService {
             executorChain.addCommand(cancelBgmAble);
             executorChain.addCommand(mixBgmAble);
         }
+
+        // 添加水印
+        executorChain.addCommand(waterAble);
 
         // 切图
         executorChain.addCommand(screenshotAble);

@@ -76,7 +76,7 @@ public class VideoServiceImpl implements VideoService {
 
             new Thread(() -> {
                 try {
-                    DiscernDo discern = discernService.discern(McConstant.VIDEO_NGINX_PREFFIX + ffmpegDo.getFileId() + McConstant.MP4_EXT);
+                    DiscernDo discern = discernService.discern(McConstant.FILE_VIDEO_PATH + ffmpegDo.getFileId() + McConstant.MP4_EXT);
                     videoRepository.saveDiscern(discern, video.getVideoId());
                 } catch (Exception e) {
                     log.error("ai animal err e-{}", e);
