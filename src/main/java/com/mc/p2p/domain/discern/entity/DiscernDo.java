@@ -23,6 +23,13 @@ public class DiscernDo {
      */
     private String description;
 
+    /**
+     * 构造方法
+     *
+     * @param name        名称
+     * @param score       得分
+     * @param description 描述
+     */
     public DiscernDo(String name, String score, String description) {
         this.name = name;
         this.score = score;

@@ -6,10 +6,18 @@ import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * 启动类
+ */
 @Slf4j
 @SpringBootApplication(exclude = RedissonAutoConfiguration.class)
 public class McP2PApplication {
 
+    /**
+     * 主方法
+     *
+     * @param args 參數
+     */
     public static void main(String[] args) {
         new McConstant();
 

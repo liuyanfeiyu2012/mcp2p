@@ -12,14 +12,27 @@ import javax.annotation.Resource;
 @Repository
 public class CustomerRepositoryImpl implements CustomerRepository {
 
+    /**
+     * 用户mapper
+     */
     @Resource
     private CustomerMapper customerMapper;
 
+    /**
+     * 选择用户
+     *
+     * @param openId 用户编号
+     * @return 用户信息
+     */
     @Override
     public Customer selectOne(String openId) {
         return customerMapper.selectByPrimaryKey(openId);
     }
 
+    /**
+     * 注册
+     * @param loginCustomer 登录用户信息
+     */
     @Override
     public void register(Customer loginCustomer) {
         customerMapper.insertSelective(loginCustomer);

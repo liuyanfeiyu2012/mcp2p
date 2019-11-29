@@ -20,24 +20,47 @@ import javax.annotation.Resource;
 @Service
 public class FfmpegServiceImpl implements FfmpegService {
 
+    /**
+     * 变量1
+     */
     @Resource
     private ConvertAble convertAble;
 
+    /**
+     * 变量2
+     */
     @Resource
     private MixBgmAble mixBgmAble;
 
+    /**
+     * 变量3
+     */
     @Resource
     private CancelBgmAble cancelBgmAble;
 
+    /**
+     * bianliang 4
+     */
     @Resource
     private ScreenshotAble screenshotAble;
 
+    /**
+     * 变量5
+     */
     @Resource
     private CompressAble compressAble;
 
+    /**
+     * 变量6
+     */
     @Resource
     private WaterAble waterAble;
 
+    /**
+     * 过滤
+     *
+     * @param request {param-0: video domain obj}
+     */
     @Override
     @SuppressWarnings("all")
     public void videoFilter(FfmpegDo request) {
@@ -75,6 +98,10 @@ public class FfmpegServiceImpl implements FfmpegService {
         }
     }
 
+    /**
+     * 过滤
+     * @param request {param-0: request}
+     */
     @Override
     @SuppressWarnings("all")
     public void videoPicFilter(FfmpegDo request) {
@@ -92,6 +119,10 @@ public class FfmpegServiceImpl implements FfmpegService {
         }
     }
 
+    /**
+     * 评论过滤
+     * @param request {param-0: comment}
+     */
     @Override
     @SuppressWarnings("all")
     public void commentFilter(FfmpegDo request) {

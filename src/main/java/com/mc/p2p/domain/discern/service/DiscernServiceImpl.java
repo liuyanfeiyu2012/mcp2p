@@ -23,6 +23,12 @@ import java.util.UUID;
 @Service
 public class DiscernServiceImpl implements DiscernService {
 
+    /**
+     * 识图
+     *
+     * @param filePath 文件路径
+     * @return 识图信息
+     */
     @Override
     public DiscernDo discern(String filePath) {
         AipImageClassify client = new AipImageClassify(McConstant.AI_APP_ID, McConstant.AI_API_KEY, McConstant.AI_SECRET_KEY);

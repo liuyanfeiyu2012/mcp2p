@@ -12,6 +12,12 @@ import java.util.Date;
 @Data
 public class CustomerDo {
 
+    /**
+     * 登录
+     *
+     * @param request 参数
+     * @return 用户信息
+     */
     public Customer login(LoginReq request) {
         final Customer record = new Customer();
         record.setOpenId(request.getOpenId());

@@ -8,9 +8,18 @@ import lombok.Data;
 @Data
 public class DiscernDesc {
 
+    /**
+     * 描述
+     */
     private String description;
 
+    /**
+     * 百科链接
+     */
     private String baike_url;
 
+    /**
+     * 图片链接
+     */
     private String image_url;
 }

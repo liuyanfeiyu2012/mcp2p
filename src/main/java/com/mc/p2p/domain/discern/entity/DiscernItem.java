@@ -8,9 +8,18 @@ import lombok.Data;
 @Data
 public class DiscernItem {
 
+    /**
+     * 得分
+     */
     private String score;
 
+    /**
+     * 名称
+     */
     private String name;
 
+    /**
+     * 百科信息
+     */
     private DiscernDesc baike_info;
 }

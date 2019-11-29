@@ -45,6 +45,13 @@ public class VideoDo {
      */
     private MultipartFile file;
 
+    /**
+     * 构造方法
+     *
+     * @param videoInfo 视频信息
+     * @param file      文件
+     * @param customer  用户
+     */
     public VideoDo(VideoUploadReq videoInfo, MultipartFile file, Customer customer) {
         if (null == customer) {
             throw new BusinessException(ResponseEnum.LOGIN_LIMIT);
@@ -61,6 +68,9 @@ public class VideoDo {
         this.file = file;
     }
 
+    /**
+     * 存储文件
+     */
     public void storageFile() {
         String fileId = UUID.randomUUID().toString();
         String filePath = McConstant.FILE_VIDEO_PATH + fileId + "." + StringUtils.getFilenameExtension(this.file.getOriginalFilename());
@@ -76,6 +86,13 @@ public class VideoDo {
         this.videoPath = filePath;
     }
 
+    /**
+     * 更新文件
+     * @param fileId 文件编号
+     * @param sourceFileId 源路径
+     * @param discernDo 识别信息
+     * @return 文件
+     */
     public Video updateVideo(String fileId, String sourceFileId, DiscernDo discernDo) {
         Video record = new Video();
         record.setVideoId(sourceFileId);
@@ -92,6 +109,11 @@ public class VideoDo {
         return record;
     }
 
+    /**
+     * 视频
+     * @param customer 用户信息
+     * @return 视频信息
+     */
     public Video video(Customer customer) {
         Video record = new Video();
         record.setLikeCount(0);

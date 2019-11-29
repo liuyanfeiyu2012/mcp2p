@@ -31,18 +31,36 @@ import java.util.stream.Collectors;
 @Service
 public class CommentServiceImpl implements CommentService {
 
+    /**
+     * 文件处理
+     */
     @Resource
     private FfmpegService ffmpegService;
 
+    /**
+     * 用户服务
+     */
     @Resource
     private CustomerService customerService;
 
+    /**
+     * 视频服务
+     */
     @Resource
     private VideoService videoService;
 
+    /**
+     * 评论接口
+     */
     @Resource
     private CommentRepository commentRepository;
 
+    /**
+     * 评论
+     *
+     * @param request 请求参数
+     * @param file    语音文件
+     */
     @Override
     public void comment(CommentReq request, MultipartFile file) {
         Video video = videoService.selectOne(request.getVideoId());
@@ -67,7 +85,14 @@ public class CommentServiceImpl implements CommentService {
         saveCmment(request, voiceDo, customer);
     }
 
-    public void saveCmment(CommentReq req, VoiceDo voiceDo, Customer customer) {
+    /**
+     * 保存评论
+     *
+     * @param req      请求参数
+     * @param voiceDo  音频参数
+     * @param customer 用户信息
+     */
+    private void saveCmment(CommentReq req, VoiceDo voiceDo, Customer customer) {
         Comment comment = new Comment();
         comment.setVideoId(req.getVideoId());
         comment.setUid(req.getUid());
@@ -83,6 +108,11 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.saveComment(comment);
     }
 
+    /**
+     * 获取评论列表
+     * @param videoId 视频编号
+     * @return 评论列表
+     */
     @Override
     public List<CommentListQueryResp> getCommentList(String videoId) {
         List<Comment> commentList = commentRepository.getCommentList(videoId);

@@ -22,12 +22,23 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    /**
+     * 用户mapper
+     */
     @Resource
     private CustomerRepository customerRepository;
 
+    /**
+     * 视频服务
+     */
     @Resource
     private VideoService videoService;
 
+    /**
+     * 登录
+     *
+     * @param request 请求参数
+     */
     @Override
     public void login(LoginReq request) {
         Customer customer = customerRepository.selectOne(request.getOpenId());
@@ -41,6 +52,11 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.register(loginCustomer);
     }
 
+    /**
+     * 用户中心
+     * @param openId 用户编号
+     * @return 用户信息
+     */
     @Override
     public CustomerCentreResp centre(String openId) {
         if (StringUtils.isBlank(openId)) {
@@ -53,6 +69,11 @@ public class CustomerServiceImpl implements CustomerService {
         return new CustomerCentreResp(videoList, Lists.newArrayList(), likeCount);
     }
 
+    /**
+     * 选择用户
+     * @param openId 用户编号
+     * @return 用户信息
+     */
     @Override
     public Customer selectByOpenId(String openId) {
         return customerRepository.selectOne(openId);

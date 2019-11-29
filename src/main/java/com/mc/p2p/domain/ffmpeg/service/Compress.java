@@ -12,6 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class Compress implements CompressAble {
 
+    /**
+     * 执行
+     *
+     * @param context 内容
+     * @return 结果
+     * @throws Exception 异常
+     */
     @Override
     public boolean execute(Context context) throws Exception {
         FfmpegDo request = (FfmpegDo) context.get(McConstant.FFMPEG_DO_KEY);

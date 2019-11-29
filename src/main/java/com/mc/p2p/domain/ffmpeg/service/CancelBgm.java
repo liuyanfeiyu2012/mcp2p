@@ -12,6 +12,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CancelBgm implements CancelBgmAble {
 
+    /**
+     * 执行
+     *
+     * @param context 内容
+     * @return 执行结果
+     * @throws Exception 抛出异常
+     */
     @Override
     public boolean execute(Context context) throws Exception {
         FfmpegDo request = (FfmpegDo) context.get(McConstant.FFMPEG_DO_KEY);

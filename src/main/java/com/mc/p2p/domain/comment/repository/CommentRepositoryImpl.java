@@ -7,17 +7,33 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 评论操作实现类
+ */
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {
 
+    /**
+     * 评论Mapper
+     */
     @Resource
     private CommentMapper commentMapper;
 
+    /**
+     * 保存评论
+     *
+     * @param comment 评论
+     */
     @Override
     public void saveComment(Comment comment) {
         commentMapper.insertSelective(comment);
     }
 
+    /**
+     * 获取评论列表
+     * @param videoId 视频编号
+     * @return 评论列表
+     */
     @Override
     public List<Comment> getCommentList(String videoId) {
         final Comment comment = new Comment();

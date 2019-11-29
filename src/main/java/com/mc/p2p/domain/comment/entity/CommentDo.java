@@ -46,6 +46,13 @@ public class CommentDo {
      */
     private MultipartFile file;
 
+    /**
+     * 构造方法
+     *
+     * @param customer 用户
+     * @param video    视频
+     * @param file     视频文件
+     */
     public CommentDo(Customer customer, Video video, MultipartFile file) {
         if (null == customer) {
             throw new BusinessException(ResponseEnum.LOGIN_LIMIT);
@@ -59,6 +66,9 @@ public class CommentDo {
         this.file = file;
     }
 
+    /**
+     * 存储
+     */
     public void storage() {
         String fileId = UUID.randomUUID().toString();
         String filePath = McConstant.FILE_VOICE_PATH + fileId + "." + StringUtils.getFilenameExtension(this.file.getOriginalFilename());

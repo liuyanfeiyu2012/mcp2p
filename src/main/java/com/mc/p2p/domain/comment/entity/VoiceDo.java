@@ -29,6 +29,9 @@ import static com.mc.p2p.infrastructure.constant.McConstant.AUDIO_FORMAT;
 import static com.mc.p2p.infrastructure.constant.McConstant.SAMPLE_RATE;
 import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
+/**
+ * 音频处理类
+ */
 @Data
 public class VoiceDo {
 

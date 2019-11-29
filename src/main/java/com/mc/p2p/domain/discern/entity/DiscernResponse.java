@@ -10,5 +10,8 @@ import java.util.List;
 @Data
 public class DiscernResponse {
 
+    /**
+     * 识图结果
+     */
     private List<DiscernItem> result;
 }

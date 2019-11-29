@@ -7,7 +7,17 @@ import com.mc.p2p.model.po.Customer;
  */
 public interface CustomerRepository {
 
+    /**
+     * 选择用户
+     *
+     * @param openId 用户编号
+     * @return 用户信息
+     */
     Customer selectOne(String openId);
 
+    /**
+     * 注册
+     * @param loginCustomer 登录用户信息
+     */
     void register(Customer loginCustomer);
 }

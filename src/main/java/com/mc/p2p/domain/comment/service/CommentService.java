@@ -11,7 +11,18 @@ import java.util.List;
  */
 public interface CommentService {
 
+    /**
+     * 评论
+     *
+     * @param request 请求参数
+     * @param file    语音文件
+     */
     void comment(CommentReq request, MultipartFile file);
 
+    /**
+     * 获取评论列表
+     * @param videoId 视频编号
+     * @return 评论列表
+     */
     List<CommentListQueryResp> getCommentList(String videoId);
 }

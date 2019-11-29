@@ -48,11 +48,24 @@ public class FfmpegDo {
      */
     private String fileId;
 
+    /**
+     * 构造函数
+     *
+     * @param sourceFile 源文件路径
+     * @param fileId     文件编号
+     */
     public FfmpegDo(String sourceFile, String fileId) {
         this.sourceFile = sourceFile;
         this.fileId = fileId;
     }
 
+    /**
+     * 构造方法
+     * @param sourceFile 源文件路径
+     * @param bgm 背景音乐
+     * @param fileId 文件编号
+     * @param fileTime 文件时长
+     */
     public FfmpegDo(String sourceFile, Bgm bgm, String fileId, Double fileTime) {
         this.fileId = fileId;
         this.fileTime = fileTime;
@@ -63,6 +76,10 @@ public class FfmpegDo {
         }
     }
 
+    /**
+     * 执行
+     * @param actionType 执行类别
+     */
     public void execute(FfmpegTypeEnum actionType) {
         // init target file
         targetFile(actionType);
@@ -77,6 +94,10 @@ public class FfmpegDo {
         }
     }
 
+    /**
+     * 目标文件
+     * @param actionType 执行类别
+     */
     private void targetFile(FfmpegTypeEnum actionType) {
         String fullName = StringUtils.getFilename(this.sourceFile);
         String filename = fullName.substring(0, fullName.indexOf('.'));
@@ -109,6 +130,11 @@ public class FfmpegDo {
         this.targetFile = targetFilePath;
     }
 
+    /**
+     * 命令
+     * @param actionType 执行类别
+     * @return 结果
+     */
     private List<String> command(FfmpegTypeEnum actionType) {
         String command;
         switch (actionType) {
@@ -130,6 +156,10 @@ public class FfmpegDo {
         return Lists.newArrayList(command.split(" "));
     }
 
+    /**
+     * 执行
+     * @param command 命令列表
+     */
     public static void doExecute(List<String> command) {
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         try {
