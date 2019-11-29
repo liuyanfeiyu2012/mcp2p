@@ -78,7 +78,7 @@ public class RankController {
             List<Video> videos = videoMapper.selectByExample(example);
             Map<String, Video> videoMap = videos.stream().collect(Collectors
                     .toMap(Video::getVideoId, v -> v));
-            restList.removeIf(rankResp -> videoMap.containsKey(
+            restList.removeIf(rankResp -> !videoMap.containsKey(
                     rankResp.getVideoId()));
 
             restList.forEach(rankResp -> {
@@ -90,6 +90,7 @@ public class RankController {
                     rankResp.setVideoUrl(video.getVideoUri());
                     rankResp.setVideoBgUrl(video.getVideoBgUri());
                     rankResp.setOwnerId(video.getUid());
+                    rankResp.setScore(video.getLikeCount());
                 }
             });
 
