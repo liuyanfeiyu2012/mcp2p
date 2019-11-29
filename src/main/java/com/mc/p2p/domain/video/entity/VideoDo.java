@@ -1,7 +1,9 @@
 package com.mc.p2p.domain.video.entity;
 
+import com.mc.p2p.domain.discern.entity.DiscernDo;
 import com.mc.p2p.infrastructure.constant.McConstant;
 import com.mc.p2p.infrastructure.enums.ResponseEnum;
+import com.mc.p2p.infrastructure.enums.StatusEnum;
 import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
@@ -66,20 +68,36 @@ public class VideoDo {
         this.videoPath = filePath;
     }
 
-    public Video video(String fileId, Customer customer) {
+    public Video updateVideo(String fileId, String sourceFileId, DiscernDo discernDo) {
+        Video record = new Video();
+        record.setVideoId(sourceFileId);
+        record.setStatus(StatusEnum.ENABLE.getCode());
+        if (new File(McConstant.FILE_VIDEO_PATH).exists()) {
+            record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + McConstant.MP4_EXT);
+        }
+
+        if (null != discernDo) {
+            record.setScore(discernDo.getScore());
+            record.setAnimal(discernDo.getName());
+            record.setMemo(discernDo.getDescription());
+        }
+        return record;
+    }
+
+    public Video video(Customer customer) {
         Video record = new Video();
         record.setLikeCount(0);
-        record.setVideoId(fileId);
-        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + fileId + McConstant.MP4_EXT);
-        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + fileId + McConstant.JPG_EXT);
+        record.setVideoId(this.videoId);
         record.setVideoMemo(this.videoInfo.getVideoMemo());
         record.setVideoTime(this.videoInfo.getVideoTime());
-
         record.setUid(this.videoInfo.getUid());
         record.setAvatar(customer.getAvatar());
         record.setWxName(customer.getWxName());
-
         record.setCreateTime(new Date());
+        record.setStatus(StatusEnum.DISABLE.getCode());
+
+        record.setVideoUri(McConstant.VIDEO_NGINX_PREFFIX + this.videoId + McConstant.MP4_EXT);
+        record.setVideoBgUri(McConstant.BG_NGINX_PREFFIX + this.videoId + McConstant.JPG_EXT);
         return record;
     }
 }

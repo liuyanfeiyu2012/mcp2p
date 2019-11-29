@@ -66,7 +66,7 @@ public class VideoController {
         return RespVo.SUCCESS(commentService.getCommentList(videoId));
     }
 
-    @ApiOperation("测试识别")
+    @ApiOperation("智能识别")
     @GetMapping("/ai")
     public RespVo ai(@ApiParam(name ="视频编号")@NotBlank String path){
         discernService.discern(path);

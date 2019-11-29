@@ -2,6 +2,7 @@ package com.mc.p2p.domain.video.repository;
 
 import com.google.common.collect.Lists;
 import com.mc.p2p.domain.discern.entity.DiscernDo;
+import com.mc.p2p.infrastructure.enums.StatusEnum;
 import com.mc.p2p.mapper.VideoMapper;
 import com.mc.p2p.model.po.Video;
 import lombok.extern.slf4j.Slf4j;
@@ -29,12 +30,18 @@ public class VideoRepositoryImpl implements VideoRepository {
     }
 
     @Override
+    public void updateVideo(Video record) {
+        videoMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
     public List<Video> selectList(String openId) {
         Video record = new Video();
         if (StringUtils.isNotBlank(openId)) {
             record.setUid(openId);
         }
 
+        record.setStatus(StatusEnum.ENABLE.getCode());
         List<Video> videoList = videoMapper.select(record);
         if (CollectionUtils.isEmpty(videoList)) {
             return Lists.newArrayList();

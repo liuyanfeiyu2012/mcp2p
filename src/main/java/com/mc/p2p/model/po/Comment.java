@@ -51,7 +51,7 @@ public class Comment {
     private Integer score;
 
     /**
-     * positive-正向，negative-负向
+     * positive-正向，negative-负向，neutral-中性
      */
     private String sentiment;
 
@@ -213,18 +213,18 @@ public class Comment {
     }
 
     /**
-     * 获取positive-正向，negative-负向
+     * 获取positive-正向，negative-负向，neutral-中性
      *
-     * @return sentiment - positive-正向，negative-负向
+     * @return sentiment - positive-正向，negative-负向，neutral-中性
      */
     public String getSentiment() {
         return sentiment;
     }
 
     /**
-     * 设置positive-正向，negative-负向
+     * 设置positive-正向，negative-负向，neutral-中性
      *
-     * @param sentiment positive-正向，negative-负向
+     * @param sentiment positive-正向，negative-负向，neutral-中性
      */
     public void setSentiment(String sentiment) {
         this.sentiment = sentiment;

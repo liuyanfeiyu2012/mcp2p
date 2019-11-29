@@ -12,14 +12,20 @@ public interface FfmpegService {
      *
      * @param request {param-0: video domain obj}
      */
-    void videoFilter(FfmpegDo request) throws Exception;
+    void videoFilter(FfmpegDo request);
+
+    /**
+     * handle file pic
+     *
+     * @param request {param-0: request}
+     */
+    void videoPicFilter(FfmpegDo request);
 
     /**
      * comment handle
      *
      * @param request {param-0: comment}
-     * @throws Exception {e}
      */
-    void commentFilter(FfmpegDo request) throws Exception;
+    void commentFilter(FfmpegDo request);
 
 }

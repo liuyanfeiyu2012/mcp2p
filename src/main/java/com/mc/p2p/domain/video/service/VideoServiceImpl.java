@@ -11,8 +11,6 @@ import com.mc.p2p.domain.video.entity.VideoDo;
 import com.mc.p2p.domain.video.repository.BgmRepository;
 import com.mc.p2p.domain.video.repository.VideoRepository;
 import com.mc.p2p.infrastructure.constant.McConstant;
-import com.mc.p2p.infrastructure.enums.ResponseEnum;
-import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.model.po.Bgm;
 import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
@@ -30,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -61,31 +60,15 @@ public class VideoServiceImpl implements VideoService {
         Customer customer = customerService.selectByOpenId(request.getUid());
         VideoDo videoDo = new VideoDo(request, file, customer);
 
-        try {
-            // 存储文件
-            videoDo.storageFile();
+        // 存储文件
+        videoDo.storageFile();
+        Video sourceVideo = videoDo.video(customer);
+        FfmpegDo picHandleDo = new FfmpegDo(videoDo.getVideoPath(), null, videoDo.getVideoId(), request.getVideoTime());
+        ffmpegService.videoPicFilter(picHandleDo);
+        videoRepository.saveVideo(sourceVideo);
 
-            // 媒体文件加工
-            Bgm bgm = bgmRepository.selectBgm(request.getBgmId());
-            FfmpegDo ffmpegDo = new FfmpegDo(videoDo.getVideoPath(), bgm, videoDo.getVideoId(), request.getVideoTime());
-            ffmpegService.videoFilter(ffmpegDo);
-
-            // 媒体文件持久化
-            Video video = videoDo.video(ffmpegDo.getFileId(), customer);
-            videoRepository.saveVideo(video);
-
-            new Thread(() -> {
-                try {
-                    DiscernDo discern = discernService.discern(McConstant.FILE_VIDEO_PATH + ffmpegDo.getFileId() + McConstant.MP4_EXT);
-                    videoRepository.saveDiscern(discern, video.getVideoId());
-                } catch (Exception e) {
-                    log.error("ai animal err e-{}", e);
-                }
-            }).start();
-        } catch (Exception e) {
-            log.error("文件上传失败: REQ-{}, e-{}", request, e);
-            throw new BusinessException(ResponseEnum.FILE_UPLOAD_ERR);
-        }
+        // 处理流文件
+        handle(videoDo, request, sourceVideo.getVideoId());
     }
 
     @Override
@@ -174,5 +157,36 @@ public class VideoServiceImpl implements VideoService {
             return McConstant.FISH_PRODUCT;
         }
         return McConstant.NOMAL_PRODUCT;
+    }
+
+    private void handle(VideoDo videoDo, VideoUploadReq request, String sourceId) {
+        new Thread(() -> {
+            CompletableFuture<FfmpegDo> ffmpegFileFuture = CompletableFuture.supplyAsync(() -> {
+                FfmpegDo ffmpegDo = new FfmpegDo(
+                        videoDo.getVideoPath(),
+                        bgmRepository.selectBgm(request.getBgmId()),
+                        videoDo.getVideoId(),
+                        request.getVideoTime());
+
+                ffmpegService.videoFilter(ffmpegDo);
+                return ffmpegDo;
+            });
+
+            CompletableFuture<DiscernDo> discernFuture = CompletableFuture.supplyAsync(() -> discernService.discern(
+                    McConstant.FILE_VIDEO_PATH + videoDo.getVideoId() + McConstant.MP4_EXT
+            ));
+
+            CompletableFuture.allOf(ffmpegFileFuture, discernFuture).thenRun(() -> {
+                try {
+                    FfmpegDo ffmpegDo = ffmpegFileFuture.get();
+                    DiscernDo discernDo = discernFuture.get();
+
+                    Video video = videoDo.updateVideo(ffmpegDo.getFileId(), sourceId, discernDo);
+                    videoRepository.updateVideo(video);
+                } catch (Exception e) {
+                    log.error("处理文件异常 e-{}", e);
+                }
+            });
+        }).start();
     }
 }

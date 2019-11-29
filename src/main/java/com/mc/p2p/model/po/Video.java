@@ -81,6 +81,11 @@ public class Video {
     private String animal;
 
     /**
+     * 状态0-审核中 1-审核成功
+     */
+    private String status;
+
+    /**
      * 获取业务主键
      *
      * @return video_id - 业务主键
@@ -312,5 +317,23 @@ public class Video {
      */
     public void setAnimal(String animal) {
         this.animal = animal;
+    }
+
+    /**
+     * 获取状态0-审核中 1-审核成功
+     *
+     * @return status - 状态0-审核中 1-审核成功
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置状态0-审核中 1-审核成功
+     *
+     * @param status 状态0-审核中 1-审核成功
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
