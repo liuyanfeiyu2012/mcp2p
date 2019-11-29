@@ -12,6 +12,7 @@ public class McP2PApplication {
 
     public static void main(String[] args) {
         new McConstant();
+
         SpringApplication.run(McP2PApplication.class, args);
     }
 }

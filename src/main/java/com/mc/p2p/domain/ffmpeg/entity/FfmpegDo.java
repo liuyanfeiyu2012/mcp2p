@@ -8,6 +8,7 @@ import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.mc.p2p.model.po.Bgm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.IOUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.*;
@@ -123,10 +124,7 @@ public class FfmpegDo {
         try {
             Process process = processBuilder.start();
             InputStream stream = process.getErrorStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(stream));
-            String line = null;
-            while ((line = br.readLine()) != null){}
-            br.close();
+            IOUtils.toByteArray(stream);
             stream.close();
         } catch (IOException e) {
             log.error("[file execute err e-{}]", e);

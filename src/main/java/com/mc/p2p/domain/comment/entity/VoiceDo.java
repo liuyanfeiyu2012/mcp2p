@@ -1,7 +1,5 @@
 package com.mc.p2p.domain.comment.entity;
 
-import com.baidu.aip.nlp.AipNlp;
-import com.baidu.aip.speech.AipSpeech;
 import com.baidu.aip.util.Util;
 import com.mc.p2p.infrastructure.exception.BusinessException;
 import com.tencentcloudapi.asr.v20190614.AsrClient;
@@ -175,9 +173,9 @@ public class VoiceDo {
 
         log.info("reSampling start");
         try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
-             AudioInputStream convertedStream = AudioSystem.getAudioInputStream(DSTFORMAT, audioIn);
+             AudioInputStream convertedStream = AudioSystem.getAudioInputStream(AUDIO_FORMAT, audioIn);
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            if (audioIn.getFormat().matches(DSTFORMAT)) {
+            if (audioIn.getFormat().matches(AUDIO_FORMAT)) {
                 return data;
             }
             int BUFF_SIZE = SAMPLE_RATE / 2;
