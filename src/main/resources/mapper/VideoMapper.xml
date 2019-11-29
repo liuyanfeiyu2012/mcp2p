@@ -15,7 +15,7 @@
     <result column="wx_name" jdbcType="VARCHAR" property="wxName" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="score" jdbcType="DOUBLE" property="score" />
+    <result column="score" jdbcType="VARCHAR" property="score" />
     <result column="memo" jdbcType="VARCHAR" property="memo" />
     <result column="animal" jdbcType="VARCHAR" property="animal" />
   </resultMap>

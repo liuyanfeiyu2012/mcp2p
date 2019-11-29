@@ -68,7 +68,7 @@ public class Video {
     /**
      * 打分
      */
-    private Double score;
+    private String score;
 
     /**
      * 描述
@@ -265,7 +265,7 @@ public class Video {
      *
      * @return score - 打分
      */
-    public Double getScore() {
+    public String getScore() {
         return score;
     }
 
@@ -274,7 +274,7 @@ public class Video {
      *
      * @param score 打分
      */
-    public void setScore(Double score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
