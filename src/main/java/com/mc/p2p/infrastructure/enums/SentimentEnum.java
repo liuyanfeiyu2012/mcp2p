@@ -8,7 +8,8 @@ import java.util.Arrays;
 @Getter
 public enum SentimentEnum {
     POSITIVE("positive","正向"),
-    NEGATIVE("negative","负向");
+    NEGATIVE("negative","负向"),
+    NEUTRAL("neutral","中性");
 
     String englishType;
     String chineseType;
