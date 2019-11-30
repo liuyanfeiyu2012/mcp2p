@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @auther: 谢星星
+ * @author: 谢星星
  * @date: 2019/11/30 20:35
  * @Description:
  */

@@ -4,8 +4,8 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 
 /**
- * @Auther: 谢星星
- * @Date: 2019/11/19 14:14
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 public class StripNumberEditor extends CustomNumberEditor {

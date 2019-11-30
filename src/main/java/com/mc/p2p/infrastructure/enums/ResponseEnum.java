@@ -3,7 +3,9 @@ package com.mc.p2p.infrastructure.enums;
 import lombok.Getter;
 
 /**
- * @author : Yuan.Pan 2019/11/23 11:15 AM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Getter
 public enum ResponseEnum {

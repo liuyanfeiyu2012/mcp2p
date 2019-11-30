@@ -5,7 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author : Yuan.Pan 2019/11/26 11:08 AM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Data
 public class CustomerCentreResp {

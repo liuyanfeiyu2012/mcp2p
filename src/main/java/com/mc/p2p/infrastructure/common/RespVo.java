@@ -1,8 +1,8 @@
 package com.mc.p2p.infrastructure.common;
 
 /**
- * @auther: 谢星星
- * @Date: 2019/11/19 14:13
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 public class RespVo<T> {

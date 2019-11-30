@@ -6,7 +6,9 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @author : Yuan.Pan 2019/11/26 10:54 AM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Data
 @ApiModel("登录REQ")

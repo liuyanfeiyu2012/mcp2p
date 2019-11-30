@@ -6,8 +6,8 @@ import java.beans.PropertyEditorSupport;
 import java.util.Date;
 
 /**
- * @auther: 谢星星
- * @Date: 2019/11/29 14:15
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 public class MillisDateEditor extends PropertyEditorSupport {

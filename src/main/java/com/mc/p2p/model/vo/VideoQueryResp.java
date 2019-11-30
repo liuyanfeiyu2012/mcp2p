@@ -7,7 +7,9 @@ import lombok.Data;
 import java.util.Set;
 
 /**
- * @author : Yuan.Pan 2019/11/21 10:58 AM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @ApiModel("视频信息RESP")
 @Data

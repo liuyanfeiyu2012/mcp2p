@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 /**
- * @Auther: 谢星星
- * @Date: 2019/11/26 20:41
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 @ApiModel("投食对象REQ")

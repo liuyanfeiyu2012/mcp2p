@@ -7,8 +7,8 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * @auther: 谢星星
- * @Date: 2019/11/30 20:35
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 @Table(name = "bgm")

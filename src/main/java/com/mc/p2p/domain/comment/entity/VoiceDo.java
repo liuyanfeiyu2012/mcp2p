@@ -30,7 +30,7 @@ import static com.mc.p2p.infrastructure.constant.McConstant.SAMPLE_RATE;
 import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
 /**
- * @auther: 谢星星
+ * @author: 谢星星
  * @date: 2019/11/30 20:35
  * @Description:
  */

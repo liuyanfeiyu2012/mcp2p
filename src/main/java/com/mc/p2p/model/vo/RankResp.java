@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Auther: 谢星星
- * @Date: 2019/11/26 20:57
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 @ApiModel("排行榜REQ")

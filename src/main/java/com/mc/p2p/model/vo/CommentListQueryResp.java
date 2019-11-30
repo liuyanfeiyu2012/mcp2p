@@ -8,6 +8,11 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
+ */
 @ApiModel("评论列表返回值")
 @Data
 @Builder

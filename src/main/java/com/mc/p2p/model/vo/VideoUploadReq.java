@@ -9,7 +9,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author : Yuan.Pan 2019/11/21 10:15 AM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Data
 @ToString

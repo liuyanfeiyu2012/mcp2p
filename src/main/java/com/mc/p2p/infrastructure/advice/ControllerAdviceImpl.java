@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.stream.Stream;
 
 /**
- * @auther: 谢星星
- * @Date: 2019/11/30 20:35
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 @ControllerAdvice

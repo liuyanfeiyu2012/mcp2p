@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @auther: 谢星星
+ * @author: 谢星星
  * @date: 2019/11/30 20:35
  * @Description:
  */

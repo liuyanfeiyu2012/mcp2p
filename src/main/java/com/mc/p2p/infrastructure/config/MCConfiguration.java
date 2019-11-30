@@ -27,8 +27,8 @@ import tk.mybatis.spring.annotation.MapperScan;
 import javax.servlet.MultipartConfigElement;
 
 /**
- * @Auther: 谢星星
- * @Date: 2019/11/19 14:27
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
  * @Description:
  */
 @Configuration

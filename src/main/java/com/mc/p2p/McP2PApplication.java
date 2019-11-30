@@ -7,9 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author klose
- * @date 2019-11-30
- *
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Slf4j
 @SpringBootApplication(exclude = RedissonAutoConfiguration.class)

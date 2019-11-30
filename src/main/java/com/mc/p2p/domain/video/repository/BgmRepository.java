@@ -5,7 +5,9 @@ import com.mc.p2p.model.po.Bgm;
 import java.util.List;
 
 /**
- * @author : Yuan.Pan 2019/11/25 1:52 PM
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 public interface BgmRepository {
 

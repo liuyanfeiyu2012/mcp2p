@@ -3,7 +3,7 @@ package com.mc.p2p.domain.ffmpeg.service;
 import com.mc.p2p.domain.ffmpeg.entity.FfmpegDo;
 
 /**
- * @auther: 谢星星
+ * @author: 谢星星
  * @date: 2019/11/30 20:35
  * @Description:
  */

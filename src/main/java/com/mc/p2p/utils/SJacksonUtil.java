@@ -14,22 +14,27 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
+ */
 public class SJacksonUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(SJacksonUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SJacksonUtil.class);
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    private static final TypeFactory typeFactory = TypeFactory.defaultInstance();
+    private static final TypeFactory TYPE_FACTORY = TypeFactory.defaultInstance();
 
     static {
-        mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
-        mapper.configure(Feature.STRICT_DUPLICATE_DETECTION, true);
-        mapper.setSerializationInclusion(Include.NON_NULL);
+        MAPPER.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        MAPPER.configure(Feature.STRICT_DUPLICATE_DETECTION, true);
+        MAPPER.setSerializationInclusion(Include.NON_NULL);
 
         // 根据字段名序列化
-        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-        mapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
+        MAPPER.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        MAPPER.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NONE);
     }
 
     public static JsonNode read(String json) {
@@ -38,9 +43,9 @@ public class SJacksonUtil {
         }
 
         try {
-            return mapper.readTree(json);
+            return MAPPER.readTree(json);
         } catch (IOException e) {
-            log.error("", e);
+            LOGGER.error("", e);
             return null;
         }
     }
@@ -51,9 +56,9 @@ public class SJacksonUtil {
         }
 
         try {
-            return mapper.writeValueAsString(object);
+            return MAPPER.writeValueAsString(object);
         } catch (Exception e) {
-            log.error("", e);
+            LOGGER.error("", e);
             return null;
         }
     }
@@ -68,9 +73,9 @@ public class SJacksonUtil {
         }
 
         try {
-            return mapper.readValue(jacksonStr, typeFactory.constructCollectionType(listClass, elementClass));
+            return MAPPER.readValue(jacksonStr, TYPE_FACTORY.constructCollectionType(listClass, elementClass));
         } catch (Exception e) {
-            log.error("", e);
+            LOGGER.error("", e);
             return null;
         }
     }
@@ -86,9 +91,9 @@ public class SJacksonUtil {
         }
 
         try {
-            return mapper.readValue(jacksonStr, typeFactory.constructMapType(mapClass, keyClass, valueClass));
+            return MAPPER.readValue(jacksonStr, TYPE_FACTORY.constructMapType(mapClass, keyClass, valueClass));
         } catch (Exception e) {
-            log.error("", e);
+            LOGGER.error("", e);
             return null;
         }
     }
@@ -99,9 +104,9 @@ public class SJacksonUtil {
         }
 
         try {
-            return mapper.readValue(jacksonStr, objectClass);
+            return MAPPER.readValue(jacksonStr, objectClass);
         } catch (Exception e) {
-            log.error("", e);
+            LOGGER.error("", e);
             return null;
         }
     }

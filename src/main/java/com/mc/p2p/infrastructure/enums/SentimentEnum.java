@@ -7,7 +7,9 @@ import java.util.Arrays;
 import static com.mc.p2p.infrastructure.constant.McConstant.*;
 
 /**
- * 语音情感枚举
+ * @author: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Getter
 public enum SentimentEnum {
