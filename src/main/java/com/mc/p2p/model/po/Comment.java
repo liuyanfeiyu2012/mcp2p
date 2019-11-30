@@ -1,7 +1,10 @@
 package com.mc.p2p.model.po;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "comment")
 public class Comment {
@@ -274,7 +277,7 @@ public class Comment {
     }
 
     /**
-     * @param commentTime
+     * @param commentTime 设置评论时间
      */
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;

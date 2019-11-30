@@ -15,21 +15,21 @@ public interface VideoRepository {
     /**
      * saveVideo
      *
-     * @param record
+     * @param record 视频
      */
     void saveVideo(Video record);
 
     /**
      * updateVideo
      *
-     * @param record
+     * @param record 视频
      */
     void updateVideo(Video record);
 
     /**
      * selectList
      *
-     * @param openId
+     * @param openId 用户ID
      * @return Video
      */
     List<Video> selectList(String openId);
@@ -37,22 +37,24 @@ public interface VideoRepository {
     /**
      * likeCount
      *
-     * @param openId
+     * @param openId 用户ID
+     * @return 投食数量
      */
     Integer likeCount(String openId);
 
     /**
      * selectOne
      *
-     * @param videoId
+     * @param videoId 视频编号
+     * @return 视频
      */
     Video selectOne(String videoId);
 
     /**
      * saveDiscern
      *
-     * @param record
-     * @param videoId
+     * @param record 分析结果
+     * @param videoId 视频编号
      */
     void saveDiscern(DiscernDo record, String videoId);
 }

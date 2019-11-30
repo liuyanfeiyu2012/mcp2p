@@ -126,6 +126,7 @@ public class McConstant {
      */
     public static final String VIDEO_NGINX_PREFFIX
             = "https://www.mengchongp2p.online/video/";
+
     /**
      * BG_NGINX_PREFFIX
      */

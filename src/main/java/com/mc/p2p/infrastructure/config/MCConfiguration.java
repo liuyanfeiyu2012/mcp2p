@@ -60,9 +60,9 @@ public class MCConfiguration {
             druidDataSource.setRemoveAbandoned(false);
             druidDataSource.setRemoveAbandonedTimeout(1800);
             druidDataSource.setLogAbandoned(true);
-            druidDataSource.setUrl("jdbc:mysql://" +
-                    "58." + "87." + "119." + "113:" + "4406" +
-                    "/mc_p2p?useUnicode=true&characterEncoding=utf-8&useSSL=false");
+            druidDataSource.setUrl("jdbc:mysql://"
+                    + "58." + "87." + "119." + "113:" + "4406"
+                    + "/mc_p2p?useUnicode=true&characterEncoding=utf-8&useSSL=false");
             druidDataSource.setUsername("root");
             druidDataSource.setPassword("root");
             druidDataSource.init();
@@ -71,14 +71,16 @@ public class MCConfiguration {
 
         @Bean
         public SqlSessionFactoryBean sqlSessionFactoryBean() throws Exception {
-            SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+            SqlSessionFactoryBean sqlSessionFactoryBean =
+                    new SqlSessionFactoryBean();
             sqlSessionFactoryBean.setDataSource(druidDataSource());
             return sqlSessionFactoryBean;
         }
 
         @Bean
         public DataSourceTransactionManager dataSourceTransactionManager() throws Exception {
-            DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+            DataSourceTransactionManager dataSourceTransactionManager =
+                    new DataSourceTransactionManager();
             dataSourceTransactionManager.setDataSource(druidDataSource());
             return dataSourceTransactionManager;
         }
@@ -90,8 +92,9 @@ public class MCConfiguration {
         @Bean
         public RedissonConnectionFactory redissonConnectionFactory() {
             Config config = new Config();
-            String redisAddress = "redis://58.87" +
-                    ".119.113" + ":6380";
+            String redisAddress = "redis://58.87"
+                    + ".119.113"
+                    + ":6380";
             config.useSingleServer()
                     .setAddress(redisAddress)
                     .setConnectTimeout(5000);
@@ -100,7 +103,8 @@ public class MCConfiguration {
         }
 
         @Bean
-        public RedisTemplate<String, Object> redisTemplate(RedissonConnectionFactory redisConnectionFactory) {
+        public RedisTemplate<String, Object> redisTemplate(
+                RedissonConnectionFactory redisConnectionFactory) {
             RedisTemplate<String, Object> template = new RedisTemplate<>();
             template.setKeySerializer(new StringRedisSerializer());
             template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
@@ -109,7 +113,8 @@ public class MCConfiguration {
         }
 
         @Bean
-        public StringRedisTemplate stringRedisTemplate(RedissonConnectionFactory redisConnectionFactory) {
+        public StringRedisTemplate stringRedisTemplate(
+                RedissonConnectionFactory redisConnectionFactory) {
             StringRedisTemplate template = new StringRedisTemplate();
             template.setConnectionFactory(redisConnectionFactory);
             return template;
@@ -142,7 +147,7 @@ public class MCConfiguration {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //文件最大
-        factory.setMaxFileSize("10240KB"); //KB,MB
+        factory.setMaxFileSize("10240KB");
         /// 设置总上传数据总大小
         factory.setMaxRequestSize("102400KB");
         return factory.createMultipartConfig();

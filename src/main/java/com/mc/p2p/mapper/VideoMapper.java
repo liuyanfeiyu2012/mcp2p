@@ -11,6 +11,12 @@ import java.util.List;
 
 public interface VideoMapper extends Mapper<Video>, MySqlMapper<Video> {
 
+    /**
+     * 计算偷食数
+     *
+     * @param openId 用户编号
+     * @return 用户投食数
+     */
     @Select("SELECT SUM(like_count) FROM video WHERE uid = #{openId}")
     Integer likeCount(@Param("openId") String openId);
 

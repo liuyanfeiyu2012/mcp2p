@@ -125,6 +125,7 @@ public class VideoServiceImpl implements VideoService {
         return videoMapper.circle();
     }
 
+    private static final int COMMENT_SIZE = 2;
 
     private List<VideoQueryResp> assembler(List<Video> videoList) {
         if (CollectionUtils.isEmpty(videoList)) {
@@ -147,7 +148,7 @@ public class VideoServiceImpl implements VideoService {
 
             try {
                 Set<String> commendSet = Sets.newHashSet();
-                while (commendSet.size() != 2) {
+                while (COMMENT_SIZE != commendSet.size()) {
                     SecureRandom secureRandom = new SecureRandom(new byte[20]);
                     int random = (int) (secureRandom.nextFloat() * (productList.size() - 1) + 1);
                     commendSet.add(productList.get(random));
@@ -195,7 +196,8 @@ public class VideoServiceImpl implements VideoService {
             });
 
             CompletableFuture<DiscernDo> discernFuture = CompletableFuture.supplyAsync(() ->
-                    discernService.discern(McConstant.FILE_VIDEO_PATH + videoDo.getVideoId() + McConstant.MP4_EXT));
+                    discernService.discern(McConstant.FILE_VIDEO_PATH
+                            + videoDo.getVideoId() + McConstant.MP4_EXT));
 
             CompletableFuture.allOf(ffmpegFileFuture, discernFuture).thenRun(() -> {
                 try {

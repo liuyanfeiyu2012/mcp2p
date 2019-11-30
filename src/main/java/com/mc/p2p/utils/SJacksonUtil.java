@@ -12,7 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author: 谢星星
@@ -67,31 +70,44 @@ public class SJacksonUtil {
         return extractList(jacksonStr, ArrayList.class, elementClass);
     }
 
-    public static <T, C extends List<T>> C extractList(String jacksonStr, Class<C> listClass, Class<T> elementClass) {
-        if (StringUtils.isBlank(jacksonStr) || null == listClass || null == elementClass) {
+    public static <T, C extends List<T>> C extractList(String jacksonStr,
+                                                       Class<C> listClass,
+                                                       Class<T> elementClass) {
+        if (StringUtils.isBlank(jacksonStr)
+                || null == listClass
+                || null == elementClass) {
             return null;
         }
 
         try {
-            return MAPPER.readValue(jacksonStr, TYPE_FACTORY.constructCollectionType(listClass, elementClass));
+            return MAPPER.readValue(jacksonStr,
+                    TYPE_FACTORY.constructCollectionType(listClass, elementClass));
         } catch (Exception e) {
             LOGGER.error("", e);
             return null;
         }
     }
 
-    public static <K, V> Map<K, V> extractMap(String jacksonStr, Class<K> keyClass, Class<V> valueClass) {
+    public static <K, V> Map<K, V> extractMap(String jacksonStr,
+                                              Class<K> keyClass,
+                                              Class<V> valueClass) {
         return extractMap(jacksonStr, HashMap.class, keyClass, valueClass);
     }
 
-    public static <K, V, M extends Map<K, V>> M extractMap(String jacksonStr, Class<M> mapClass, Class<K> keyClass,
+    public static <K, V, M extends Map<K, V>> M extractMap(String jacksonStr,
+                                                           Class<M> mapClass,
+                                                           Class<K> keyClass,
                                                            Class<V> valueClass) {
-        if (StringUtils.isBlank(jacksonStr) || null == mapClass || null == keyClass || null == valueClass) {
+        if (StringUtils.isBlank(jacksonStr)
+                || null == mapClass
+                || null == keyClass
+                || null == valueClass) {
             return null;
         }
 
         try {
-            return MAPPER.readValue(jacksonStr, TYPE_FACTORY.constructMapType(mapClass, keyClass, valueClass));
+            return MAPPER.readValue(jacksonStr,
+                    TYPE_FACTORY.constructMapType(mapClass, keyClass, valueClass));
         } catch (Exception e) {
             LOGGER.error("", e);
             return null;
@@ -136,18 +152,4 @@ public class SJacksonUtil {
         }
     }
 
-    public static void main(String[] args) {
-        Map<String, String> m = new HashMap<>();
-        m.put("1", "a");
-        m.put("2", "b");
-
-        MyPo myPo = new MyPo();
-        myPo.setA(m);
-
-        TestPo testPo = new TestPo();
-        testPo.setPoList(Arrays.asList(myPo));
-
-        String json = SJacksonUtil.compress(testPo);
-        System.out.println(json);
-    }
 }

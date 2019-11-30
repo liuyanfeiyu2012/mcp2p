@@ -29,7 +29,9 @@ public class RespVo<T> {
 
 
     private String resCode;
+
     private String resMsg;
+
     private T result;
 
     public RespVo() {
