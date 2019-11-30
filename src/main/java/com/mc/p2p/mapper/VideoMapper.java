@@ -20,6 +20,6 @@ public interface VideoMapper extends Mapper<Video>, MySqlMapper<Video> {
     @Select("SELECT SUM(like_count) FROM video WHERE uid = #{openId}")
     Integer likeCount(@Param("openId") String openId);
 
-    @Select("SELECT city, count(1) as hot FROM video group by city where status = 1")
+    @Select("SELECT city, count(1) as hot FROM video where status = 1 group by city")
     List<CityCircleResp> circle();
 }
