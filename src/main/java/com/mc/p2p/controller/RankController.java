@@ -1,6 +1,7 @@
 package com.mc.p2p.controller;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.mc.p2p.infrastructure.common.RespVo;
 import com.mc.p2p.mapper.VideoMapper;
 import com.mc.p2p.model.po.Video;
@@ -95,12 +96,12 @@ public class RankController {
                 }
             });
 
-            List<RankResp> newList = restList.stream()
+            Set<RankResp> newList = restList.stream()
                     .sorted(Comparator.comparing(RankResp::getScore)
                             .reversed()
                             .thenComparing(RankResp::getVideoId)
-                    ).collect(Collectors.toList());
-            return RespVo.SUCCESS(newList);
+                    ).collect(Collectors.toSet());
+            return RespVo.SUCCESS(Lists.newArrayList(newList));
         } else {
             return RespVo.SUCCESS(Collections.emptyList());
         }
