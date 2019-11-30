@@ -97,8 +97,9 @@ public class RankController {
 
             List<RankResp> newList = restList.stream()
                     .sorted(Comparator.comparing(RankResp::getScore)
-                            .reversed())
-                    .collect(Collectors.toList());
+                            .reversed()
+                            .thenComparing(RankResp::getVideoId)
+                    ).collect(Collectors.toList());
             return RespVo.SUCCESS(newList);
         } else {
             return RespVo.SUCCESS(Collections.emptyList());
