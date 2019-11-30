@@ -96,12 +96,14 @@ public class RankController {
                 }
             });
 
-            Set<RankResp> newList = restList.stream()
-                    .sorted(Comparator.comparing(RankResp::getScore)
-                            .reversed()
-                            .thenComparing(RankResp::getVideoId)
-                    ).collect(Collectors.toSet());
-            return RespVo.SUCCESS(Lists.newArrayList(newList));
+            Set<RankResp> newList = Sets.newHashSet(restList);
+            ArrayList<RankResp> responseList = Lists.newArrayList(newList);
+
+            List<RankResp> collect = responseList.stream().sorted(Comparator.comparing(RankResp::getScore)
+                    .reversed()
+                    .thenComparing(RankResp::getVideoId)).collect(Collectors.toList());
+
+            return RespVo.SUCCESS(collect);
         } else {
             return RespVo.SUCCESS(Collections.emptyList());
         }
