@@ -27,5 +27,5 @@ public class LoginReq {
     private String avatar;
 
     @ApiModelProperty(value = "城市", required = true)
-    private String city;
+    private String city = "唐镇";
 }
