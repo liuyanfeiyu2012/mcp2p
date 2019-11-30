@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import static com.mc.p2p.infrastructure.constant.McConstant.*;
 
+
 /**
  * @author: 谢星星
  * @date: 2019/11/30 20:35
@@ -56,8 +57,7 @@ public enum SentimentEnum {
     /**
      * 0分
      */
-    ZERO(0, ZERO_TWO),
-    ;
+    ZERO(0, ZERO_TWO);
 
     Integer score;
     String chineseType;

@@ -27,7 +27,9 @@ public class CustomerCentreResp {
      */
     private Integer likeCountTotal;
 
-    public CustomerCentreResp(List<VideoQueryResp> videoList, List<VideoQueryResp> likeList, Integer likeCountTotal) {
+    public CustomerCentreResp(List<VideoQueryResp> videoList,
+                              List<VideoQueryResp> likeList,
+                              Integer likeCountTotal) {
         this.videoList = videoList;
         this.likeList = likeList;
         this.likeCountTotal = likeCountTotal;
