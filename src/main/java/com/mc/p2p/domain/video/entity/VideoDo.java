@@ -19,7 +19,9 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * @author : Yuan.Pan 2019/11/23 9:21 AM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Slf4j
 @Data

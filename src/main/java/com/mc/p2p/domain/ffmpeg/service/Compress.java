@@ -7,7 +7,9 @@ import org.apache.commons.chain.Context;
 import org.springframework.stereotype.Service;
 
 /**
- * @author : Yuan.Pan 2019/11/26 6:13 PM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Service
 public class Compress implements CompressAble {

@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @auther: 谢星星
- * @Date: 2019/11/26 20:35
- * @Description: 评论接口类
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {

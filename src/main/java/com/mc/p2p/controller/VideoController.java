@@ -25,7 +25,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author : Yuan.Pan 2019/11/21 10:21 AM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Api(tags = "视频接口API")
 @Validated

@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * @author : Yuan.Pan 2019/11/26 8:47 PM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Data
 @Slf4j

@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @author : Yuan.Pan 2019/11/26 8:39 PM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 public interface CommentService {
 

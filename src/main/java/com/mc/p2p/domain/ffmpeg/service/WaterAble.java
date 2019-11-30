@@ -3,7 +3,9 @@ package com.mc.p2p.domain.ffmpeg.service;
 import org.apache.commons.chain.Command;
 
 /**
- * @author : Yuan.Pan 2019/11/29 6:18 PM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 public interface WaterAble extends Command {
 }

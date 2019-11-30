@@ -3,7 +3,9 @@ package com.mc.p2p.domain.customer.repository;
 import com.mc.p2p.model.po.Customer;
 
 /**
- * @author : Yuan.Pan 2019/11/26 11:05 AM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 public interface CustomerRepository {
 

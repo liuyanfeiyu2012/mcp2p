@@ -3,7 +3,9 @@ package com.mc.p2p.domain.discern.entity;
 import lombok.Data;
 
 /**
- * @author : Yuan.Pan 2019/11/28 10:39 PM
+ * @auther: 谢星星
+ * @date: 2019/11/30 20:35
+ * @Description:
  */
 @Data
 public class DiscernDesc {
