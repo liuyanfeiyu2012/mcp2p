@@ -127,6 +127,7 @@ public class VideoDo {
         record.setUid(this.videoInfo.getUid());
         record.setAvatar(customer.getAvatar());
         record.setWxName(customer.getWxName());
+        record.setCity(customer.getCity());
         record.setCreateTime(new Date());
         record.setStatus(StatusEnum.DISABLE.getCode());
 

@@ -25,4 +25,7 @@ public class LoginReq {
     @NotBlank(message = "微信头像不能为空")
     @ApiModelProperty(value = "微信头像", required = true)
     private String avatar;
+
+    @ApiModelProperty(value = "城市", required = true)
+    private String city;
 }

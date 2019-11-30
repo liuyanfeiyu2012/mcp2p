@@ -112,4 +112,10 @@ public class VideoController {
         redisTemplate.opsForSet().add(request.getUid(), request.getVideoId());
         return RespVo.SUCCESS();
     }
+
+    @ApiOperation("获取区域")
+    @GetMapping("/city-circle")
+    public RespVo<List<CityCircleResp>> getCityCircle() {
+        return RespVo.SUCCESS(videoService.selectCityCircle());
+    }
 }

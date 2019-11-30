@@ -2,6 +2,7 @@ package com.mc.p2p.domain.video.service;
 
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.BgmQueryResp;
+import com.mc.p2p.model.vo.CityCircleResp;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import com.mc.p2p.model.vo.VideoUploadReq;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,4 +61,11 @@ public interface VideoService {
      * @return {video}
      */
     Video selectOne(String videoId);
+
+    /**
+     * get city circle
+     *
+     * @return {list}
+     */
+    List<CityCircleResp> selectCityCircle();
 }

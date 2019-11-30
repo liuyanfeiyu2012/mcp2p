@@ -11,10 +11,12 @@ import com.mc.p2p.domain.video.entity.VideoDo;
 import com.mc.p2p.domain.video.repository.BgmRepository;
 import com.mc.p2p.domain.video.repository.VideoRepository;
 import com.mc.p2p.infrastructure.constant.McConstant;
+import com.mc.p2p.mapper.VideoMapper;
 import com.mc.p2p.model.po.Bgm;
 import com.mc.p2p.model.po.Customer;
 import com.mc.p2p.model.po.Video;
 import com.mc.p2p.model.vo.BgmQueryResp;
+import com.mc.p2p.model.vo.CityCircleResp;
 import com.mc.p2p.model.vo.VideoQueryResp;
 import com.mc.p2p.model.vo.VideoUploadReq;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +57,9 @@ public class VideoServiceImpl implements VideoService {
 
     @Resource
     private DiscernService discernService;
+
+    @Resource
+    private VideoMapper videoMapper;
 
     @Override
     public void saveVideo(VideoUploadReq request, MultipartFile file) {
@@ -113,6 +118,11 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public Video selectOne(String videoId) {
         return videoRepository.selectOne(videoId);
+    }
+
+    @Override
+    public List<CityCircleResp> selectCityCircle() {
+        return videoMapper.circle();
     }
 
 

@@ -3,12 +3,6 @@ package com.mc.p2p.model.po;
 import java.util.Date;
 import javax.persistence.*;
 
-
-/**
- * @author: 谢星星
- * @date: 2019/11/30 20:35
- * @Description:
- */
 @Table(name = "video")
 public class Video {
     /**
@@ -90,6 +84,11 @@ public class Video {
      * 状态0-审核中 1-审核成功
      */
     private String status;
+
+    /**
+     * 城市
+     */
+    private String city;
 
     /**
      * 获取业务主键
@@ -341,5 +340,23 @@ public class Video {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * 获取城市
+     *
+     * @return city - 城市
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * 设置城市
+     *
+     * @param city 城市
+     */
+    public void setCity(String city) {
+        this.city = city;
     }
 }

@@ -19,5 +19,6 @@
     <result column="memo" jdbcType="VARCHAR" property="memo" />
     <result column="animal" jdbcType="VARCHAR" property="animal" />
     <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
 </mapper>

@@ -9,5 +9,6 @@
     <result column="wx_name" jdbcType="VARCHAR" property="wxName" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
   </resultMap>
 </mapper>

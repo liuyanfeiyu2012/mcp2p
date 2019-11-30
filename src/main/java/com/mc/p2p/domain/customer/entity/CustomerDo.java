@@ -26,6 +26,7 @@ public class CustomerDo {
         record.setWxName(request.getWxName());
         record.setAvatar(request.getAvatar());
         record.setCreateTime(new Date());
+        record.setCity(request.getCity());
         return record;
     }
 }

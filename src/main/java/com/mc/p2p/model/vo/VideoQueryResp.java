@@ -44,4 +44,7 @@ public class VideoQueryResp {
 
     @ApiModelProperty("智能推荐商品")
     private Set<String> recommendProduct;
+
+    @ApiModelProperty("城市")
+    private String city;
 }
