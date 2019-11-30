@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Auther: 谢星星
+ * @auther: 谢星星
  * @Date: 2019/11/26 20:35
  * @Description:
  */
@@ -68,7 +68,8 @@ public class RankController {
             });
         }
 
-        List<String> videoIdList = restList.stream().map(RankResp::getVideoId).collect(Collectors.toList());
+        List<String> videoIdList = restList.stream()
+                .map(RankResp::getVideoId).collect(Collectors.toList());
 
         if (CollectionUtils.isNotEmpty(videoIdList)) {
             Example example = Example.builder(Video.class)

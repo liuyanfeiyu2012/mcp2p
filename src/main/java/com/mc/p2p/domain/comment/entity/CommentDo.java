@@ -71,7 +71,8 @@ public class CommentDo {
      */
     public void storage() {
         String fileId = UUID.randomUUID().toString();
-        String filePath = McConstant.FILE_VOICE_PATH + fileId + "." + StringUtils.getFilenameExtension(this.file.getOriginalFilename());
+        String filePath = McConstant.FILE_VOICE_PATH + fileId + "."
+                + StringUtils.getFilenameExtension(this.file.getOriginalFilename());
         File target = new File(filePath);
         try {
             file.transferTo(target);

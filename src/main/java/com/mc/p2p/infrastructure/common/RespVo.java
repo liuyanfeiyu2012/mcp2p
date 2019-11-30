@@ -1,25 +1,30 @@
 package com.mc.p2p.infrastructure.common;
 
 /**
- * @Auther: 谢星星
+ * @auther: 谢星星
  * @Date: 2019/11/19 14:13
  * @Description:
  */
 public class RespVo<T> {
 
     public static final String SUCCESS_CODE = "0000";
+
     public static final String SUCCESS_MSG = "操作成功";
 
     public static final String FAIL_CODE = "0911";
+
     public static final String FAIL_MSG = "系统正忙，请稍后重试";
 
     public static final String REQUEST_PARAM_ERROR_CODE = "0002";
+
     public static final String REQUEST_PARAM_ERROR_MSG = "注意：${}";
 
     public static final String NOT_LOGIN_CODE = "0003";
+
     public static final String NOT_LOGIN_MSG = "请先登录";
 
     public static final String TOO_FREQUENCY_CODE = "0004";
+
     public static final String TOO_FREQUENCY_MSG = "您的操作太快了";
 
 

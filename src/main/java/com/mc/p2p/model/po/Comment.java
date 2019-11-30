@@ -3,6 +3,11 @@ package com.mc.p2p.model.po;
 import java.util.Date;
 import javax.persistence.*;
 
+/**
+ * @auther: 谢星星
+ * @Date: 2019/11/30 20:35
+ * @Description:
+ */
 @Table(name = "comment")
 public class Comment {
     /**

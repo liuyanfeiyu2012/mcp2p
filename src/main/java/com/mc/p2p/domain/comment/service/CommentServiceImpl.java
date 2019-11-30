@@ -81,7 +81,6 @@ public class CommentServiceImpl implements CommentService {
         VoiceDo voiceDo = new VoiceDo(ffmpegDo.getTargetFile(),
                 ffmpegDo.getFileId());
         voiceDo.setComment();
-//        voiceDo.setScore();
         saveCmment(request, voiceDo, customer);
     }
 

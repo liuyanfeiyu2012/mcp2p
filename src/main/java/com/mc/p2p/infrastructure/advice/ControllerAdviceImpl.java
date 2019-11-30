@@ -20,7 +20,11 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.stream.Stream;
 
-
+/**
+ * @auther: 谢星星
+ * @Date: 2019/11/30 20:35
+ * @Description:
+ */
 @ControllerAdvice
 public class ControllerAdviceImpl {
 
@@ -29,15 +33,24 @@ public class ControllerAdviceImpl {
     @InitBinder
     protected void initBinder(WebDataBinder webDataBinder) {
         webDataBinder.registerCustomEditor(Date.class, new MillisDateEditor());
-        Stream.of(Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, BigInteger.class, BigDecimal.class)
-                .forEach(numberClass -> webDataBinder.registerCustomEditor(numberClass, new StripNumberEditor(numberClass)));
+        Stream.of(Byte.class,
+                Short.class,
+                Integer.class,
+                Long.class,
+                Float.class,
+                Double.class,
+                BigInteger.class,
+                BigDecimal.class)
+                .forEach(numberClass ->
+                        webDataBinder.registerCustomEditor(numberClass,
+                                new StripNumberEditor(numberClass)));
     }
 
     /**
      * 参数异常
      *
      * @param ex
-     * @return
+     * @return RespVo
      */
     @ExceptionHandler(BindException.class)
     @ResponseBody
@@ -54,7 +67,9 @@ public class ControllerAdviceImpl {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public RespVo handlerBusinessException(MethodArgumentNotValidException ex) {
-        return new RespVo<>(RespVo.FAIL_CODE, ex.getBindingResult().getFieldError().getDefaultMessage(), null);
+        return new RespVo<>(RespVo.FAIL_CODE,
+                ex.getBindingResult().getFieldError().getDefaultMessage(),
+                null);
     }
 
     /**
@@ -66,7 +81,9 @@ public class ControllerAdviceImpl {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
     public RespVo handlerBusinessException(ConstraintViolationException ex) {
-        return new RespVo<>(RespVo.FAIL_CODE, ex.getConstraintViolations().iterator().next().getMessage(), null);
+        return new RespVo<>(RespVo.FAIL_CODE,
+                ex.getConstraintViolations().iterator().next().getMessage(),
+                null);
     }
 
     /**

@@ -83,7 +83,8 @@ public class FfmpegDo {
     public void execute(FfmpegTypeEnum actionType) {
         // init target file
         targetFile(actionType);
-        if (FfmpegTypeEnum.CONVERT_VOICE == actionType && this.sourceFile.endsWith(McConstant.WAV_EXT)) {
+        if (FfmpegTypeEnum.CONVERT_VOICE == actionType
+                && this.sourceFile.endsWith(McConstant.WAV_EXT)) {
             return;
         }
 
@@ -139,7 +140,11 @@ public class FfmpegDo {
         String command;
         switch (actionType) {
             case MIX_BGM:
-                command = String.format(actionType.getCommand(), this.sourceFile, this.bondFile, this.fileTime, this.targetFile);
+                command = String.format(actionType.getCommand(),
+                        this.sourceFile,
+                        this.bondFile,
+                        this.fileTime,
+                        this.targetFile);
                 break;
             case CANCEL_BGM:
             case CONVERT_VIDEO:

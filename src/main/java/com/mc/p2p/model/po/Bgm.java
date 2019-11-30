@@ -1,8 +1,16 @@
 package com.mc.p2p.model.po;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
+/**
+ * @auther: 谢星星
+ * @Date: 2019/11/30 20:35
+ * @Description:
+ */
 @Table(name = "bgm")
 public class Bgm {
     /**

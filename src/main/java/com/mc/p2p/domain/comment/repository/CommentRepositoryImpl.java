@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 评论操作实现类
+ * @auther: 谢星星
+ * @Date: 2019/11/26 20:35
+ * @Description: 评论接口类
  */
 @Repository
 public class CommentRepositoryImpl implements CommentRepository {

@@ -47,7 +47,8 @@ public class VideoController {
 
     @ApiOperation("视频上传接口")
     @PostMapping("/upload")
-    public RespVo upload(@Valid VideoUploadReq request, @ApiParam(name = "上传的文件对象") MultipartFile file) {
+    public RespVo upload(@Valid VideoUploadReq request,
+                         @ApiParam(name = "上传的文件对象") MultipartFile file) {
         videoService.saveVideo(request, file);
         return RespVo.SUCCESS();
     }
@@ -83,14 +84,16 @@ public class VideoController {
 
     @ApiOperation("用户评论")
     @PostMapping("/comment")
-    public RespVo comment(@Valid CommentReq request, @ApiParam(name = "上传语音文件") MultipartFile file) {
+    public RespVo comment(@Valid CommentReq request,
+                          @ApiParam(name = "上传语音文件") MultipartFile file) {
         commentService.comment(request, file);
         return RespVo.SUCCESS();
     }
 
     @ApiOperation("获取评论列表")
     @GetMapping("/comment-list")
-    public RespVo<List<CommentListQueryResp>> getCommentList(@ApiParam(name = "视频编号") @NotBlank String videoId) {
+    public RespVo<List<CommentListQueryResp>> getCommentList(@ApiParam(name = "视频编号")
+                                                                 @NotBlank String videoId) {
         return RespVo.SUCCESS(commentService.getCommentList(videoId));
     }
 

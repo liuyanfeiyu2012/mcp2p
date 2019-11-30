@@ -31,14 +31,17 @@ public class DiscernServiceImpl implements DiscernService {
      */
     @Override
     public DiscernDo discern(String filePath) {
-        AipImageClassify client = new AipImageClassify(McConstant.AI_APP_ID, McConstant.AI_API_KEY, McConstant.AI_SECRET_KEY);
+        AipImageClassify client = new AipImageClassify(McConstant.AI_APP_ID,
+                McConstant.AI_API_KEY, McConstant.AI_SECRET_KEY);
         client.setConnectionTimeoutInMillis(2000);
         client.setSocketTimeoutInMillis(60000);
 
         // 截取三张图
         List<String> filePathList = Lists.newArrayList();
         for (int i = 0; i < McConstant.AI_SC_NUM; i++) {
-            String picPath = McConstant.FILE_DISCERN_PATH + UUID.randomUUID().toString() + McConstant.JPG_EXT;
+            String picPath = McConstant.FILE_DISCERN_PATH
+                    + UUID.randomUUID().toString()
+                    + McConstant.JPG_EXT;
             String command = FfmpegTypeEnum.AI_SCREENSHOT.getCommand();
             String finalCommand = String.format(command, "00:00:0" + i, filePath, picPath);
             FfmpegDo.doExecute(Lists.newArrayList(finalCommand.split(" ")));
@@ -46,7 +49,7 @@ public class DiscernServiceImpl implements DiscernService {
         }
 
 
-        HashMap<String, String> options = new HashMap<>();
+        HashMap<String, String> options = new HashMap<>(16);
         options.put("top_num", "3");
         options.put("baike_num", "5");
 
@@ -55,7 +58,8 @@ public class DiscernServiceImpl implements DiscernService {
             try {
                 JSONObject response = client.animalDetect(picPath, options);
                 String result = response.toString(2);
-                DiscernResponse responseObj = com.alibaba.fastjson.JSONObject.parseObject(result, DiscernResponse.class);
+                DiscernResponse responseObj =
+                        com.alibaba.fastjson.JSONObject.parseObject(result, DiscernResponse.class);
                 List<DiscernItem> discernItemList = responseObj.getResult();
                 DiscernItem discernItem = discernItemList.get(0);
                 if (McConstant.NO_ANIMAL.equals(discernItem.getName())) {
@@ -63,7 +67,10 @@ public class DiscernServiceImpl implements DiscernService {
                 }
 
                 log.info("AI RESP -{}", result);
-                discernDo = new DiscernDo(discernItem.getName(), discernItem.getScore(), discernItem.getBaike_info().getDescription());
+                discernDo = new DiscernDo(discernItem.getName(),
+                        discernItem.getScore(),
+                        discernItem.getBaike_info()
+                                .getDescription());
             } catch (Exception e) {
                 log.error("get animal err e-{}", e);
             }

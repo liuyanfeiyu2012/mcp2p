@@ -25,6 +25,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.security.SecureRandom;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -63,7 +64,8 @@ public class VideoServiceImpl implements VideoService {
         // 存储文件
         videoDo.storageFile();
         Video sourceVideo = videoDo.video(customer);
-        FfmpegDo picHandleDo = new FfmpegDo(videoDo.getVideoPath(), null, videoDo.getVideoId(), request.getVideoTime());
+        FfmpegDo picHandleDo = new FfmpegDo(videoDo.getVideoPath(), null,
+                videoDo.getVideoId(), request.getVideoTime());
         ffmpegService.videoPicFilter(picHandleDo);
         videoRepository.saveVideo(sourceVideo);
 
@@ -111,6 +113,7 @@ public class VideoServiceImpl implements VideoService {
         return videoRepository.selectOne(videoId);
     }
 
+
     private List<VideoQueryResp> assembler(List<Video> videoList) {
         if (CollectionUtils.isEmpty(videoList)) {
             return Lists.newArrayList();
@@ -133,7 +136,8 @@ public class VideoServiceImpl implements VideoService {
             try {
                 Set<String> commendSet = Sets.newHashSet();
                 while (commendSet.size() != 2) {
-                    int random = (int) (Math.random() * (productList.size() - 1) + 1);
+                    SecureRandom secureRandom = new SecureRandom(new byte[20]);
+                    int random = (int) (secureRandom.nextFloat() * (productList.size() - 1) + 1);
                     commendSet.add(productList.get(random));
                 }
 
@@ -151,9 +155,11 @@ public class VideoServiceImpl implements VideoService {
         if (animal.contains(McConstant.CATE_A)) {
             return McConstant.CAT_PRODUCT;
         }
-        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_K) || animal.contains(McConstant.DOG_A) || animal.contains(McConstant.DOG_B)
-                || animal.contains(McConstant.DOG_C) || animal.contains(McConstant.DOG_D) || animal.contains(McConstant.DOG_E)
-                || animal.contains(McConstant.DOG_F) || animal.contains(McConstant.DOG_G) || animal.contains(McConstant.DOG_H)
+        if (animal.contains(McConstant.DOG_J) || animal.contains(McConstant.DOG_K)
+                || animal.contains(McConstant.DOG_A) || animal.contains(McConstant.DOG_B)
+                || animal.contains(McConstant.DOG_C) || animal.contains(McConstant.DOG_D)
+                || animal.contains(McConstant.DOG_E) || animal.contains(McConstant.DOG_F)
+                || animal.contains(McConstant.DOG_G) || animal.contains(McConstant.DOG_H)
                 || animal.contains(McConstant.DOG_I)) {
             return McConstant.DOG_PRODUCT;
         }
@@ -176,9 +182,8 @@ public class VideoServiceImpl implements VideoService {
                 return ffmpegDo;
             });
 
-            CompletableFuture<DiscernDo> discernFuture = CompletableFuture.supplyAsync(() -> discernService.discern(
-                    McConstant.FILE_VIDEO_PATH + videoDo.getVideoId() + McConstant.MP4_EXT
-            ));
+            CompletableFuture<DiscernDo> discernFuture = CompletableFuture.supplyAsync(() ->
+                    discernService.discern(McConstant.FILE_VIDEO_PATH + videoDo.getVideoId() + McConstant.MP4_EXT));
 
             CompletableFuture.allOf(ffmpegFileFuture, discernFuture).thenRun(() -> {
                 try {

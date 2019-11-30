@@ -30,7 +30,9 @@ import static com.mc.p2p.infrastructure.constant.McConstant.SAMPLE_RATE;
 import static com.mc.p2p.infrastructure.enums.ResponseEnum.VOICE_COMMENT_CAN_NOT_RECOGNIZED;
 
 /**
- * 音频处理类
+ * @auther: 谢星星
+ * @Date: 2019/11/26 20:35
+ * @Description:
  */
 @Data
 public class VoiceDo {
@@ -80,8 +82,10 @@ public class VoiceDo {
      */
     static {
 
-        CRED = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX", "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
-        CRED2 = new Credential("AKIDsDUVHo5M9k5F9N74X2JJ4ZonVxJP4pkP", "YqsjKelocAXgbGgsyRedOuAA3pNeniO9");
+        CRED = new Credential("AKIDd9UgmhsxJXcaO2cmYFl6GE2e7HJAd4tX",
+                "b1GJBXing8RZWHrRryynXCh19A1gAORJ");
+        CRED2 = new Credential("AKIDsDUVHo5M9k5F9N74X2JJ4ZonVxJP4pkP",
+                "YqsjKelocAXgbGgsyRedOuAA3pNeniO9");
 
         HTTP_PROFILE = new HttpProfile();
         HTTP_PROFILE.setEndpoint("nlp.tencentcloudapi.com");
@@ -144,14 +148,14 @@ public class VoiceDo {
         log.info("voice recognize start");
 
         try {
-            String params = "{\"ProjectId\":1165413," +
-                    "\"SubServiceType\":2," +
-                    "\"EngSerViceType\":\"16k\"," +
-                    "\"SourceType\":1," +
-                    "\"VoiceFormat\":\"wav\"," +
-                    "\"UsrAudioKey\":\"%s\"," +
-                    "\"Data\":\"%s\"," +
-                    "\"DataLen\":%d}";
+            String params = "{\"ProjectId\":1165413,"
+                    + "\"SubServiceType\":2,"
+                    + "\"EngSerViceType\":\"16k\","
+                    + "\"SourceType\":1,"
+                    + "\"VoiceFormat\":\"wav\","
+                    + "\"UsrAudioKey\":\"%s\","
+                    + "\"Data\":\"%s\","
+                    + "\"DataLen\":%d}";
             byte[] data = Util.readFileByBytes(this.voicePath);
             String voiceString = new BASE64Encoder().encode(reSamplingPCM(data));
             params = String.format(params, UUID.randomUUID().toString(), voiceString,
@@ -178,14 +182,15 @@ public class VoiceDo {
     private static byte[] reSamplingPCM(byte[] data) {
 
         log.info("reSampling start");
-        try (AudioInputStream audioIn = AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
-             AudioInputStream convertedStream = AudioSystem.getAudioInputStream(AUDIO_FORMAT, audioIn);
+        try (AudioInputStream audioIn =
+                     AudioSystem.getAudioInputStream(new ByteArrayInputStream(data));
+             AudioInputStream convertedStream =
+                     AudioSystem.getAudioInputStream(AUDIO_FORMAT, audioIn);
              ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             if (audioIn.getFormat().matches(AUDIO_FORMAT)) {
                 return data;
             }
-            int BUFF_SIZE = SAMPLE_RATE / 2;
-            byte[] buff = new byte[BUFF_SIZE];
+            byte[] buff = new byte[SAMPLE_RATE / 2];
             int numReads = -1;
             while ((numReads = convertedStream.read(buff)) != -1) {
                 outputStream.write(buff);
