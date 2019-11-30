@@ -49,7 +49,7 @@ public class ControllerAdviceImpl {
     /**
      * 参数异常
      *
-     * @param ex
+     * @param ex 异常
      * @return RespVo
      */
     @ExceptionHandler(BindException.class)
@@ -61,8 +61,8 @@ public class ControllerAdviceImpl {
     /**
      * 参数异常
      *
-     * @param ex
-     * @return
+     * @param ex 异常
+     * @return RespVo
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
@@ -75,8 +75,8 @@ public class ControllerAdviceImpl {
     /**
      * 参数异常
      *
-     * @param ex
-     * @return
+     * @param ex 异常
+     * @return RespVo
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
@@ -89,8 +89,8 @@ public class ControllerAdviceImpl {
     /**
      * 业务异常
      *
-     * @param ex
-     * @return
+     * @param ex 异常
+     * @return RespVo
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
@@ -109,8 +109,8 @@ public class ControllerAdviceImpl {
     /**
      * 其它异常
      *
-     * @param th
-     * @return
+     * @param th 异常
+     * @return RespVo
      */
     @ExceptionHandler(Throwable.class)
     @ResponseBody

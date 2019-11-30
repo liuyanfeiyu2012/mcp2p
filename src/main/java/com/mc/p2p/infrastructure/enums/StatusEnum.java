@@ -9,7 +9,15 @@ import lombok.Getter;
  */
 @Getter
 public enum StatusEnum {
+
+    /**
+     * 不可用
+     */
     DISABLE("0", "不可用"),
+
+    /**
+     * 可用
+     */
     ENABLE("1", "可用");
 
     StatusEnum(String code, String desc) {

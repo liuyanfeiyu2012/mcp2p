@@ -282,7 +282,7 @@ public class Comment {
     }
 
     /**
-     * @param commentTime
+     * @param commentTime 设置评论时间
      */
     public void setCommentTime(Date commentTime) {
         this.commentTime = commentTime;

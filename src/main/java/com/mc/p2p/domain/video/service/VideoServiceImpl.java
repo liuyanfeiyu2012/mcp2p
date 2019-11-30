@@ -186,7 +186,8 @@ public class VideoServiceImpl implements VideoService {
             });
 
             CompletableFuture<DiscernDo> discernFuture = CompletableFuture.supplyAsync(() ->
-                    discernService.discern(McConstant.FILE_VIDEO_PATH + videoDo.getVideoId() + McConstant.MP4_EXT));
+                    discernService.discern(McConstant.FILE_VIDEO_PATH
+                            + videoDo.getVideoId() + McConstant.MP4_EXT));
 
             CompletableFuture.allOf(ffmpegFileFuture, discernFuture).thenRun(() -> {
                 try {
